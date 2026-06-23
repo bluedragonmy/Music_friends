@@ -1,0 +1,143 @@
+/* Conversational Chat List Styling */
+.mainContainer {
+  width: 100vw;
+  min-height: 100vh;
+  background: var(--bg-color, #050505);
+  color: var(--text-primary, #ffffff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  overflow-y: auto;
+}
+
+.topHeader {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+
+.mainTitle {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  margin: 0 0 6px 0;
+}
+
+.subLabel {
+  font-size: 13px;
+  color: var(--text-secondary, #8a8a93);
+  margin: 0;
+}
+
+.roomWrapper {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.roomItem {
+  display: flex;
+  align-items: center;
+  padding: 15px 18px;
+  background: var(--card-bg, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--card-border, rgba(255, 255, 255, 0.06));
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  color: inherit;
+}
+
+.roomItem:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1.5px);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.imgWrapper {
+  position: relative;
+  margin-right: 14px;
+  flex-shrink: 0;
+}
+
+.userImg {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #1e1e24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dotIndicator {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-color, #050505);
+}
+
+.dotActive {
+  background-color: #f59e0b;
+}
+
+.dotMatched {
+  background-color: #10b981;
+}
+
+.infoBlock {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.roomHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.roomPartnerName {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timestampLabel {
+  font-size: 11px;
+  color: var(--text-secondary, #8a8a93);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lastMsgText {
+  font-size: 13px;
+  color: var(--text-secondary, #8a8a93);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emptyStateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 55px 0;
+  color: var(--text-secondary, #8a8a93);
+  text-align: center;
+}
+
+.emptyIcon {
+  margin-bottom: 14px;
+  opacity: 0.4;
+}
