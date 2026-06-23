@@ -1,0 +1,257 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma-new"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── NextAuth 必要 Models ─────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+
+  username String? @unique
+  password String?
+  bio      String?
+
+  accounts Account[]
+  sessions Session[]
+
+  playlists    Playlist[]
+  likes        Like[]
+
+  // 配對相關欄位
+  matchRooms1    MatchRoom[] @relation("MatchRoomUser1")
+  matchRooms2    MatchRoom[] @relation("MatchRoomUser2")
+  messages       Message[]
+  swipesGiven    UserSwipe[] @relation("SwipesGiven")    // 我對別人的滑動
+  swipesReceived UserSwipe[] @relation("SwipesReceived") // 別人對我的滑動
+
+  // 數據同步相關欄位
+  syncLogs     SyncLog[]
+  monthlyStats UserMonthlyStat[]
+  lastSyncedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  refresh_token_expires_in Int?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── 音樂資料 ─────────────────────────────────────────────────────────
+
+model Track {
+  id String @id @default(cuid())
+
+  title  String
+  artist String
+  album  String?
+
+  duration      Int     // 總時長（秒）
+  url           String  // audio file / streaming url
+  previewUrl    String? // 30秒試聽 mp3 網址 (Spotify 提供)
+  coverImg      String?
+  dominantColor String? // 單一專輯主色調 Hex (e.g. "#1A2B3C")，由後端抓取時計算寫入
+  genres        String? // 新增：曲風標籤 (e.g. "pop, rock, jazz")
+  spotifyId     String? @unique // 新增欄位，用以記錄 Spotify ID，避免重複
+  youtubeId     String? @unique // YouTube 影片 ID，供 YouTube Music 整合使用
+
+  playlists PlaylistTrack[]
+  likes     Like[]
+  syncLogs  SyncLog[]
+
+  createdAt DateTime @default(now())
+}
+
+model Playlist {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  coverImg    String?
+
+  isPublic Boolean @default(true)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tracks PlaylistTrack[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PlaylistTrack {
+  id String @id @default(cuid())
+
+  playlistId String
+  trackId    String
+
+  // 30 秒精華區間設定（對應 database_schema.md 決策一）
+  startTime Int? // 精華片段起始（秒）
+  endTime   Int? // 精華片段結束（秒）
+  order     Int? // 歌單內排序 (1~5)
+
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  track    Track    @relation(fields: [trackId], references: [id], onDelete: Cascade)
+
+  addedAt DateTime @default(now())
+
+  @@unique([playlistId, trackId])
+}
+
+model Like {
+  id String @id @default(cuid())
+
+  userId  String
+  trackId String
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  track Track @relation(fields: [trackId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, trackId])
+}
+
+// ─── 配對與即時聊天 ────────────────────────────────────────
+
+enum SwipeAction {
+  LIKE
+  SKIP
+}
+
+model UserSwipe {
+  id        String      @id @default(cuid())
+  swiperId  String
+  targetId  String
+  action    SwipeAction
+  createdAt DateTime    @default(now())
+
+  swiper User @relation("SwipesGiven", fields: [swiperId], references: [id], onDelete: Cascade)
+  target User @relation("SwipesReceived", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@unique([swiperId, targetId]) // 確保一人對同一人只能有一筆滑動紀錄
+}
+
+enum MatchStatus {
+  ACTIVE  // 48 小時倒數進行中
+  CLOSED  // 時間到期或主動結束
+  MATCHED // 雙方選擇保留關係，升級為好友
+}
+
+model MatchRoom {
+  id          String      @id @default(cuid())
+  user1Id     String
+  user2Id     String
+  user1Choice String?     // 儲存第一個使用者的選擇 ("KEEP" | "END")
+  user2Choice String?     // 儲存第二個使用者的選擇 ("KEEP" | "END")
+  status      MatchStatus @default(ACTIVE)
+  expiresAt   DateTime    // 建立時間 + 48 小時，以後端時間戳記為準（防止前端竄改）
+  createdAt   DateTime    @default(now())
+
+  user1    User      @relation("MatchRoomUser1", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2    User      @relation("MatchRoomUser2", fields: [user2Id], references: [id], onDelete: Cascade)
+  messages Message[]
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  roomId    String
+  senderId  String
+  content   String
+  createdAt DateTime @default(now())
+
+  room   MatchRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  sender User      @relation(fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+// ─── 音樂數據同步 ──────────────────────────────────────────
+
+model SyncLog {
+  id               String   @id @default(cuid())
+  userId           String
+  trackId          String
+  playedAt         DateTime // 聆聽時間戳記，用於日/週/月/季/年過濾
+  listenDurationMs Int      // 本次實際聆聽時長（毫秒）
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  track Track @relation(fields: [trackId], references: [id], onDelete: Cascade)
+
+  // 複合索引：加速多維度時間聚合查詢
+  @@index([userId, playedAt])
+}
+
+// 每月壓縮歸檔報表（SyncLog 保留 30 天後清除，長期數據存此）
+// 對應 database_schema.md 決策四：海量日誌壓縮歸檔
+model UserMonthlyStat {
+  id              String   @id @default(cuid())
+  userId          String
+  month           String   // 格式: "YYYY-MM"，例如 "2026-05"
+  totalDurationMs Int      // 該月總聆聽時長（毫秒）
+  createdAt       DateTime @default(now())
+
+  user       User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topTags    UserMonthlyStatTag[]    // 該月常聽曲風
+  topArtists UserMonthlyStatArtist[] // 該月常聽藝人
+
+  @@unique([userId, month]) // 確保每人每月只有一筆
+}
+
+// PostgreSQL 不支援 String[]，以獨立 relation table 儲存曲風陣列
+model UserMonthlyStatTag {
+  id     String @id @default(cuid())
+  statId String
+  tag    String // 曲風標籤 (e.g. "Pop", "Jazz")
+
+  stat UserMonthlyStat @relation(fields: [statId], references: [id], onDelete: Cascade)
+}
+
+// PostgreSQL 不支援 String[]，以獨立 relation table 儲存藝人陣列
+model UserMonthlyStatArtist {
+  id     String @id @default(cuid())
+  statId String
+  artist String // 藝人名稱
+
+  stat UserMonthlyStat @relation(fields: [statId], references: [id], onDelete: Cascade)
+}
