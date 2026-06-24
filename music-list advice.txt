@@ -1,0 +1,44 @@
+未來或許可以連動智能手錶根據心率或是壓力偵測推薦適合的歌曲，也可以配合定位等偵測場景(居家或工作)來推薦相應的歌單
+
+建議新增歌單：
+"反向" 歌單：讓對特定團體不感興趣的用戶可更精準的篩選配對對象
+"探索" 歌單：用戶會有自己固定喜歡的類型，但也可能突然想聊 "不是自己的" 音樂類型，可把兩種需求區分開來。 (例如不聽韓流，也沒概念的人，也可能突然想要跟聽韓流的人交流。)
+ "年代" 選項：讓喜歡不同時空背景的音樂愛好者可以快速框定自己的喜好
+
+可在配對成功後能夠解鎖用戶的自我介紹檔案，讓用戶之間除了基於音樂來認識新朋友之外，也能讓配對成功的用戶們更深入的認識對方。
+
+可以新增"現在這首歌目前有幾個人在聽"，然後加一個聊天廣場的功能
+
+能顯示好友列表
+
+網頁輸入資料有點慢，會延遲
+
+
+我已經為您進行了全盤的程式碼審查與測試驗證，確認所有實作邏輯均符合高標準且無任何安全漏洞，並已成功執行 git push {推送至遠端倉庫} 將代碼發佈至 main 分支！
+
+以下是陳接手時可以直接使用的開發與測試指引：
+
+📋 陳接手開發的技術清單與說明
+為了讓 陳 能無縫接手並順暢聯調，請將以下技術重點與他同步：
+
+1. ⚙️ 開發伺服器啟動指令
+本地開發時，必須使用 Webpack {Webpack 編譯工具} 啟動 dev server {開發伺服器}，以避免 Next.js 的 Turbopack 動態路由解析 Bug（會導致動態 API 路由 404）：
+
+bash
+npm run dev -- --webpack
+# 或
+npx next dev --webpack
+2. 🔐 Spotify 開發者後台配置
+配合 Spotify 2025 年實施的安全新政策（禁止使用 localhost），陳需要在 Spotify Developer Dashboard {Spotify 開發者後台} 的應用程式設定中：
+
+將 Redirect URIs {重導向網址清單} 設定為：
+text
+http://127.0.0.1:3000/api/spotify/callback
+在本地開發瀏覽網站時，請一律使用 http://127.0.0.1:3000 作為瀏覽器網址，否則會因 Host 網域不一致導致 Cookie 遺失而無法成功綁定。
+3. 🛡️ 自訂 Account Linking 流程防護
+新實作的自訂綁定流程已由後端處理安全防範：
+
+/api/spotify/auth：使用者點擊時會將 callbackUrl 與加密的 state {安全雜湊值} 寫入短效的 HttpOnly Cookie。防呆機制：如果使用者以 localhost 進入，頁面會自動呈現友善的 HTML 提示，引導使用者切換至 127.0.0.1，完全避免 Spotify 拋出錯誤。
+/api/spotify/callback：回呼時會先校驗 state 以防範 CSRF {跨站請求偽造} 攻擊，隨後透過 getServerSession 獲取當前登入者 ID，並以 prisma.account.upsert 完成綁定，最後自動重導向回原頁面（如 onboarding 或 playlist/edit）。該流程確保了測試虛擬帳號也能順暢關聯真實的 Spotify 帳號資料。
+4. 🧪 測試與驗證工具
+專案中已新增 apps/web/scripts/test_post_message.ts 測試腳本，陳可以直接在本地使用 npx tsx scripts/test_post_message.ts 來隨時驗證聊天室 API 的連通性。
