@@ -177,6 +177,7 @@ exports.Prisma.TrackScalarFieldEnum = {
   genres: 'genres',
   spotifyId: 'spotifyId',
   youtubeId: 'youtubeId',
+  popularity: 'popularity',
   createdAt: 'createdAt'
 };
 
@@ -263,9 +264,70 @@ exports.Prisma.UserMonthlyStatArtistScalarFieldEnum = {
   artist: 'artist'
 };
 
+exports.Prisma.AudioFeatureScalarFieldEnum = {
+  id: 'id',
+  trackId: 'trackId',
+  acousticness: 'acousticness',
+  danceability: 'danceability',
+  energy: 'energy',
+  instrumentalness: 'instrumentalness',
+  liveness: 'liveness',
+  loudness: 'loudness',
+  speechiness: 'speechiness',
+  tempo: 'tempo',
+  valence: 'valence'
+};
+
+exports.Prisma.BehaviorSnapshotScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  window: 'window',
+  novelty: 'novelty',
+  repeatRate: 'repeatRate',
+  genreDiversity: 'genreDiversity',
+  sessionLength: 'sessionLength',
+  peakListeningHour: 'peakListeningHour',
+  confidence: 'confidence',
+  calculatedAt: 'calculatedAt'
+};
+
+exports.Prisma.IdentitySnapshotScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  window: 'window',
+  identityId: 'identityId',
+  displayName: 'displayName',
+  score: 'score',
+  confidence: 'confidence',
+  why: 'why',
+  reflection: 'reflection',
+  engineVersion: 'engineVersion',
+  calculatedAt: 'calculatedAt'
+};
+
+exports.Prisma.JournalEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  observationId: 'observationId',
+  title: 'title',
+  body: 'body',
+  evidence: 'evidence',
+  reflection: 'reflection',
+  feedback: 'feedback',
+  feedbackAt: 'feedbackAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -276,6 +338,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.SwipeAction = exports.$Enums.SwipeAction = {
   LIKE: 'LIKE',
@@ -303,7 +371,11 @@ exports.Prisma.ModelName = {
   SyncLog: 'SyncLog',
   UserMonthlyStat: 'UserMonthlyStat',
   UserMonthlyStatTag: 'UserMonthlyStatTag',
-  UserMonthlyStatArtist: 'UserMonthlyStatArtist'
+  UserMonthlyStatArtist: 'UserMonthlyStatArtist',
+  AudioFeature: 'AudioFeature',
+  BehaviorSnapshot: 'BehaviorSnapshot',
+  IdentitySnapshot: 'IdentitySnapshot',
+  JournalEntry: 'JournalEntry'
 };
 
 /**

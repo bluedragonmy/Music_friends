@@ -27,17 +27,20 @@ model User {
   playlists    Playlist[]
   likes        Like[]
 
-  // 配對相關欄位
+  // @deprecated 配對相關欄位 (Legacy)
   matchRooms1    MatchRoom[] @relation("MatchRoomUser1")
   matchRooms2    MatchRoom[] @relation("MatchRoomUser2")
   messages       Message[]
-  swipesGiven    UserSwipe[] @relation("SwipesGiven")    // 我對別人的滑動
-  swipesReceived UserSwipe[] @relation("SwipesReceived") // 別人對我的滑動
+  swipesGiven    UserSwipe[] @relation("SwipesGiven")
+  swipesReceived UserSwipe[] @relation("SwipesReceived")
 
   // 數據同步相關欄位
-  syncLogs     SyncLog[]
-  monthlyStats UserMonthlyStat[]
-  lastSyncedAt DateTime?
+  syncLogs          SyncLog[]
+  monthlyStats      UserMonthlyStat[]
+  behaviorSnapshots BehaviorSnapshot[]
+  identitySnapshots IdentitySnapshot[]
+  journalEntries    JournalEntry[]
+  lastSyncedAt      DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -96,7 +99,9 @@ model Track {
   genres        String? // 新增：曲風標籤 (e.g. "pop, rock, jazz")
   spotifyId     String? @unique // 新增欄位，用以記錄 Spotify ID，避免重複
   youtubeId     String? @unique // YouTube 影片 ID，供 YouTube Music 整合使用
+  popularity    Int?
 
+  audioFeature AudioFeature?
   playlists PlaylistTrack[]
   likes     Like[]
   syncLogs  SyncLog[]
@@ -154,13 +159,15 @@ model Like {
   @@unique([userId, trackId])
 }
 
-// ─── 配對與即時聊天 ────────────────────────────────────────
+// ─── @deprecated 配對與即時聊天 (Legacy) ───────────────────────
 
+/// @deprecated
 enum SwipeAction {
   LIKE
   SKIP
 }
 
+/// @deprecated
 model UserSwipe {
   id        String      @id @default(cuid())
   swiperId  String
@@ -171,23 +178,25 @@ model UserSwipe {
   swiper User @relation("SwipesGiven", fields: [swiperId], references: [id], onDelete: Cascade)
   target User @relation("SwipesReceived", fields: [targetId], references: [id], onDelete: Cascade)
 
-  @@unique([swiperId, targetId]) // 確保一人對同一人只能有一筆滑動紀錄
+  @@unique([swiperId, targetId])
 }
 
+/// @deprecated
 enum MatchStatus {
-  ACTIVE  // 48 小時倒數進行中
-  CLOSED  // 時間到期或主動結束
-  MATCHED // 雙方選擇保留關係，升級為好友
+  ACTIVE
+  CLOSED
+  MATCHED
 }
 
+/// @deprecated
 model MatchRoom {
   id          String      @id @default(cuid())
   user1Id     String
   user2Id     String
-  user1Choice String?     // 儲存第一個使用者的選擇 ("KEEP" | "END")
-  user2Choice String?     // 儲存第二個使用者的選擇 ("KEEP" | "END")
+  user1Choice String?
+  user2Choice String?
   status      MatchStatus @default(ACTIVE)
-  expiresAt   DateTime    // 建立時間 + 48 小時，以後端時間戳記為準（防止前端竄改）
+  expiresAt   DateTime
   createdAt   DateTime    @default(now())
 
   user1    User      @relation("MatchRoomUser1", fields: [user1Id], references: [id], onDelete: Cascade)
@@ -195,6 +204,7 @@ model MatchRoom {
   messages Message[]
 }
 
+/// @deprecated
 model Message {
   id        String   @id @default(cuid())
   roomId    String
@@ -254,4 +264,77 @@ model UserMonthlyStatArtist {
   artist String // 藝人名稱
 
   stat UserMonthlyStat @relation(fields: [statId], references: [id], onDelete: Cascade)
+}
+
+model AudioFeature {
+  id               String @id @default(cuid())
+  trackId          String @unique
+  acousticness     Float
+  danceability     Float
+  energy           Float
+  instrumentalness Float
+  liveness         Float
+  loudness         Float
+  speechiness      Float
+  tempo            Float
+  valence          Float
+
+  track Track @relation(fields: [trackId], references: [id], onDelete: Cascade)
+}
+
+model BehaviorSnapshot {
+  id                String   @id @default(cuid())
+  userId            String
+  window            String   // "7d" | "30d" | "90d" | "all-time"
+  novelty           Float    // 0.0 ~ 1.0
+  repeatRate        Float    // 0.0 ~ 1.0
+  genreDiversity    Float    // 0.0 ~ 1.0
+  sessionLength     Float    // 分鐘，Float
+  peakListeningHour Int      // 0 ~ 23
+  confidence        Float    // 0.0 ~ 1.0
+  calculatedAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, window])
+}
+
+model IdentitySnapshot {
+  id            String   @id @default(cuid())
+  userId        String
+  window        String   // "7d" | "30d" | "90d" | "all-time"
+  identityId    String   // "explorer" | "collector" | "night-owl" | "emotion-driven"
+  displayName   String   // "Explorer" | "Collector" | ...
+  score         Float    // 0.0 ~ 1.0 raw score
+  confidence    Float    // 0.0 ~ 1.0 raw (4-factor: Coverage × Consistency × Recency × Representativeness)
+  why           String   // Natural language explanation
+  reflection    String   // Self-reflection question
+  engineVersion String   // "v1"
+  calculatedAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, window, identityId])
+}
+
+model JournalEntry {
+  id            String    @id @default(cuid())
+  userId        String
+  date          DateTime  @default(now()) // 旅程時間軸排序日期
+  observationId String    // 對應 Observation Library 規則 ID (e.g., "obs_013")
+  title         String    // 經 Narrative Engine 渲染後的標題
+  body          String    // 經 Narrative Engine 渲染後的內文
+  evidence      Json?     // 物理數據變數 (e.g., { novelty: 0.82, genres: 31 })
+  reflection    String    // 經 Narrative Engine 渲染後的反思問題
+  
+  // 反饋系統 (Feedback Loop)
+  feedback      String?   // "LIKE" (很像我) | "UNSURE" (不太確定) | "DISAGREE" (不同意)
+  feedbackAt    DateTime?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, date])
 }

@@ -6,7 +6,7 @@ export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
     const searchParams = url.searchParams;
-    const callbackUrl = searchParams.get("callbackUrl") || "/onboarding";
+    const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
 
     // Spotify 2025 新規定：禁止使用 localhost 作為 redirect_uri
     if (url.hostname === "localhost") {

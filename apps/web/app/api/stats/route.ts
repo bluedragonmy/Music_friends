@@ -4,6 +4,9 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getColor } from "colorthief";
 import { fetchFallbackPreviewUrl } from "@/lib/audio";
+import { composeBehaviorSnapshot } from "@/lib/behavioral-engine";
+import { composeIdentitySnapshots } from "@/lib/inference-engine";
+import { getOrCreateTodayJournal } from "@/lib/journey/narrative-engine";
 
 // ── Image color extractor helper ──
 async function computeDominantHexColor(url: string | null): Promise<string | null> {
@@ -122,15 +125,37 @@ async function synchronizeSpotifyListeningHistory(userId: string, lastSyncTimest
     const freshTracksBuffer = new Map();
     const staleTracksBuffer = new Map();
     const artistsPendingLookup = new Set<string>();
+    const audioFeaturesPendingLookup = new Set<string>();
 
     const trackIds = items.map((item: any) => item.track?.id).filter(Boolean);
     const dbTracks = await prisma.track.findMany({
       where: { spotifyId: { in: trackIds } },
-      select: { spotifyId: true, genres: true, dominantColor: true, previewUrl: true },
+      select: {
+        spotifyId: true,
+        genres: true,
+        dominantColor: true,
+        previewUrl: true,
+        audioFeature: {
+          select: { id: true }
+        }
+      },
     });
 
-    const dbTracksMap = new Map<string, { genres: string | null; dominantColor: string | null; previewUrl: string | null }>(
-      dbTracks.map((t) => [t.spotifyId!, { genres: t.genres, dominantColor: t.dominantColor, previewUrl: t.previewUrl }])
+    const dbTracksMap = new Map<string, {
+      genres: string | null;
+      dominantColor: string | null;
+      previewUrl: string | null;
+      hasAudioFeature: boolean;
+    }>(
+      dbTracks.map((t) => [
+        t.spotifyId!,
+        {
+          genres: t.genres,
+          dominantColor: t.dominantColor,
+          previewUrl: t.previewUrl,
+          hasAudioFeature: !!t.audioFeature
+        }
+      ])
     );
 
     for (const item of items) {
@@ -140,11 +165,15 @@ async function synchronizeSpotifyListeningHistory(userId: string, lastSyncTimest
       const matchedDbTrack = dbTracksMap.get(trackObj.id);
       const isTrackNew = !dbTracksMap.has(trackObj.id);
       const lacksData = dbTracksMap.has(trackObj.id) &&
-        (!matchedDbTrack?.genres || !matchedDbTrack?.dominantColor || !matchedDbTrack?.previewUrl);
+        (!matchedDbTrack?.genres || !matchedDbTrack?.dominantColor || !matchedDbTrack?.previewUrl || !matchedDbTrack?.hasAudioFeature);
 
       if (isTrackNew || lacksData) {
         const artistId = trackObj.artists?.[0]?.id;
         if (artistId) artistsPendingLookup.add(artistId);
+
+        if (isTrackNew || !matchedDbTrack?.hasAudioFeature) {
+          audioFeaturesPendingLookup.add(trackObj.id);
+        }
 
         const trackDataPayload = {
           spotifyId: trackObj.id,
@@ -157,6 +186,7 @@ async function synchronizeSpotifyListeningHistory(userId: string, lastSyncTimest
           genres: matchedDbTrack?.genres || null,
           dominantColor: matchedDbTrack?.dominantColor || null,
           previewUrl: matchedDbTrack?.previewUrl || trackObj.preview_url || null,
+          popularity: trackObj.popularity ?? null,
         };
 
         if (isTrackNew) {
@@ -200,6 +230,43 @@ async function synchronizeSpotifyListeningHistory(userId: string, lastSyncTimest
         }
       } catch (err) {
         console.error("[Spotify Sync Service] Fails resolving artists genres:", err);
+      }
+    }
+
+    const resolvedAudioFeatures = new Map<string, any>();
+    if (audioFeaturesPendingLookup.size > 0) {
+      try {
+        // Query audio features in batches of 50 (ids list maximum is 100, so this fits easily)
+        const idsList = Array.from(audioFeaturesPendingLookup).join(",");
+        console.log(`[Spotify Sync Service] Fetching audio features for ${audioFeaturesPendingLookup.size} tracks...`);
+        const featuresResponse = await fetch(`https://api.spotify.com/v1/audio-features?ids=${idsList}`, {
+          headers: { Authorization: `Bearer ${activeAccessToken}` },
+        });
+
+        if (featuresResponse.ok) {
+          const featuresPayload = await featuresResponse.json();
+          if (featuresPayload.audio_features) {
+            for (const feat of featuresPayload.audio_features) {
+              if (feat) {
+                resolvedAudioFeatures.set(feat.id, {
+                  acousticness: feat.acousticness,
+                  danceability: feat.danceability,
+                  energy: feat.energy,
+                  instrumentalness: feat.instrumentalness,
+                  liveness: feat.liveness,
+                  loudness: feat.loudness,
+                  speechiness: feat.speechiness,
+                  tempo: feat.tempo,
+                  valence: feat.valence,
+                });
+              }
+            }
+          }
+        } else {
+          console.error(`[Spotify Sync Service] Audio features query failed: status ${featuresResponse.status}`);
+        }
+      } catch (err) {
+        console.error("[Spotify Sync Service] Error fetching audio features:", err);
       }
     }
 
@@ -249,6 +316,7 @@ async function synchronizeSpotifyListeningHistory(userId: string, lastSyncTimest
           genres: track.genres || undefined,
           dominantColor: track.dominantColor || undefined,
           previewUrl: track.previewUrl || undefined,
+          popularity: track.popularity || undefined,
         },
       });
     }
@@ -259,6 +327,32 @@ async function synchronizeSpotifyListeningHistory(userId: string, lastSyncTimest
       select: { id: true, spotifyId: true },
     });
     const keyMap = new Map<string, string>(resolvedDbTracks.map((t) => [t.spotifyId!, t.id]));
+
+    // Save audio features
+    const audioFeaturesToInsert = [];
+    for (const [spotifyId, features] of resolvedAudioFeatures.entries()) {
+      const trackDbId = keyMap.get(spotifyId);
+      if (!trackDbId) continue;
+
+      const existingFeature = await prisma.audioFeature.findUnique({
+        where: { trackId: trackDbId },
+      });
+
+      if (!existingFeature) {
+        audioFeaturesToInsert.push({
+          trackId: trackDbId,
+          ...features,
+        });
+      }
+    }
+
+    if (audioFeaturesToInsert.length > 0) {
+      await prisma.audioFeature.createMany({
+        data: audioFeaturesToInsert,
+        skipDuplicates: true,
+      });
+      console.log(`[Spotify Sync Service] Inserted ${audioFeaturesToInsert.length} track audio features.`);
+    }
 
     const newLogsBatch = [];
     for (const item of items) {
@@ -297,6 +391,32 @@ async function synchronizeSpotifyListeningHistory(userId: string, lastSyncTimest
       data: { lastSyncedAt: new Date() },
     });
     console.log(`[Spotify Sync Service] Updated sync timestamp for user ${userId}`);
+
+    // Trigger behavior snapshots calculation for all supported windows
+    try {
+      console.log(`[Behavioral Engine] Triggering snapshots calculation for user ${userId}...`);
+      const now = new Date();
+      await composeBehaviorSnapshot(userId, "7d", now);
+      await composeBehaviorSnapshot(userId, "30d", now);
+      await composeBehaviorSnapshot(userId, "90d", now);
+      await composeBehaviorSnapshot(userId, "all-time", now);
+      console.log(`[Behavioral Engine] Completed snapshots calculation for user ${userId}`);
+
+      // Trigger Inference Engine after behavior snapshots
+      console.log(`[Inference Engine] Triggering identity inference for user ${userId}...`);
+      await composeIdentitySnapshots(userId, "7d", now);
+      await composeIdentitySnapshots(userId, "30d", now);
+      await composeIdentitySnapshots(userId, "90d", now);
+      await composeIdentitySnapshots(userId, "all-time", now);
+      console.log(`[Inference Engine] Completed identity inference for user ${userId}`);
+
+      // Trigger Narrative Engine to create Today's Listening Journal Entry
+      console.log(`[Narrative Engine] Generating today's journal entry for user ${userId}...`);
+      await getOrCreateTodayJournal(userId, now);
+      console.log(`[Narrative Engine] Completed today's journal entry for user ${userId}`);
+    } catch (engineErr) {
+      console.error(`[Engine Error] Failed computing snapshots or journal for user ${userId}:`, engineErr);
+    }
   } catch (err) {
     console.error("[Spotify Sync Service] Error during synchronization:", err);
   }
@@ -435,6 +555,49 @@ export async function GET(request: Request) {
       .slice(0, 5)
       .map(([name, count]) => ({ name, count }));
 
+    // Resolve query parameters for BehaviorSnapshot window selection
+    const requestedWindow = searchParams.get("window") || 
+      (parsedDimension === "day" ? "7d" : parsedDimension === "week" ? "7d" : parsedDimension === "month" ? "30d" : "7d");
+
+    let behaviorSnapshot = await prisma.behaviorSnapshot.findUnique({
+      where: {
+        userId_window: {
+          userId: localUserRecord.id,
+          window: requestedWindow,
+        },
+      },
+    });
+
+    if (!behaviorSnapshot) {
+      try {
+        console.log(`[Stats API] Snapshot not found for user ${localUserRecord.id} with window ${requestedWindow}. Calculating on-the-fly...`);
+        behaviorSnapshot = await composeBehaviorSnapshot(localUserRecord.id, requestedWindow as any);
+      } catch (calcErr) {
+        console.error(`[Stats API] Failed to compute behavior snapshot on-the-fly:`, calcErr);
+      }
+    }
+
+    // Fetch identity snapshots
+    const identitySnapshots = await prisma.identitySnapshot.findMany({
+      where: {
+        userId: localUserRecord.id,
+        window: requestedWindow,
+      },
+    });
+
+    // Fetch Today's Listening Journal Entry & Listening Journey Timeline
+    let todayJournal = null;
+    try {
+      todayJournal = await getOrCreateTodayJournal(localUserRecord.id, referenceCalculationDate);
+    } catch (journalErr) {
+      console.error("[Stats API] Failed to fetch or create today's journal:", journalErr);
+    }
+
+    const journalTimeline = await prisma.journalEntry.findMany({
+      where: { userId: localUserRecord.id },
+      orderBy: { date: "desc" },
+    });
+
     return NextResponse.json({
       dimension: parsedDimension,
       dimensionDurationMs: totalSelectedDimensionDurationMs,
@@ -445,6 +608,26 @@ export async function GET(request: Request) {
       topGenres: topGenresList,
       isFallbackToLastActive,
       lastActiveDate: latestLogRecord ? latestLogRecord.playedAt : null,
+      behaviors: behaviorSnapshot ? {
+        novelty: behaviorSnapshot.novelty,
+        repeatRate: behaviorSnapshot.repeatRate,
+        genreDiversity: behaviorSnapshot.genreDiversity,
+        sessionLength: behaviorSnapshot.sessionLength,
+        peakListeningHour: behaviorSnapshot.peakListeningHour,
+        confidence: behaviorSnapshot.confidence,
+        calculatedAt: behaviorSnapshot.calculatedAt,
+      } : null,
+      identities: identitySnapshots.map((snap) => ({
+        id: snap.identityId,
+        displayName: snap.displayName,
+        score: snap.score,
+        confidence: snap.confidence,
+        why: snap.why,
+        reflection: snap.reflection,
+        engineVersion: snap.engineVersion,
+      })),
+      todayJournal,
+      journalTimeline,
     });
   } catch (err) {
     console.error("[Stats API route failure]:", err);

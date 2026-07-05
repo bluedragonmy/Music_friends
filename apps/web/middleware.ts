@@ -25,9 +25,9 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Redirect signed-in users attempting to access login page back to homepage
+  // Redirect signed-in users attempting to access login page back to dashboard
   if (isAuthPage && authSessionToken) {
-    return NextResponse.redirect(new URL("/match", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
@@ -35,6 +35,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/dashboard/:path*",
     "/match/:path*",
     "/chat/:path*",
     "/stats/:path*",

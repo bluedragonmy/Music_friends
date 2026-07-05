@@ -12,7 +12,7 @@ export async function GET(req: Request) {
 
     const cookieStore = await cookies();
     const savedState = cookieStore.get("spotify_auth_state")?.value;
-    const callbackUrl = cookieStore.get("spotify_link_callback_url")?.value || "/onboarding";
+    const callbackUrl = cookieStore.get("spotify_link_callback_url")?.value || "/dashboard";
 
     // 清理 Cookie
     cookieStore.delete("spotify_auth_state");

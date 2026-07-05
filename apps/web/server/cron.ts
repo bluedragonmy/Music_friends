@@ -106,21 +106,35 @@ cron.schedule("0 * * * *", async () => {
         const incomingSpotifyIds = data.items.map((item: any) => item.track.id);
         const matchedTracksInDb = await dbClient.track.findMany({
           where: { spotifyId: { in: incomingSpotifyIds } },
-          select: { spotifyId: true, genres: true },
+          select: {
+            spotifyId: true,
+            genres: true,
+            audioFeature: {
+              select: { id: true }
+            }
+          },
         });
         const trackGenreMapping = new Map<string, string | null>(
           matchedTracksInDb.map((t) => [t.spotifyId!, t.genres])
         );
+        const trackFeatureMapping = new Map<string, boolean>(
+          matchedTracksInDb.map((t) => [t.spotifyId!, !!t.audioFeature])
+        );
 
         const artistsToLookup = new Set<string>();
+        const audioFeaturesToLookup = new Set<string>();
         for (const item of data.items) {
           const tData = item.track;
           if (tData?.id) {
             const isNew = !trackGenreMapping.has(tData.id);
             const lacksGenreData = trackGenreMapping.has(tData.id) && !trackGenreMapping.get(tData.id);
+            const lacksFeatureData = !trackFeatureMapping.get(tData.id);
             if (isNew || lacksGenreData) {
               const artistId = tData.artists[0]?.id;
               if (artistId) artistsToLookup.add(artistId);
+            }
+            if (isNew || lacksFeatureData) {
+              audioFeaturesToLookup.add(tData.id);
             }
           }
         }
@@ -157,6 +171,40 @@ cron.schedule("0 * * * *", async () => {
             }
           } catch (genreErr) {
             console.error("[Hourly Sync] Failed fetching artists genres details:", genreErr);
+          }
+        }
+
+        const audioFeatureResults = new Map<string, any>();
+        if (audioFeaturesToLookup.size > 0) {
+          try {
+            const idsList = Array.from(audioFeaturesToLookup).join(",");
+            const featuresResponse = await fetch(`https://api.spotify.com/v1/audio-features?ids=${idsList}`, {
+              headers: { Authorization: `Bearer ${activeToken}` },
+            });
+            if (featuresResponse.ok) {
+              const payload = await featuresResponse.json();
+              if (payload.audio_features) {
+                for (const feat of payload.audio_features) {
+                  if (feat) {
+                    audioFeatureResults.set(feat.id, {
+                      acousticness: feat.acousticness,
+                      danceability: feat.danceability,
+                      energy: feat.energy,
+                      instrumentalness: feat.instrumentalness,
+                      liveness: feat.liveness,
+                      loudness: feat.loudness,
+                      speechiness: feat.speechiness,
+                      tempo: feat.tempo,
+                      valence: feat.valence,
+                    });
+                  }
+                }
+              }
+            } else {
+              console.error(`[Hourly Sync] Spotify Audio Features API status (${featuresResponse.status})`);
+            }
+          } catch (featErr) {
+            console.error("[Hourly Sync] Failed fetching audio features details:", featErr);
           }
         }
 
@@ -214,6 +262,7 @@ cron.schedule("0 * * * *", async () => {
               genres: genreString || undefined,
               dominantColor: dominantHexColor || undefined,
               previewUrl: playablePreviewUrl || undefined,
+              popularity: tData.popularity ?? undefined,
             },
             create: {
               spotifyId: tData.id,
@@ -227,8 +276,24 @@ cron.schedule("0 * * * *", async () => {
               previewUrl: playablePreviewUrl || null,
               genres: genreString,
               dominantColor: dominantHexColor,
+              popularity: tData.popularity ?? null,
             },
           });
+
+          const features = audioFeatureResults.get(tData.id);
+          if (features) {
+            const featExists = await dbClient.audioFeature.findUnique({
+              where: { trackId: trackInDb.id }
+            });
+            if (!featExists) {
+              await dbClient.audioFeature.create({
+                data: {
+                  trackId: trackInDb.id,
+                  ...features
+                }
+              });
+            }
+          }
 
           await dbClient.syncLog.create({
             data: {

@@ -55,17 +55,17 @@ export type PlaylistTrack = $Result.DefaultSelection<Prisma.$PlaylistTrackPayloa
 export type Like = $Result.DefaultSelection<Prisma.$LikePayload>
 /**
  * Model UserSwipe
- * 
+ * @deprecated
  */
 export type UserSwipe = $Result.DefaultSelection<Prisma.$UserSwipePayload>
 /**
  * Model MatchRoom
- * 
+ * @deprecated
  */
 export type MatchRoom = $Result.DefaultSelection<Prisma.$MatchRoomPayload>
 /**
  * Model Message
- * 
+ * @deprecated
  */
 export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
 /**
@@ -88,6 +88,26 @@ export type UserMonthlyStatTag = $Result.DefaultSelection<Prisma.$UserMonthlySta
  * 
  */
 export type UserMonthlyStatArtist = $Result.DefaultSelection<Prisma.$UserMonthlyStatArtistPayload>
+/**
+ * Model AudioFeature
+ * 
+ */
+export type AudioFeature = $Result.DefaultSelection<Prisma.$AudioFeaturePayload>
+/**
+ * Model BehaviorSnapshot
+ * 
+ */
+export type BehaviorSnapshot = $Result.DefaultSelection<Prisma.$BehaviorSnapshotPayload>
+/**
+ * Model IdentitySnapshot
+ * 
+ */
+export type IdentitySnapshot = $Result.DefaultSelection<Prisma.$IdentitySnapshotPayload>
+/**
+ * Model JournalEntry
+ * 
+ */
+export type JournalEntry = $Result.DefaultSelection<Prisma.$JournalEntryPayload>
 
 /**
  * Enums
@@ -391,6 +411,46 @@ export class PrismaClient<
     * ```
     */
   get userMonthlyStatArtist(): Prisma.UserMonthlyStatArtistDelegate<ExtArgs>;
+
+  /**
+   * `prisma.audioFeature`: Exposes CRUD operations for the **AudioFeature** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AudioFeatures
+    * const audioFeatures = await prisma.audioFeature.findMany()
+    * ```
+    */
+  get audioFeature(): Prisma.AudioFeatureDelegate<ExtArgs>;
+
+  /**
+   * `prisma.behaviorSnapshot`: Exposes CRUD operations for the **BehaviorSnapshot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BehaviorSnapshots
+    * const behaviorSnapshots = await prisma.behaviorSnapshot.findMany()
+    * ```
+    */
+  get behaviorSnapshot(): Prisma.BehaviorSnapshotDelegate<ExtArgs>;
+
+  /**
+   * `prisma.identitySnapshot`: Exposes CRUD operations for the **IdentitySnapshot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IdentitySnapshots
+    * const identitySnapshots = await prisma.identitySnapshot.findMany()
+    * ```
+    */
+  get identitySnapshot(): Prisma.IdentitySnapshotDelegate<ExtArgs>;
+
+  /**
+   * `prisma.journalEntry`: Exposes CRUD operations for the **JournalEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JournalEntries
+    * const journalEntries = await prisma.journalEntry.findMany()
+    * ```
+    */
+  get journalEntry(): Prisma.JournalEntryDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -846,7 +906,11 @@ export namespace Prisma {
     SyncLog: 'SyncLog',
     UserMonthlyStat: 'UserMonthlyStat',
     UserMonthlyStatTag: 'UserMonthlyStatTag',
-    UserMonthlyStatArtist: 'UserMonthlyStatArtist'
+    UserMonthlyStatArtist: 'UserMonthlyStatArtist',
+    AudioFeature: 'AudioFeature',
+    BehaviorSnapshot: 'BehaviorSnapshot',
+    IdentitySnapshot: 'IdentitySnapshot',
+    JournalEntry: 'JournalEntry'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -862,7 +926,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "track" | "playlist" | "playlistTrack" | "like" | "userSwipe" | "matchRoom" | "message" | "syncLog" | "userMonthlyStat" | "userMonthlyStatTag" | "userMonthlyStatArtist"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "track" | "playlist" | "playlistTrack" | "like" | "userSwipe" | "matchRoom" | "message" | "syncLog" | "userMonthlyStat" | "userMonthlyStatTag" | "userMonthlyStatArtist" | "audioFeature" | "behaviorSnapshot" | "identitySnapshot" | "journalEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1916,6 +1980,286 @@ export namespace Prisma {
           }
         }
       }
+      AudioFeature: {
+        payload: Prisma.$AudioFeaturePayload<ExtArgs>
+        fields: Prisma.AudioFeatureFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AudioFeatureFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AudioFeatureFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload>
+          }
+          findFirst: {
+            args: Prisma.AudioFeatureFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AudioFeatureFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload>
+          }
+          findMany: {
+            args: Prisma.AudioFeatureFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload>[]
+          }
+          create: {
+            args: Prisma.AudioFeatureCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload>
+          }
+          createMany: {
+            args: Prisma.AudioFeatureCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AudioFeatureCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload>[]
+          }
+          delete: {
+            args: Prisma.AudioFeatureDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload>
+          }
+          update: {
+            args: Prisma.AudioFeatureUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload>
+          }
+          deleteMany: {
+            args: Prisma.AudioFeatureDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AudioFeatureUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AudioFeatureUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AudioFeaturePayload>
+          }
+          aggregate: {
+            args: Prisma.AudioFeatureAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAudioFeature>
+          }
+          groupBy: {
+            args: Prisma.AudioFeatureGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AudioFeatureGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AudioFeatureCountArgs<ExtArgs>
+            result: $Utils.Optional<AudioFeatureCountAggregateOutputType> | number
+          }
+        }
+      }
+      BehaviorSnapshot: {
+        payload: Prisma.$BehaviorSnapshotPayload<ExtArgs>
+        fields: Prisma.BehaviorSnapshotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BehaviorSnapshotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BehaviorSnapshotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload>
+          }
+          findFirst: {
+            args: Prisma.BehaviorSnapshotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BehaviorSnapshotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload>
+          }
+          findMany: {
+            args: Prisma.BehaviorSnapshotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload>[]
+          }
+          create: {
+            args: Prisma.BehaviorSnapshotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload>
+          }
+          createMany: {
+            args: Prisma.BehaviorSnapshotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BehaviorSnapshotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload>[]
+          }
+          delete: {
+            args: Prisma.BehaviorSnapshotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload>
+          }
+          update: {
+            args: Prisma.BehaviorSnapshotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload>
+          }
+          deleteMany: {
+            args: Prisma.BehaviorSnapshotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BehaviorSnapshotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BehaviorSnapshotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BehaviorSnapshotPayload>
+          }
+          aggregate: {
+            args: Prisma.BehaviorSnapshotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBehaviorSnapshot>
+          }
+          groupBy: {
+            args: Prisma.BehaviorSnapshotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BehaviorSnapshotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BehaviorSnapshotCountArgs<ExtArgs>
+            result: $Utils.Optional<BehaviorSnapshotCountAggregateOutputType> | number
+          }
+        }
+      }
+      IdentitySnapshot: {
+        payload: Prisma.$IdentitySnapshotPayload<ExtArgs>
+        fields: Prisma.IdentitySnapshotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IdentitySnapshotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IdentitySnapshotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload>
+          }
+          findFirst: {
+            args: Prisma.IdentitySnapshotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IdentitySnapshotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload>
+          }
+          findMany: {
+            args: Prisma.IdentitySnapshotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload>[]
+          }
+          create: {
+            args: Prisma.IdentitySnapshotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload>
+          }
+          createMany: {
+            args: Prisma.IdentitySnapshotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IdentitySnapshotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload>[]
+          }
+          delete: {
+            args: Prisma.IdentitySnapshotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload>
+          }
+          update: {
+            args: Prisma.IdentitySnapshotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload>
+          }
+          deleteMany: {
+            args: Prisma.IdentitySnapshotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IdentitySnapshotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.IdentitySnapshotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdentitySnapshotPayload>
+          }
+          aggregate: {
+            args: Prisma.IdentitySnapshotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIdentitySnapshot>
+          }
+          groupBy: {
+            args: Prisma.IdentitySnapshotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IdentitySnapshotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IdentitySnapshotCountArgs<ExtArgs>
+            result: $Utils.Optional<IdentitySnapshotCountAggregateOutputType> | number
+          }
+        }
+      }
+      JournalEntry: {
+        payload: Prisma.$JournalEntryPayload<ExtArgs>
+        fields: Prisma.JournalEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JournalEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JournalEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.JournalEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JournalEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          findMany: {
+            args: Prisma.JournalEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>[]
+          }
+          create: {
+            args: Prisma.JournalEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          createMany: {
+            args: Prisma.JournalEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JournalEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.JournalEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          update: {
+            args: Prisma.JournalEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.JournalEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JournalEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.JournalEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.JournalEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJournalEntry>
+          }
+          groupBy: {
+            args: Prisma.JournalEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JournalEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JournalEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<JournalEntryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2088,6 +2432,9 @@ export namespace Prisma {
     swipesReceived: number
     syncLogs: number
     monthlyStats: number
+    behaviorSnapshots: number
+    identitySnapshots: number
+    journalEntries: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2102,6 +2449,9 @@ export namespace Prisma {
     swipesReceived?: boolean | UserCountOutputTypeCountSwipesReceivedArgs
     syncLogs?: boolean | UserCountOutputTypeCountSyncLogsArgs
     monthlyStats?: boolean | UserCountOutputTypeCountMonthlyStatsArgs
+    behaviorSnapshots?: boolean | UserCountOutputTypeCountBehaviorSnapshotsArgs
+    identitySnapshots?: boolean | UserCountOutputTypeCountIdentitySnapshotsArgs
+    journalEntries?: boolean | UserCountOutputTypeCountJournalEntriesArgs
   }
 
   // Custom InputTypes
@@ -2190,6 +2540,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMonthlyStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserMonthlyStatWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBehaviorSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BehaviorSnapshotWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountIdentitySnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdentitySnapshotWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountJournalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryWhereInput
   }
 
 
@@ -2571,6 +2942,9 @@ export namespace Prisma {
     swipesReceived?: boolean | User$swipesReceivedArgs<ExtArgs>
     syncLogs?: boolean | User$syncLogsArgs<ExtArgs>
     monthlyStats?: boolean | User$monthlyStatsArgs<ExtArgs>
+    behaviorSnapshots?: boolean | User$behaviorSnapshotsArgs<ExtArgs>
+    identitySnapshots?: boolean | User$identitySnapshotsArgs<ExtArgs>
+    journalEntries?: boolean | User$journalEntriesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2614,6 +2988,9 @@ export namespace Prisma {
     swipesReceived?: boolean | User$swipesReceivedArgs<ExtArgs>
     syncLogs?: boolean | User$syncLogsArgs<ExtArgs>
     monthlyStats?: boolean | User$monthlyStatsArgs<ExtArgs>
+    behaviorSnapshots?: boolean | User$behaviorSnapshotsArgs<ExtArgs>
+    identitySnapshots?: boolean | User$identitySnapshotsArgs<ExtArgs>
+    journalEntries?: boolean | User$journalEntriesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2632,6 +3009,9 @@ export namespace Prisma {
       swipesReceived: Prisma.$UserSwipePayload<ExtArgs>[]
       syncLogs: Prisma.$SyncLogPayload<ExtArgs>[]
       monthlyStats: Prisma.$UserMonthlyStatPayload<ExtArgs>[]
+      behaviorSnapshots: Prisma.$BehaviorSnapshotPayload<ExtArgs>[]
+      identitySnapshots: Prisma.$IdentitySnapshotPayload<ExtArgs>[]
+      journalEntries: Prisma.$JournalEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3020,6 +3400,9 @@ export namespace Prisma {
     swipesReceived<T extends User$swipesReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$swipesReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSwipePayload<ExtArgs>, T, "findMany"> | Null>
     syncLogs<T extends User$syncLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$syncLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SyncLogPayload<ExtArgs>, T, "findMany"> | Null>
     monthlyStats<T extends User$monthlyStatsArgs<ExtArgs> = {}>(args?: Subset<T, User$monthlyStatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMonthlyStatPayload<ExtArgs>, T, "findMany"> | Null>
+    behaviorSnapshots<T extends User$behaviorSnapshotsArgs<ExtArgs> = {}>(args?: Subset<T, User$behaviorSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "findMany"> | Null>
+    identitySnapshots<T extends User$identitySnapshotsArgs<ExtArgs> = {}>(args?: Subset<T, User$identitySnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "findMany"> | Null>
+    journalEntries<T extends User$journalEntriesArgs<ExtArgs> = {}>(args?: Subset<T, User$journalEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3591,6 +3974,66 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserMonthlyStatScalarFieldEnum | UserMonthlyStatScalarFieldEnum[]
+  }
+
+  /**
+   * User.behaviorSnapshots
+   */
+  export type User$behaviorSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    where?: BehaviorSnapshotWhereInput
+    orderBy?: BehaviorSnapshotOrderByWithRelationInput | BehaviorSnapshotOrderByWithRelationInput[]
+    cursor?: BehaviorSnapshotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BehaviorSnapshotScalarFieldEnum | BehaviorSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * User.identitySnapshots
+   */
+  export type User$identitySnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    where?: IdentitySnapshotWhereInput
+    orderBy?: IdentitySnapshotOrderByWithRelationInput | IdentitySnapshotOrderByWithRelationInput[]
+    cursor?: IdentitySnapshotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IdentitySnapshotScalarFieldEnum | IdentitySnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * User.journalEntries
+   */
+  export type User$journalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    where?: JournalEntryWhereInput
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    cursor?: JournalEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
   }
 
   /**
@@ -6452,10 +6895,12 @@ export namespace Prisma {
 
   export type TrackAvgAggregateOutputType = {
     duration: number | null
+    popularity: number | null
   }
 
   export type TrackSumAggregateOutputType = {
     duration: number | null
+    popularity: number | null
   }
 
   export type TrackMinAggregateOutputType = {
@@ -6471,6 +6916,7 @@ export namespace Prisma {
     genres: string | null
     spotifyId: string | null
     youtubeId: string | null
+    popularity: number | null
     createdAt: Date | null
   }
 
@@ -6487,6 +6933,7 @@ export namespace Prisma {
     genres: string | null
     spotifyId: string | null
     youtubeId: string | null
+    popularity: number | null
     createdAt: Date | null
   }
 
@@ -6503,6 +6950,7 @@ export namespace Prisma {
     genres: number
     spotifyId: number
     youtubeId: number
+    popularity: number
     createdAt: number
     _all: number
   }
@@ -6510,10 +6958,12 @@ export namespace Prisma {
 
   export type TrackAvgAggregateInputType = {
     duration?: true
+    popularity?: true
   }
 
   export type TrackSumAggregateInputType = {
     duration?: true
+    popularity?: true
   }
 
   export type TrackMinAggregateInputType = {
@@ -6529,6 +6979,7 @@ export namespace Prisma {
     genres?: true
     spotifyId?: true
     youtubeId?: true
+    popularity?: true
     createdAt?: true
   }
 
@@ -6545,6 +6996,7 @@ export namespace Prisma {
     genres?: true
     spotifyId?: true
     youtubeId?: true
+    popularity?: true
     createdAt?: true
   }
 
@@ -6561,6 +7013,7 @@ export namespace Prisma {
     genres?: true
     spotifyId?: true
     youtubeId?: true
+    popularity?: true
     createdAt?: true
     _all?: true
   }
@@ -6664,6 +7117,7 @@ export namespace Prisma {
     genres: string | null
     spotifyId: string | null
     youtubeId: string | null
+    popularity: number | null
     createdAt: Date
     _count: TrackCountAggregateOutputType | null
     _avg: TrackAvgAggregateOutputType | null
@@ -6699,7 +7153,9 @@ export namespace Prisma {
     genres?: boolean
     spotifyId?: boolean
     youtubeId?: boolean
+    popularity?: boolean
     createdAt?: boolean
+    audioFeature?: boolean | Track$audioFeatureArgs<ExtArgs>
     playlists?: boolean | Track$playlistsArgs<ExtArgs>
     likes?: boolean | Track$likesArgs<ExtArgs>
     syncLogs?: boolean | Track$syncLogsArgs<ExtArgs>
@@ -6719,6 +7175,7 @@ export namespace Prisma {
     genres?: boolean
     spotifyId?: boolean
     youtubeId?: boolean
+    popularity?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["track"]>
 
@@ -6735,10 +7192,12 @@ export namespace Prisma {
     genres?: boolean
     spotifyId?: boolean
     youtubeId?: boolean
+    popularity?: boolean
     createdAt?: boolean
   }
 
   export type TrackInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    audioFeature?: boolean | Track$audioFeatureArgs<ExtArgs>
     playlists?: boolean | Track$playlistsArgs<ExtArgs>
     likes?: boolean | Track$likesArgs<ExtArgs>
     syncLogs?: boolean | Track$syncLogsArgs<ExtArgs>
@@ -6749,6 +7208,7 @@ export namespace Prisma {
   export type $TrackPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Track"
     objects: {
+      audioFeature: Prisma.$AudioFeaturePayload<ExtArgs> | null
       playlists: Prisma.$PlaylistTrackPayload<ExtArgs>[]
       likes: Prisma.$LikePayload<ExtArgs>[]
       syncLogs: Prisma.$SyncLogPayload<ExtArgs>[]
@@ -6766,6 +7226,7 @@ export namespace Prisma {
       genres: string | null
       spotifyId: string | null
       youtubeId: string | null
+      popularity: number | null
       createdAt: Date
     }, ExtArgs["result"]["track"]>
     composites: {}
@@ -7131,6 +7592,7 @@ export namespace Prisma {
    */
   export interface Prisma__TrackClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    audioFeature<T extends Track$audioFeatureArgs<ExtArgs> = {}>(args?: Subset<T, Track$audioFeatureArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     playlists<T extends Track$playlistsArgs<ExtArgs> = {}>(args?: Subset<T, Track$playlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistTrackPayload<ExtArgs>, T, "findMany"> | Null>
     likes<T extends Track$likesArgs<ExtArgs> = {}>(args?: Subset<T, Track$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany"> | Null>
     syncLogs<T extends Track$syncLogsArgs<ExtArgs> = {}>(args?: Subset<T, Track$syncLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SyncLogPayload<ExtArgs>, T, "findMany"> | Null>
@@ -7175,6 +7637,7 @@ export namespace Prisma {
     readonly genres: FieldRef<"Track", 'String'>
     readonly spotifyId: FieldRef<"Track", 'String'>
     readonly youtubeId: FieldRef<"Track", 'String'>
+    readonly popularity: FieldRef<"Track", 'Int'>
     readonly createdAt: FieldRef<"Track", 'DateTime'>
   }
     
@@ -7487,6 +7950,21 @@ export namespace Prisma {
      * Filter which Tracks to delete
      */
     where?: TrackWhereInput
+  }
+
+  /**
+   * Track.audioFeature
+   */
+  export type Track$audioFeatureArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    where?: AudioFeatureWhereInput
   }
 
   /**
@@ -17179,6 +17657,4180 @@ export namespace Prisma {
 
 
   /**
+   * Model AudioFeature
+   */
+
+  export type AggregateAudioFeature = {
+    _count: AudioFeatureCountAggregateOutputType | null
+    _avg: AudioFeatureAvgAggregateOutputType | null
+    _sum: AudioFeatureSumAggregateOutputType | null
+    _min: AudioFeatureMinAggregateOutputType | null
+    _max: AudioFeatureMaxAggregateOutputType | null
+  }
+
+  export type AudioFeatureAvgAggregateOutputType = {
+    acousticness: number | null
+    danceability: number | null
+    energy: number | null
+    instrumentalness: number | null
+    liveness: number | null
+    loudness: number | null
+    speechiness: number | null
+    tempo: number | null
+    valence: number | null
+  }
+
+  export type AudioFeatureSumAggregateOutputType = {
+    acousticness: number | null
+    danceability: number | null
+    energy: number | null
+    instrumentalness: number | null
+    liveness: number | null
+    loudness: number | null
+    speechiness: number | null
+    tempo: number | null
+    valence: number | null
+  }
+
+  export type AudioFeatureMinAggregateOutputType = {
+    id: string | null
+    trackId: string | null
+    acousticness: number | null
+    danceability: number | null
+    energy: number | null
+    instrumentalness: number | null
+    liveness: number | null
+    loudness: number | null
+    speechiness: number | null
+    tempo: number | null
+    valence: number | null
+  }
+
+  export type AudioFeatureMaxAggregateOutputType = {
+    id: string | null
+    trackId: string | null
+    acousticness: number | null
+    danceability: number | null
+    energy: number | null
+    instrumentalness: number | null
+    liveness: number | null
+    loudness: number | null
+    speechiness: number | null
+    tempo: number | null
+    valence: number | null
+  }
+
+  export type AudioFeatureCountAggregateOutputType = {
+    id: number
+    trackId: number
+    acousticness: number
+    danceability: number
+    energy: number
+    instrumentalness: number
+    liveness: number
+    loudness: number
+    speechiness: number
+    tempo: number
+    valence: number
+    _all: number
+  }
+
+
+  export type AudioFeatureAvgAggregateInputType = {
+    acousticness?: true
+    danceability?: true
+    energy?: true
+    instrumentalness?: true
+    liveness?: true
+    loudness?: true
+    speechiness?: true
+    tempo?: true
+    valence?: true
+  }
+
+  export type AudioFeatureSumAggregateInputType = {
+    acousticness?: true
+    danceability?: true
+    energy?: true
+    instrumentalness?: true
+    liveness?: true
+    loudness?: true
+    speechiness?: true
+    tempo?: true
+    valence?: true
+  }
+
+  export type AudioFeatureMinAggregateInputType = {
+    id?: true
+    trackId?: true
+    acousticness?: true
+    danceability?: true
+    energy?: true
+    instrumentalness?: true
+    liveness?: true
+    loudness?: true
+    speechiness?: true
+    tempo?: true
+    valence?: true
+  }
+
+  export type AudioFeatureMaxAggregateInputType = {
+    id?: true
+    trackId?: true
+    acousticness?: true
+    danceability?: true
+    energy?: true
+    instrumentalness?: true
+    liveness?: true
+    loudness?: true
+    speechiness?: true
+    tempo?: true
+    valence?: true
+  }
+
+  export type AudioFeatureCountAggregateInputType = {
+    id?: true
+    trackId?: true
+    acousticness?: true
+    danceability?: true
+    energy?: true
+    instrumentalness?: true
+    liveness?: true
+    loudness?: true
+    speechiness?: true
+    tempo?: true
+    valence?: true
+    _all?: true
+  }
+
+  export type AudioFeatureAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AudioFeature to aggregate.
+     */
+    where?: AudioFeatureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AudioFeatures to fetch.
+     */
+    orderBy?: AudioFeatureOrderByWithRelationInput | AudioFeatureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AudioFeatureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AudioFeatures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AudioFeatures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AudioFeatures
+    **/
+    _count?: true | AudioFeatureCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AudioFeatureAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AudioFeatureSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AudioFeatureMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AudioFeatureMaxAggregateInputType
+  }
+
+  export type GetAudioFeatureAggregateType<T extends AudioFeatureAggregateArgs> = {
+        [P in keyof T & keyof AggregateAudioFeature]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAudioFeature[P]>
+      : GetScalarType<T[P], AggregateAudioFeature[P]>
+  }
+
+
+
+
+  export type AudioFeatureGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AudioFeatureWhereInput
+    orderBy?: AudioFeatureOrderByWithAggregationInput | AudioFeatureOrderByWithAggregationInput[]
+    by: AudioFeatureScalarFieldEnum[] | AudioFeatureScalarFieldEnum
+    having?: AudioFeatureScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AudioFeatureCountAggregateInputType | true
+    _avg?: AudioFeatureAvgAggregateInputType
+    _sum?: AudioFeatureSumAggregateInputType
+    _min?: AudioFeatureMinAggregateInputType
+    _max?: AudioFeatureMaxAggregateInputType
+  }
+
+  export type AudioFeatureGroupByOutputType = {
+    id: string
+    trackId: string
+    acousticness: number
+    danceability: number
+    energy: number
+    instrumentalness: number
+    liveness: number
+    loudness: number
+    speechiness: number
+    tempo: number
+    valence: number
+    _count: AudioFeatureCountAggregateOutputType | null
+    _avg: AudioFeatureAvgAggregateOutputType | null
+    _sum: AudioFeatureSumAggregateOutputType | null
+    _min: AudioFeatureMinAggregateOutputType | null
+    _max: AudioFeatureMaxAggregateOutputType | null
+  }
+
+  type GetAudioFeatureGroupByPayload<T extends AudioFeatureGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AudioFeatureGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AudioFeatureGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AudioFeatureGroupByOutputType[P]>
+            : GetScalarType<T[P], AudioFeatureGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AudioFeatureSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    trackId?: boolean
+    acousticness?: boolean
+    danceability?: boolean
+    energy?: boolean
+    instrumentalness?: boolean
+    liveness?: boolean
+    loudness?: boolean
+    speechiness?: boolean
+    tempo?: boolean
+    valence?: boolean
+    track?: boolean | TrackDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["audioFeature"]>
+
+  export type AudioFeatureSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    trackId?: boolean
+    acousticness?: boolean
+    danceability?: boolean
+    energy?: boolean
+    instrumentalness?: boolean
+    liveness?: boolean
+    loudness?: boolean
+    speechiness?: boolean
+    tempo?: boolean
+    valence?: boolean
+    track?: boolean | TrackDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["audioFeature"]>
+
+  export type AudioFeatureSelectScalar = {
+    id?: boolean
+    trackId?: boolean
+    acousticness?: boolean
+    danceability?: boolean
+    energy?: boolean
+    instrumentalness?: boolean
+    liveness?: boolean
+    loudness?: boolean
+    speechiness?: boolean
+    tempo?: boolean
+    valence?: boolean
+  }
+
+  export type AudioFeatureInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    track?: boolean | TrackDefaultArgs<ExtArgs>
+  }
+  export type AudioFeatureIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    track?: boolean | TrackDefaultArgs<ExtArgs>
+  }
+
+  export type $AudioFeaturePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AudioFeature"
+    objects: {
+      track: Prisma.$TrackPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      trackId: string
+      acousticness: number
+      danceability: number
+      energy: number
+      instrumentalness: number
+      liveness: number
+      loudness: number
+      speechiness: number
+      tempo: number
+      valence: number
+    }, ExtArgs["result"]["audioFeature"]>
+    composites: {}
+  }
+
+  type AudioFeatureGetPayload<S extends boolean | null | undefined | AudioFeatureDefaultArgs> = $Result.GetResult<Prisma.$AudioFeaturePayload, S>
+
+  type AudioFeatureCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AudioFeatureFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AudioFeatureCountAggregateInputType | true
+    }
+
+  export interface AudioFeatureDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AudioFeature'], meta: { name: 'AudioFeature' } }
+    /**
+     * Find zero or one AudioFeature that matches the filter.
+     * @param {AudioFeatureFindUniqueArgs} args - Arguments to find a AudioFeature
+     * @example
+     * // Get one AudioFeature
+     * const audioFeature = await prisma.audioFeature.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AudioFeatureFindUniqueArgs>(args: SelectSubset<T, AudioFeatureFindUniqueArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AudioFeature that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AudioFeatureFindUniqueOrThrowArgs} args - Arguments to find a AudioFeature
+     * @example
+     * // Get one AudioFeature
+     * const audioFeature = await prisma.audioFeature.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AudioFeatureFindUniqueOrThrowArgs>(args: SelectSubset<T, AudioFeatureFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AudioFeature that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioFeatureFindFirstArgs} args - Arguments to find a AudioFeature
+     * @example
+     * // Get one AudioFeature
+     * const audioFeature = await prisma.audioFeature.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AudioFeatureFindFirstArgs>(args?: SelectSubset<T, AudioFeatureFindFirstArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AudioFeature that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioFeatureFindFirstOrThrowArgs} args - Arguments to find a AudioFeature
+     * @example
+     * // Get one AudioFeature
+     * const audioFeature = await prisma.audioFeature.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AudioFeatureFindFirstOrThrowArgs>(args?: SelectSubset<T, AudioFeatureFindFirstOrThrowArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AudioFeatures that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioFeatureFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AudioFeatures
+     * const audioFeatures = await prisma.audioFeature.findMany()
+     * 
+     * // Get first 10 AudioFeatures
+     * const audioFeatures = await prisma.audioFeature.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const audioFeatureWithIdOnly = await prisma.audioFeature.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AudioFeatureFindManyArgs>(args?: SelectSubset<T, AudioFeatureFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AudioFeature.
+     * @param {AudioFeatureCreateArgs} args - Arguments to create a AudioFeature.
+     * @example
+     * // Create one AudioFeature
+     * const AudioFeature = await prisma.audioFeature.create({
+     *   data: {
+     *     // ... data to create a AudioFeature
+     *   }
+     * })
+     * 
+     */
+    create<T extends AudioFeatureCreateArgs>(args: SelectSubset<T, AudioFeatureCreateArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AudioFeatures.
+     * @param {AudioFeatureCreateManyArgs} args - Arguments to create many AudioFeatures.
+     * @example
+     * // Create many AudioFeatures
+     * const audioFeature = await prisma.audioFeature.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AudioFeatureCreateManyArgs>(args?: SelectSubset<T, AudioFeatureCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AudioFeatures and returns the data saved in the database.
+     * @param {AudioFeatureCreateManyAndReturnArgs} args - Arguments to create many AudioFeatures.
+     * @example
+     * // Create many AudioFeatures
+     * const audioFeature = await prisma.audioFeature.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AudioFeatures and only return the `id`
+     * const audioFeatureWithIdOnly = await prisma.audioFeature.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AudioFeatureCreateManyAndReturnArgs>(args?: SelectSubset<T, AudioFeatureCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AudioFeature.
+     * @param {AudioFeatureDeleteArgs} args - Arguments to delete one AudioFeature.
+     * @example
+     * // Delete one AudioFeature
+     * const AudioFeature = await prisma.audioFeature.delete({
+     *   where: {
+     *     // ... filter to delete one AudioFeature
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AudioFeatureDeleteArgs>(args: SelectSubset<T, AudioFeatureDeleteArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AudioFeature.
+     * @param {AudioFeatureUpdateArgs} args - Arguments to update one AudioFeature.
+     * @example
+     * // Update one AudioFeature
+     * const audioFeature = await prisma.audioFeature.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AudioFeatureUpdateArgs>(args: SelectSubset<T, AudioFeatureUpdateArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AudioFeatures.
+     * @param {AudioFeatureDeleteManyArgs} args - Arguments to filter AudioFeatures to delete.
+     * @example
+     * // Delete a few AudioFeatures
+     * const { count } = await prisma.audioFeature.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AudioFeatureDeleteManyArgs>(args?: SelectSubset<T, AudioFeatureDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AudioFeatures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioFeatureUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AudioFeatures
+     * const audioFeature = await prisma.audioFeature.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AudioFeatureUpdateManyArgs>(args: SelectSubset<T, AudioFeatureUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AudioFeature.
+     * @param {AudioFeatureUpsertArgs} args - Arguments to update or create a AudioFeature.
+     * @example
+     * // Update or create a AudioFeature
+     * const audioFeature = await prisma.audioFeature.upsert({
+     *   create: {
+     *     // ... data to create a AudioFeature
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AudioFeature we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AudioFeatureUpsertArgs>(args: SelectSubset<T, AudioFeatureUpsertArgs<ExtArgs>>): Prisma__AudioFeatureClient<$Result.GetResult<Prisma.$AudioFeaturePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AudioFeatures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioFeatureCountArgs} args - Arguments to filter AudioFeatures to count.
+     * @example
+     * // Count the number of AudioFeatures
+     * const count = await prisma.audioFeature.count({
+     *   where: {
+     *     // ... the filter for the AudioFeatures we want to count
+     *   }
+     * })
+    **/
+    count<T extends AudioFeatureCountArgs>(
+      args?: Subset<T, AudioFeatureCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AudioFeatureCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AudioFeature.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioFeatureAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AudioFeatureAggregateArgs>(args: Subset<T, AudioFeatureAggregateArgs>): Prisma.PrismaPromise<GetAudioFeatureAggregateType<T>>
+
+    /**
+     * Group by AudioFeature.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AudioFeatureGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AudioFeatureGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AudioFeatureGroupByArgs['orderBy'] }
+        : { orderBy?: AudioFeatureGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AudioFeatureGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAudioFeatureGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AudioFeature model
+   */
+  readonly fields: AudioFeatureFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AudioFeature.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AudioFeatureClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    track<T extends TrackDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TrackDefaultArgs<ExtArgs>>): Prisma__TrackClient<$Result.GetResult<Prisma.$TrackPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AudioFeature model
+   */ 
+  interface AudioFeatureFieldRefs {
+    readonly id: FieldRef<"AudioFeature", 'String'>
+    readonly trackId: FieldRef<"AudioFeature", 'String'>
+    readonly acousticness: FieldRef<"AudioFeature", 'Float'>
+    readonly danceability: FieldRef<"AudioFeature", 'Float'>
+    readonly energy: FieldRef<"AudioFeature", 'Float'>
+    readonly instrumentalness: FieldRef<"AudioFeature", 'Float'>
+    readonly liveness: FieldRef<"AudioFeature", 'Float'>
+    readonly loudness: FieldRef<"AudioFeature", 'Float'>
+    readonly speechiness: FieldRef<"AudioFeature", 'Float'>
+    readonly tempo: FieldRef<"AudioFeature", 'Float'>
+    readonly valence: FieldRef<"AudioFeature", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AudioFeature findUnique
+   */
+  export type AudioFeatureFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioFeature to fetch.
+     */
+    where: AudioFeatureWhereUniqueInput
+  }
+
+  /**
+   * AudioFeature findUniqueOrThrow
+   */
+  export type AudioFeatureFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioFeature to fetch.
+     */
+    where: AudioFeatureWhereUniqueInput
+  }
+
+  /**
+   * AudioFeature findFirst
+   */
+  export type AudioFeatureFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioFeature to fetch.
+     */
+    where?: AudioFeatureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AudioFeatures to fetch.
+     */
+    orderBy?: AudioFeatureOrderByWithRelationInput | AudioFeatureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AudioFeatures.
+     */
+    cursor?: AudioFeatureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AudioFeatures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AudioFeatures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AudioFeatures.
+     */
+    distinct?: AudioFeatureScalarFieldEnum | AudioFeatureScalarFieldEnum[]
+  }
+
+  /**
+   * AudioFeature findFirstOrThrow
+   */
+  export type AudioFeatureFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioFeature to fetch.
+     */
+    where?: AudioFeatureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AudioFeatures to fetch.
+     */
+    orderBy?: AudioFeatureOrderByWithRelationInput | AudioFeatureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AudioFeatures.
+     */
+    cursor?: AudioFeatureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AudioFeatures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AudioFeatures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AudioFeatures.
+     */
+    distinct?: AudioFeatureScalarFieldEnum | AudioFeatureScalarFieldEnum[]
+  }
+
+  /**
+   * AudioFeature findMany
+   */
+  export type AudioFeatureFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * Filter, which AudioFeatures to fetch.
+     */
+    where?: AudioFeatureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AudioFeatures to fetch.
+     */
+    orderBy?: AudioFeatureOrderByWithRelationInput | AudioFeatureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AudioFeatures.
+     */
+    cursor?: AudioFeatureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AudioFeatures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AudioFeatures.
+     */
+    skip?: number
+    distinct?: AudioFeatureScalarFieldEnum | AudioFeatureScalarFieldEnum[]
+  }
+
+  /**
+   * AudioFeature create
+   */
+  export type AudioFeatureCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AudioFeature.
+     */
+    data: XOR<AudioFeatureCreateInput, AudioFeatureUncheckedCreateInput>
+  }
+
+  /**
+   * AudioFeature createMany
+   */
+  export type AudioFeatureCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AudioFeatures.
+     */
+    data: AudioFeatureCreateManyInput | AudioFeatureCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AudioFeature createManyAndReturn
+   */
+  export type AudioFeatureCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AudioFeatures.
+     */
+    data: AudioFeatureCreateManyInput | AudioFeatureCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AudioFeature update
+   */
+  export type AudioFeatureUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AudioFeature.
+     */
+    data: XOR<AudioFeatureUpdateInput, AudioFeatureUncheckedUpdateInput>
+    /**
+     * Choose, which AudioFeature to update.
+     */
+    where: AudioFeatureWhereUniqueInput
+  }
+
+  /**
+   * AudioFeature updateMany
+   */
+  export type AudioFeatureUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AudioFeatures.
+     */
+    data: XOR<AudioFeatureUpdateManyMutationInput, AudioFeatureUncheckedUpdateManyInput>
+    /**
+     * Filter which AudioFeatures to update
+     */
+    where?: AudioFeatureWhereInput
+  }
+
+  /**
+   * AudioFeature upsert
+   */
+  export type AudioFeatureUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AudioFeature to update in case it exists.
+     */
+    where: AudioFeatureWhereUniqueInput
+    /**
+     * In case the AudioFeature found by the `where` argument doesn't exist, create a new AudioFeature with this data.
+     */
+    create: XOR<AudioFeatureCreateInput, AudioFeatureUncheckedCreateInput>
+    /**
+     * In case the AudioFeature was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AudioFeatureUpdateInput, AudioFeatureUncheckedUpdateInput>
+  }
+
+  /**
+   * AudioFeature delete
+   */
+  export type AudioFeatureDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+    /**
+     * Filter which AudioFeature to delete.
+     */
+    where: AudioFeatureWhereUniqueInput
+  }
+
+  /**
+   * AudioFeature deleteMany
+   */
+  export type AudioFeatureDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AudioFeatures to delete
+     */
+    where?: AudioFeatureWhereInput
+  }
+
+  /**
+   * AudioFeature without action
+   */
+  export type AudioFeatureDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AudioFeature
+     */
+    select?: AudioFeatureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AudioFeatureInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BehaviorSnapshot
+   */
+
+  export type AggregateBehaviorSnapshot = {
+    _count: BehaviorSnapshotCountAggregateOutputType | null
+    _avg: BehaviorSnapshotAvgAggregateOutputType | null
+    _sum: BehaviorSnapshotSumAggregateOutputType | null
+    _min: BehaviorSnapshotMinAggregateOutputType | null
+    _max: BehaviorSnapshotMaxAggregateOutputType | null
+  }
+
+  export type BehaviorSnapshotAvgAggregateOutputType = {
+    novelty: number | null
+    repeatRate: number | null
+    genreDiversity: number | null
+    sessionLength: number | null
+    peakListeningHour: number | null
+    confidence: number | null
+  }
+
+  export type BehaviorSnapshotSumAggregateOutputType = {
+    novelty: number | null
+    repeatRate: number | null
+    genreDiversity: number | null
+    sessionLength: number | null
+    peakListeningHour: number | null
+    confidence: number | null
+  }
+
+  export type BehaviorSnapshotMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    window: string | null
+    novelty: number | null
+    repeatRate: number | null
+    genreDiversity: number | null
+    sessionLength: number | null
+    peakListeningHour: number | null
+    confidence: number | null
+    calculatedAt: Date | null
+  }
+
+  export type BehaviorSnapshotMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    window: string | null
+    novelty: number | null
+    repeatRate: number | null
+    genreDiversity: number | null
+    sessionLength: number | null
+    peakListeningHour: number | null
+    confidence: number | null
+    calculatedAt: Date | null
+  }
+
+  export type BehaviorSnapshotCountAggregateOutputType = {
+    id: number
+    userId: number
+    window: number
+    novelty: number
+    repeatRate: number
+    genreDiversity: number
+    sessionLength: number
+    peakListeningHour: number
+    confidence: number
+    calculatedAt: number
+    _all: number
+  }
+
+
+  export type BehaviorSnapshotAvgAggregateInputType = {
+    novelty?: true
+    repeatRate?: true
+    genreDiversity?: true
+    sessionLength?: true
+    peakListeningHour?: true
+    confidence?: true
+  }
+
+  export type BehaviorSnapshotSumAggregateInputType = {
+    novelty?: true
+    repeatRate?: true
+    genreDiversity?: true
+    sessionLength?: true
+    peakListeningHour?: true
+    confidence?: true
+  }
+
+  export type BehaviorSnapshotMinAggregateInputType = {
+    id?: true
+    userId?: true
+    window?: true
+    novelty?: true
+    repeatRate?: true
+    genreDiversity?: true
+    sessionLength?: true
+    peakListeningHour?: true
+    confidence?: true
+    calculatedAt?: true
+  }
+
+  export type BehaviorSnapshotMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    window?: true
+    novelty?: true
+    repeatRate?: true
+    genreDiversity?: true
+    sessionLength?: true
+    peakListeningHour?: true
+    confidence?: true
+    calculatedAt?: true
+  }
+
+  export type BehaviorSnapshotCountAggregateInputType = {
+    id?: true
+    userId?: true
+    window?: true
+    novelty?: true
+    repeatRate?: true
+    genreDiversity?: true
+    sessionLength?: true
+    peakListeningHour?: true
+    confidence?: true
+    calculatedAt?: true
+    _all?: true
+  }
+
+  export type BehaviorSnapshotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BehaviorSnapshot to aggregate.
+     */
+    where?: BehaviorSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BehaviorSnapshots to fetch.
+     */
+    orderBy?: BehaviorSnapshotOrderByWithRelationInput | BehaviorSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BehaviorSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BehaviorSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BehaviorSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BehaviorSnapshots
+    **/
+    _count?: true | BehaviorSnapshotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BehaviorSnapshotAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BehaviorSnapshotSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BehaviorSnapshotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BehaviorSnapshotMaxAggregateInputType
+  }
+
+  export type GetBehaviorSnapshotAggregateType<T extends BehaviorSnapshotAggregateArgs> = {
+        [P in keyof T & keyof AggregateBehaviorSnapshot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBehaviorSnapshot[P]>
+      : GetScalarType<T[P], AggregateBehaviorSnapshot[P]>
+  }
+
+
+
+
+  export type BehaviorSnapshotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BehaviorSnapshotWhereInput
+    orderBy?: BehaviorSnapshotOrderByWithAggregationInput | BehaviorSnapshotOrderByWithAggregationInput[]
+    by: BehaviorSnapshotScalarFieldEnum[] | BehaviorSnapshotScalarFieldEnum
+    having?: BehaviorSnapshotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BehaviorSnapshotCountAggregateInputType | true
+    _avg?: BehaviorSnapshotAvgAggregateInputType
+    _sum?: BehaviorSnapshotSumAggregateInputType
+    _min?: BehaviorSnapshotMinAggregateInputType
+    _max?: BehaviorSnapshotMaxAggregateInputType
+  }
+
+  export type BehaviorSnapshotGroupByOutputType = {
+    id: string
+    userId: string
+    window: string
+    novelty: number
+    repeatRate: number
+    genreDiversity: number
+    sessionLength: number
+    peakListeningHour: number
+    confidence: number
+    calculatedAt: Date
+    _count: BehaviorSnapshotCountAggregateOutputType | null
+    _avg: BehaviorSnapshotAvgAggregateOutputType | null
+    _sum: BehaviorSnapshotSumAggregateOutputType | null
+    _min: BehaviorSnapshotMinAggregateOutputType | null
+    _max: BehaviorSnapshotMaxAggregateOutputType | null
+  }
+
+  type GetBehaviorSnapshotGroupByPayload<T extends BehaviorSnapshotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BehaviorSnapshotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BehaviorSnapshotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BehaviorSnapshotGroupByOutputType[P]>
+            : GetScalarType<T[P], BehaviorSnapshotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BehaviorSnapshotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    window?: boolean
+    novelty?: boolean
+    repeatRate?: boolean
+    genreDiversity?: boolean
+    sessionLength?: boolean
+    peakListeningHour?: boolean
+    confidence?: boolean
+    calculatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["behaviorSnapshot"]>
+
+  export type BehaviorSnapshotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    window?: boolean
+    novelty?: boolean
+    repeatRate?: boolean
+    genreDiversity?: boolean
+    sessionLength?: boolean
+    peakListeningHour?: boolean
+    confidence?: boolean
+    calculatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["behaviorSnapshot"]>
+
+  export type BehaviorSnapshotSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    window?: boolean
+    novelty?: boolean
+    repeatRate?: boolean
+    genreDiversity?: boolean
+    sessionLength?: boolean
+    peakListeningHour?: boolean
+    confidence?: boolean
+    calculatedAt?: boolean
+  }
+
+  export type BehaviorSnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BehaviorSnapshotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $BehaviorSnapshotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BehaviorSnapshot"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      window: string
+      novelty: number
+      repeatRate: number
+      genreDiversity: number
+      sessionLength: number
+      peakListeningHour: number
+      confidence: number
+      calculatedAt: Date
+    }, ExtArgs["result"]["behaviorSnapshot"]>
+    composites: {}
+  }
+
+  type BehaviorSnapshotGetPayload<S extends boolean | null | undefined | BehaviorSnapshotDefaultArgs> = $Result.GetResult<Prisma.$BehaviorSnapshotPayload, S>
+
+  type BehaviorSnapshotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BehaviorSnapshotFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BehaviorSnapshotCountAggregateInputType | true
+    }
+
+  export interface BehaviorSnapshotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BehaviorSnapshot'], meta: { name: 'BehaviorSnapshot' } }
+    /**
+     * Find zero or one BehaviorSnapshot that matches the filter.
+     * @param {BehaviorSnapshotFindUniqueArgs} args - Arguments to find a BehaviorSnapshot
+     * @example
+     * // Get one BehaviorSnapshot
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BehaviorSnapshotFindUniqueArgs>(args: SelectSubset<T, BehaviorSnapshotFindUniqueArgs<ExtArgs>>): Prisma__BehaviorSnapshotClient<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BehaviorSnapshot that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BehaviorSnapshotFindUniqueOrThrowArgs} args - Arguments to find a BehaviorSnapshot
+     * @example
+     * // Get one BehaviorSnapshot
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BehaviorSnapshotFindUniqueOrThrowArgs>(args: SelectSubset<T, BehaviorSnapshotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BehaviorSnapshotClient<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BehaviorSnapshot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BehaviorSnapshotFindFirstArgs} args - Arguments to find a BehaviorSnapshot
+     * @example
+     * // Get one BehaviorSnapshot
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BehaviorSnapshotFindFirstArgs>(args?: SelectSubset<T, BehaviorSnapshotFindFirstArgs<ExtArgs>>): Prisma__BehaviorSnapshotClient<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BehaviorSnapshot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BehaviorSnapshotFindFirstOrThrowArgs} args - Arguments to find a BehaviorSnapshot
+     * @example
+     * // Get one BehaviorSnapshot
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BehaviorSnapshotFindFirstOrThrowArgs>(args?: SelectSubset<T, BehaviorSnapshotFindFirstOrThrowArgs<ExtArgs>>): Prisma__BehaviorSnapshotClient<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BehaviorSnapshots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BehaviorSnapshotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BehaviorSnapshots
+     * const behaviorSnapshots = await prisma.behaviorSnapshot.findMany()
+     * 
+     * // Get first 10 BehaviorSnapshots
+     * const behaviorSnapshots = await prisma.behaviorSnapshot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const behaviorSnapshotWithIdOnly = await prisma.behaviorSnapshot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BehaviorSnapshotFindManyArgs>(args?: SelectSubset<T, BehaviorSnapshotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BehaviorSnapshot.
+     * @param {BehaviorSnapshotCreateArgs} args - Arguments to create a BehaviorSnapshot.
+     * @example
+     * // Create one BehaviorSnapshot
+     * const BehaviorSnapshot = await prisma.behaviorSnapshot.create({
+     *   data: {
+     *     // ... data to create a BehaviorSnapshot
+     *   }
+     * })
+     * 
+     */
+    create<T extends BehaviorSnapshotCreateArgs>(args: SelectSubset<T, BehaviorSnapshotCreateArgs<ExtArgs>>): Prisma__BehaviorSnapshotClient<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BehaviorSnapshots.
+     * @param {BehaviorSnapshotCreateManyArgs} args - Arguments to create many BehaviorSnapshots.
+     * @example
+     * // Create many BehaviorSnapshots
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BehaviorSnapshotCreateManyArgs>(args?: SelectSubset<T, BehaviorSnapshotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BehaviorSnapshots and returns the data saved in the database.
+     * @param {BehaviorSnapshotCreateManyAndReturnArgs} args - Arguments to create many BehaviorSnapshots.
+     * @example
+     * // Create many BehaviorSnapshots
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BehaviorSnapshots and only return the `id`
+     * const behaviorSnapshotWithIdOnly = await prisma.behaviorSnapshot.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BehaviorSnapshotCreateManyAndReturnArgs>(args?: SelectSubset<T, BehaviorSnapshotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BehaviorSnapshot.
+     * @param {BehaviorSnapshotDeleteArgs} args - Arguments to delete one BehaviorSnapshot.
+     * @example
+     * // Delete one BehaviorSnapshot
+     * const BehaviorSnapshot = await prisma.behaviorSnapshot.delete({
+     *   where: {
+     *     // ... filter to delete one BehaviorSnapshot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BehaviorSnapshotDeleteArgs>(args: SelectSubset<T, BehaviorSnapshotDeleteArgs<ExtArgs>>): Prisma__BehaviorSnapshotClient<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BehaviorSnapshot.
+     * @param {BehaviorSnapshotUpdateArgs} args - Arguments to update one BehaviorSnapshot.
+     * @example
+     * // Update one BehaviorSnapshot
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BehaviorSnapshotUpdateArgs>(args: SelectSubset<T, BehaviorSnapshotUpdateArgs<ExtArgs>>): Prisma__BehaviorSnapshotClient<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BehaviorSnapshots.
+     * @param {BehaviorSnapshotDeleteManyArgs} args - Arguments to filter BehaviorSnapshots to delete.
+     * @example
+     * // Delete a few BehaviorSnapshots
+     * const { count } = await prisma.behaviorSnapshot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BehaviorSnapshotDeleteManyArgs>(args?: SelectSubset<T, BehaviorSnapshotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BehaviorSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BehaviorSnapshotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BehaviorSnapshots
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BehaviorSnapshotUpdateManyArgs>(args: SelectSubset<T, BehaviorSnapshotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BehaviorSnapshot.
+     * @param {BehaviorSnapshotUpsertArgs} args - Arguments to update or create a BehaviorSnapshot.
+     * @example
+     * // Update or create a BehaviorSnapshot
+     * const behaviorSnapshot = await prisma.behaviorSnapshot.upsert({
+     *   create: {
+     *     // ... data to create a BehaviorSnapshot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BehaviorSnapshot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BehaviorSnapshotUpsertArgs>(args: SelectSubset<T, BehaviorSnapshotUpsertArgs<ExtArgs>>): Prisma__BehaviorSnapshotClient<$Result.GetResult<Prisma.$BehaviorSnapshotPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BehaviorSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BehaviorSnapshotCountArgs} args - Arguments to filter BehaviorSnapshots to count.
+     * @example
+     * // Count the number of BehaviorSnapshots
+     * const count = await prisma.behaviorSnapshot.count({
+     *   where: {
+     *     // ... the filter for the BehaviorSnapshots we want to count
+     *   }
+     * })
+    **/
+    count<T extends BehaviorSnapshotCountArgs>(
+      args?: Subset<T, BehaviorSnapshotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BehaviorSnapshotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BehaviorSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BehaviorSnapshotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BehaviorSnapshotAggregateArgs>(args: Subset<T, BehaviorSnapshotAggregateArgs>): Prisma.PrismaPromise<GetBehaviorSnapshotAggregateType<T>>
+
+    /**
+     * Group by BehaviorSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BehaviorSnapshotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BehaviorSnapshotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BehaviorSnapshotGroupByArgs['orderBy'] }
+        : { orderBy?: BehaviorSnapshotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BehaviorSnapshotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBehaviorSnapshotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BehaviorSnapshot model
+   */
+  readonly fields: BehaviorSnapshotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BehaviorSnapshot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BehaviorSnapshotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BehaviorSnapshot model
+   */ 
+  interface BehaviorSnapshotFieldRefs {
+    readonly id: FieldRef<"BehaviorSnapshot", 'String'>
+    readonly userId: FieldRef<"BehaviorSnapshot", 'String'>
+    readonly window: FieldRef<"BehaviorSnapshot", 'String'>
+    readonly novelty: FieldRef<"BehaviorSnapshot", 'Float'>
+    readonly repeatRate: FieldRef<"BehaviorSnapshot", 'Float'>
+    readonly genreDiversity: FieldRef<"BehaviorSnapshot", 'Float'>
+    readonly sessionLength: FieldRef<"BehaviorSnapshot", 'Float'>
+    readonly peakListeningHour: FieldRef<"BehaviorSnapshot", 'Int'>
+    readonly confidence: FieldRef<"BehaviorSnapshot", 'Float'>
+    readonly calculatedAt: FieldRef<"BehaviorSnapshot", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BehaviorSnapshot findUnique
+   */
+  export type BehaviorSnapshotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which BehaviorSnapshot to fetch.
+     */
+    where: BehaviorSnapshotWhereUniqueInput
+  }
+
+  /**
+   * BehaviorSnapshot findUniqueOrThrow
+   */
+  export type BehaviorSnapshotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which BehaviorSnapshot to fetch.
+     */
+    where: BehaviorSnapshotWhereUniqueInput
+  }
+
+  /**
+   * BehaviorSnapshot findFirst
+   */
+  export type BehaviorSnapshotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which BehaviorSnapshot to fetch.
+     */
+    where?: BehaviorSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BehaviorSnapshots to fetch.
+     */
+    orderBy?: BehaviorSnapshotOrderByWithRelationInput | BehaviorSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BehaviorSnapshots.
+     */
+    cursor?: BehaviorSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BehaviorSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BehaviorSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BehaviorSnapshots.
+     */
+    distinct?: BehaviorSnapshotScalarFieldEnum | BehaviorSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * BehaviorSnapshot findFirstOrThrow
+   */
+  export type BehaviorSnapshotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which BehaviorSnapshot to fetch.
+     */
+    where?: BehaviorSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BehaviorSnapshots to fetch.
+     */
+    orderBy?: BehaviorSnapshotOrderByWithRelationInput | BehaviorSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BehaviorSnapshots.
+     */
+    cursor?: BehaviorSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BehaviorSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BehaviorSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BehaviorSnapshots.
+     */
+    distinct?: BehaviorSnapshotScalarFieldEnum | BehaviorSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * BehaviorSnapshot findMany
+   */
+  export type BehaviorSnapshotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which BehaviorSnapshots to fetch.
+     */
+    where?: BehaviorSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BehaviorSnapshots to fetch.
+     */
+    orderBy?: BehaviorSnapshotOrderByWithRelationInput | BehaviorSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BehaviorSnapshots.
+     */
+    cursor?: BehaviorSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BehaviorSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BehaviorSnapshots.
+     */
+    skip?: number
+    distinct?: BehaviorSnapshotScalarFieldEnum | BehaviorSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * BehaviorSnapshot create
+   */
+  export type BehaviorSnapshotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BehaviorSnapshot.
+     */
+    data: XOR<BehaviorSnapshotCreateInput, BehaviorSnapshotUncheckedCreateInput>
+  }
+
+  /**
+   * BehaviorSnapshot createMany
+   */
+  export type BehaviorSnapshotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BehaviorSnapshots.
+     */
+    data: BehaviorSnapshotCreateManyInput | BehaviorSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BehaviorSnapshot createManyAndReturn
+   */
+  export type BehaviorSnapshotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BehaviorSnapshots.
+     */
+    data: BehaviorSnapshotCreateManyInput | BehaviorSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BehaviorSnapshot update
+   */
+  export type BehaviorSnapshotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BehaviorSnapshot.
+     */
+    data: XOR<BehaviorSnapshotUpdateInput, BehaviorSnapshotUncheckedUpdateInput>
+    /**
+     * Choose, which BehaviorSnapshot to update.
+     */
+    where: BehaviorSnapshotWhereUniqueInput
+  }
+
+  /**
+   * BehaviorSnapshot updateMany
+   */
+  export type BehaviorSnapshotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BehaviorSnapshots.
+     */
+    data: XOR<BehaviorSnapshotUpdateManyMutationInput, BehaviorSnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which BehaviorSnapshots to update
+     */
+    where?: BehaviorSnapshotWhereInput
+  }
+
+  /**
+   * BehaviorSnapshot upsert
+   */
+  export type BehaviorSnapshotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BehaviorSnapshot to update in case it exists.
+     */
+    where: BehaviorSnapshotWhereUniqueInput
+    /**
+     * In case the BehaviorSnapshot found by the `where` argument doesn't exist, create a new BehaviorSnapshot with this data.
+     */
+    create: XOR<BehaviorSnapshotCreateInput, BehaviorSnapshotUncheckedCreateInput>
+    /**
+     * In case the BehaviorSnapshot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BehaviorSnapshotUpdateInput, BehaviorSnapshotUncheckedUpdateInput>
+  }
+
+  /**
+   * BehaviorSnapshot delete
+   */
+  export type BehaviorSnapshotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter which BehaviorSnapshot to delete.
+     */
+    where: BehaviorSnapshotWhereUniqueInput
+  }
+
+  /**
+   * BehaviorSnapshot deleteMany
+   */
+  export type BehaviorSnapshotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BehaviorSnapshots to delete
+     */
+    where?: BehaviorSnapshotWhereInput
+  }
+
+  /**
+   * BehaviorSnapshot without action
+   */
+  export type BehaviorSnapshotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BehaviorSnapshot
+     */
+    select?: BehaviorSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BehaviorSnapshotInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model IdentitySnapshot
+   */
+
+  export type AggregateIdentitySnapshot = {
+    _count: IdentitySnapshotCountAggregateOutputType | null
+    _avg: IdentitySnapshotAvgAggregateOutputType | null
+    _sum: IdentitySnapshotSumAggregateOutputType | null
+    _min: IdentitySnapshotMinAggregateOutputType | null
+    _max: IdentitySnapshotMaxAggregateOutputType | null
+  }
+
+  export type IdentitySnapshotAvgAggregateOutputType = {
+    score: number | null
+    confidence: number | null
+  }
+
+  export type IdentitySnapshotSumAggregateOutputType = {
+    score: number | null
+    confidence: number | null
+  }
+
+  export type IdentitySnapshotMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    window: string | null
+    identityId: string | null
+    displayName: string | null
+    score: number | null
+    confidence: number | null
+    why: string | null
+    reflection: string | null
+    engineVersion: string | null
+    calculatedAt: Date | null
+  }
+
+  export type IdentitySnapshotMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    window: string | null
+    identityId: string | null
+    displayName: string | null
+    score: number | null
+    confidence: number | null
+    why: string | null
+    reflection: string | null
+    engineVersion: string | null
+    calculatedAt: Date | null
+  }
+
+  export type IdentitySnapshotCountAggregateOutputType = {
+    id: number
+    userId: number
+    window: number
+    identityId: number
+    displayName: number
+    score: number
+    confidence: number
+    why: number
+    reflection: number
+    engineVersion: number
+    calculatedAt: number
+    _all: number
+  }
+
+
+  export type IdentitySnapshotAvgAggregateInputType = {
+    score?: true
+    confidence?: true
+  }
+
+  export type IdentitySnapshotSumAggregateInputType = {
+    score?: true
+    confidence?: true
+  }
+
+  export type IdentitySnapshotMinAggregateInputType = {
+    id?: true
+    userId?: true
+    window?: true
+    identityId?: true
+    displayName?: true
+    score?: true
+    confidence?: true
+    why?: true
+    reflection?: true
+    engineVersion?: true
+    calculatedAt?: true
+  }
+
+  export type IdentitySnapshotMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    window?: true
+    identityId?: true
+    displayName?: true
+    score?: true
+    confidence?: true
+    why?: true
+    reflection?: true
+    engineVersion?: true
+    calculatedAt?: true
+  }
+
+  export type IdentitySnapshotCountAggregateInputType = {
+    id?: true
+    userId?: true
+    window?: true
+    identityId?: true
+    displayName?: true
+    score?: true
+    confidence?: true
+    why?: true
+    reflection?: true
+    engineVersion?: true
+    calculatedAt?: true
+    _all?: true
+  }
+
+  export type IdentitySnapshotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IdentitySnapshot to aggregate.
+     */
+    where?: IdentitySnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdentitySnapshots to fetch.
+     */
+    orderBy?: IdentitySnapshotOrderByWithRelationInput | IdentitySnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IdentitySnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdentitySnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdentitySnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IdentitySnapshots
+    **/
+    _count?: true | IdentitySnapshotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: IdentitySnapshotAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: IdentitySnapshotSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IdentitySnapshotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IdentitySnapshotMaxAggregateInputType
+  }
+
+  export type GetIdentitySnapshotAggregateType<T extends IdentitySnapshotAggregateArgs> = {
+        [P in keyof T & keyof AggregateIdentitySnapshot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIdentitySnapshot[P]>
+      : GetScalarType<T[P], AggregateIdentitySnapshot[P]>
+  }
+
+
+
+
+  export type IdentitySnapshotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdentitySnapshotWhereInput
+    orderBy?: IdentitySnapshotOrderByWithAggregationInput | IdentitySnapshotOrderByWithAggregationInput[]
+    by: IdentitySnapshotScalarFieldEnum[] | IdentitySnapshotScalarFieldEnum
+    having?: IdentitySnapshotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IdentitySnapshotCountAggregateInputType | true
+    _avg?: IdentitySnapshotAvgAggregateInputType
+    _sum?: IdentitySnapshotSumAggregateInputType
+    _min?: IdentitySnapshotMinAggregateInputType
+    _max?: IdentitySnapshotMaxAggregateInputType
+  }
+
+  export type IdentitySnapshotGroupByOutputType = {
+    id: string
+    userId: string
+    window: string
+    identityId: string
+    displayName: string
+    score: number
+    confidence: number
+    why: string
+    reflection: string
+    engineVersion: string
+    calculatedAt: Date
+    _count: IdentitySnapshotCountAggregateOutputType | null
+    _avg: IdentitySnapshotAvgAggregateOutputType | null
+    _sum: IdentitySnapshotSumAggregateOutputType | null
+    _min: IdentitySnapshotMinAggregateOutputType | null
+    _max: IdentitySnapshotMaxAggregateOutputType | null
+  }
+
+  type GetIdentitySnapshotGroupByPayload<T extends IdentitySnapshotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IdentitySnapshotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IdentitySnapshotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IdentitySnapshotGroupByOutputType[P]>
+            : GetScalarType<T[P], IdentitySnapshotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IdentitySnapshotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    window?: boolean
+    identityId?: boolean
+    displayName?: boolean
+    score?: boolean
+    confidence?: boolean
+    why?: boolean
+    reflection?: boolean
+    engineVersion?: boolean
+    calculatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["identitySnapshot"]>
+
+  export type IdentitySnapshotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    window?: boolean
+    identityId?: boolean
+    displayName?: boolean
+    score?: boolean
+    confidence?: boolean
+    why?: boolean
+    reflection?: boolean
+    engineVersion?: boolean
+    calculatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["identitySnapshot"]>
+
+  export type IdentitySnapshotSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    window?: boolean
+    identityId?: boolean
+    displayName?: boolean
+    score?: boolean
+    confidence?: boolean
+    why?: boolean
+    reflection?: boolean
+    engineVersion?: boolean
+    calculatedAt?: boolean
+  }
+
+  export type IdentitySnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type IdentitySnapshotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $IdentitySnapshotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IdentitySnapshot"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      window: string
+      identityId: string
+      displayName: string
+      score: number
+      confidence: number
+      why: string
+      reflection: string
+      engineVersion: string
+      calculatedAt: Date
+    }, ExtArgs["result"]["identitySnapshot"]>
+    composites: {}
+  }
+
+  type IdentitySnapshotGetPayload<S extends boolean | null | undefined | IdentitySnapshotDefaultArgs> = $Result.GetResult<Prisma.$IdentitySnapshotPayload, S>
+
+  type IdentitySnapshotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<IdentitySnapshotFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: IdentitySnapshotCountAggregateInputType | true
+    }
+
+  export interface IdentitySnapshotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IdentitySnapshot'], meta: { name: 'IdentitySnapshot' } }
+    /**
+     * Find zero or one IdentitySnapshot that matches the filter.
+     * @param {IdentitySnapshotFindUniqueArgs} args - Arguments to find a IdentitySnapshot
+     * @example
+     * // Get one IdentitySnapshot
+     * const identitySnapshot = await prisma.identitySnapshot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IdentitySnapshotFindUniqueArgs>(args: SelectSubset<T, IdentitySnapshotFindUniqueArgs<ExtArgs>>): Prisma__IdentitySnapshotClient<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one IdentitySnapshot that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {IdentitySnapshotFindUniqueOrThrowArgs} args - Arguments to find a IdentitySnapshot
+     * @example
+     * // Get one IdentitySnapshot
+     * const identitySnapshot = await prisma.identitySnapshot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IdentitySnapshotFindUniqueOrThrowArgs>(args: SelectSubset<T, IdentitySnapshotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IdentitySnapshotClient<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first IdentitySnapshot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdentitySnapshotFindFirstArgs} args - Arguments to find a IdentitySnapshot
+     * @example
+     * // Get one IdentitySnapshot
+     * const identitySnapshot = await prisma.identitySnapshot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IdentitySnapshotFindFirstArgs>(args?: SelectSubset<T, IdentitySnapshotFindFirstArgs<ExtArgs>>): Prisma__IdentitySnapshotClient<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first IdentitySnapshot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdentitySnapshotFindFirstOrThrowArgs} args - Arguments to find a IdentitySnapshot
+     * @example
+     * // Get one IdentitySnapshot
+     * const identitySnapshot = await prisma.identitySnapshot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IdentitySnapshotFindFirstOrThrowArgs>(args?: SelectSubset<T, IdentitySnapshotFindFirstOrThrowArgs<ExtArgs>>): Prisma__IdentitySnapshotClient<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more IdentitySnapshots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdentitySnapshotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IdentitySnapshots
+     * const identitySnapshots = await prisma.identitySnapshot.findMany()
+     * 
+     * // Get first 10 IdentitySnapshots
+     * const identitySnapshots = await prisma.identitySnapshot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const identitySnapshotWithIdOnly = await prisma.identitySnapshot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IdentitySnapshotFindManyArgs>(args?: SelectSubset<T, IdentitySnapshotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a IdentitySnapshot.
+     * @param {IdentitySnapshotCreateArgs} args - Arguments to create a IdentitySnapshot.
+     * @example
+     * // Create one IdentitySnapshot
+     * const IdentitySnapshot = await prisma.identitySnapshot.create({
+     *   data: {
+     *     // ... data to create a IdentitySnapshot
+     *   }
+     * })
+     * 
+     */
+    create<T extends IdentitySnapshotCreateArgs>(args: SelectSubset<T, IdentitySnapshotCreateArgs<ExtArgs>>): Prisma__IdentitySnapshotClient<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many IdentitySnapshots.
+     * @param {IdentitySnapshotCreateManyArgs} args - Arguments to create many IdentitySnapshots.
+     * @example
+     * // Create many IdentitySnapshots
+     * const identitySnapshot = await prisma.identitySnapshot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IdentitySnapshotCreateManyArgs>(args?: SelectSubset<T, IdentitySnapshotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IdentitySnapshots and returns the data saved in the database.
+     * @param {IdentitySnapshotCreateManyAndReturnArgs} args - Arguments to create many IdentitySnapshots.
+     * @example
+     * // Create many IdentitySnapshots
+     * const identitySnapshot = await prisma.identitySnapshot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IdentitySnapshots and only return the `id`
+     * const identitySnapshotWithIdOnly = await prisma.identitySnapshot.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IdentitySnapshotCreateManyAndReturnArgs>(args?: SelectSubset<T, IdentitySnapshotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a IdentitySnapshot.
+     * @param {IdentitySnapshotDeleteArgs} args - Arguments to delete one IdentitySnapshot.
+     * @example
+     * // Delete one IdentitySnapshot
+     * const IdentitySnapshot = await prisma.identitySnapshot.delete({
+     *   where: {
+     *     // ... filter to delete one IdentitySnapshot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IdentitySnapshotDeleteArgs>(args: SelectSubset<T, IdentitySnapshotDeleteArgs<ExtArgs>>): Prisma__IdentitySnapshotClient<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one IdentitySnapshot.
+     * @param {IdentitySnapshotUpdateArgs} args - Arguments to update one IdentitySnapshot.
+     * @example
+     * // Update one IdentitySnapshot
+     * const identitySnapshot = await prisma.identitySnapshot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IdentitySnapshotUpdateArgs>(args: SelectSubset<T, IdentitySnapshotUpdateArgs<ExtArgs>>): Prisma__IdentitySnapshotClient<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more IdentitySnapshots.
+     * @param {IdentitySnapshotDeleteManyArgs} args - Arguments to filter IdentitySnapshots to delete.
+     * @example
+     * // Delete a few IdentitySnapshots
+     * const { count } = await prisma.identitySnapshot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IdentitySnapshotDeleteManyArgs>(args?: SelectSubset<T, IdentitySnapshotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IdentitySnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdentitySnapshotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IdentitySnapshots
+     * const identitySnapshot = await prisma.identitySnapshot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IdentitySnapshotUpdateManyArgs>(args: SelectSubset<T, IdentitySnapshotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one IdentitySnapshot.
+     * @param {IdentitySnapshotUpsertArgs} args - Arguments to update or create a IdentitySnapshot.
+     * @example
+     * // Update or create a IdentitySnapshot
+     * const identitySnapshot = await prisma.identitySnapshot.upsert({
+     *   create: {
+     *     // ... data to create a IdentitySnapshot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IdentitySnapshot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IdentitySnapshotUpsertArgs>(args: SelectSubset<T, IdentitySnapshotUpsertArgs<ExtArgs>>): Prisma__IdentitySnapshotClient<$Result.GetResult<Prisma.$IdentitySnapshotPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of IdentitySnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdentitySnapshotCountArgs} args - Arguments to filter IdentitySnapshots to count.
+     * @example
+     * // Count the number of IdentitySnapshots
+     * const count = await prisma.identitySnapshot.count({
+     *   where: {
+     *     // ... the filter for the IdentitySnapshots we want to count
+     *   }
+     * })
+    **/
+    count<T extends IdentitySnapshotCountArgs>(
+      args?: Subset<T, IdentitySnapshotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IdentitySnapshotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IdentitySnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdentitySnapshotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IdentitySnapshotAggregateArgs>(args: Subset<T, IdentitySnapshotAggregateArgs>): Prisma.PrismaPromise<GetIdentitySnapshotAggregateType<T>>
+
+    /**
+     * Group by IdentitySnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdentitySnapshotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IdentitySnapshotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IdentitySnapshotGroupByArgs['orderBy'] }
+        : { orderBy?: IdentitySnapshotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IdentitySnapshotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIdentitySnapshotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IdentitySnapshot model
+   */
+  readonly fields: IdentitySnapshotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IdentitySnapshot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IdentitySnapshotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IdentitySnapshot model
+   */ 
+  interface IdentitySnapshotFieldRefs {
+    readonly id: FieldRef<"IdentitySnapshot", 'String'>
+    readonly userId: FieldRef<"IdentitySnapshot", 'String'>
+    readonly window: FieldRef<"IdentitySnapshot", 'String'>
+    readonly identityId: FieldRef<"IdentitySnapshot", 'String'>
+    readonly displayName: FieldRef<"IdentitySnapshot", 'String'>
+    readonly score: FieldRef<"IdentitySnapshot", 'Float'>
+    readonly confidence: FieldRef<"IdentitySnapshot", 'Float'>
+    readonly why: FieldRef<"IdentitySnapshot", 'String'>
+    readonly reflection: FieldRef<"IdentitySnapshot", 'String'>
+    readonly engineVersion: FieldRef<"IdentitySnapshot", 'String'>
+    readonly calculatedAt: FieldRef<"IdentitySnapshot", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IdentitySnapshot findUnique
+   */
+  export type IdentitySnapshotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which IdentitySnapshot to fetch.
+     */
+    where: IdentitySnapshotWhereUniqueInput
+  }
+
+  /**
+   * IdentitySnapshot findUniqueOrThrow
+   */
+  export type IdentitySnapshotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which IdentitySnapshot to fetch.
+     */
+    where: IdentitySnapshotWhereUniqueInput
+  }
+
+  /**
+   * IdentitySnapshot findFirst
+   */
+  export type IdentitySnapshotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which IdentitySnapshot to fetch.
+     */
+    where?: IdentitySnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdentitySnapshots to fetch.
+     */
+    orderBy?: IdentitySnapshotOrderByWithRelationInput | IdentitySnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IdentitySnapshots.
+     */
+    cursor?: IdentitySnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdentitySnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdentitySnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IdentitySnapshots.
+     */
+    distinct?: IdentitySnapshotScalarFieldEnum | IdentitySnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * IdentitySnapshot findFirstOrThrow
+   */
+  export type IdentitySnapshotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which IdentitySnapshot to fetch.
+     */
+    where?: IdentitySnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdentitySnapshots to fetch.
+     */
+    orderBy?: IdentitySnapshotOrderByWithRelationInput | IdentitySnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IdentitySnapshots.
+     */
+    cursor?: IdentitySnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdentitySnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdentitySnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IdentitySnapshots.
+     */
+    distinct?: IdentitySnapshotScalarFieldEnum | IdentitySnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * IdentitySnapshot findMany
+   */
+  export type IdentitySnapshotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which IdentitySnapshots to fetch.
+     */
+    where?: IdentitySnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdentitySnapshots to fetch.
+     */
+    orderBy?: IdentitySnapshotOrderByWithRelationInput | IdentitySnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IdentitySnapshots.
+     */
+    cursor?: IdentitySnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdentitySnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdentitySnapshots.
+     */
+    skip?: number
+    distinct?: IdentitySnapshotScalarFieldEnum | IdentitySnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * IdentitySnapshot create
+   */
+  export type IdentitySnapshotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a IdentitySnapshot.
+     */
+    data: XOR<IdentitySnapshotCreateInput, IdentitySnapshotUncheckedCreateInput>
+  }
+
+  /**
+   * IdentitySnapshot createMany
+   */
+  export type IdentitySnapshotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IdentitySnapshots.
+     */
+    data: IdentitySnapshotCreateManyInput | IdentitySnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IdentitySnapshot createManyAndReturn
+   */
+  export type IdentitySnapshotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many IdentitySnapshots.
+     */
+    data: IdentitySnapshotCreateManyInput | IdentitySnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IdentitySnapshot update
+   */
+  export type IdentitySnapshotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a IdentitySnapshot.
+     */
+    data: XOR<IdentitySnapshotUpdateInput, IdentitySnapshotUncheckedUpdateInput>
+    /**
+     * Choose, which IdentitySnapshot to update.
+     */
+    where: IdentitySnapshotWhereUniqueInput
+  }
+
+  /**
+   * IdentitySnapshot updateMany
+   */
+  export type IdentitySnapshotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IdentitySnapshots.
+     */
+    data: XOR<IdentitySnapshotUpdateManyMutationInput, IdentitySnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which IdentitySnapshots to update
+     */
+    where?: IdentitySnapshotWhereInput
+  }
+
+  /**
+   * IdentitySnapshot upsert
+   */
+  export type IdentitySnapshotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the IdentitySnapshot to update in case it exists.
+     */
+    where: IdentitySnapshotWhereUniqueInput
+    /**
+     * In case the IdentitySnapshot found by the `where` argument doesn't exist, create a new IdentitySnapshot with this data.
+     */
+    create: XOR<IdentitySnapshotCreateInput, IdentitySnapshotUncheckedCreateInput>
+    /**
+     * In case the IdentitySnapshot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IdentitySnapshotUpdateInput, IdentitySnapshotUncheckedUpdateInput>
+  }
+
+  /**
+   * IdentitySnapshot delete
+   */
+  export type IdentitySnapshotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+    /**
+     * Filter which IdentitySnapshot to delete.
+     */
+    where: IdentitySnapshotWhereUniqueInput
+  }
+
+  /**
+   * IdentitySnapshot deleteMany
+   */
+  export type IdentitySnapshotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IdentitySnapshots to delete
+     */
+    where?: IdentitySnapshotWhereInput
+  }
+
+  /**
+   * IdentitySnapshot without action
+   */
+  export type IdentitySnapshotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdentitySnapshot
+     */
+    select?: IdentitySnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IdentitySnapshotInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model JournalEntry
+   */
+
+  export type AggregateJournalEntry = {
+    _count: JournalEntryCountAggregateOutputType | null
+    _min: JournalEntryMinAggregateOutputType | null
+    _max: JournalEntryMaxAggregateOutputType | null
+  }
+
+  export type JournalEntryMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    observationId: string | null
+    title: string | null
+    body: string | null
+    reflection: string | null
+    feedback: string | null
+    feedbackAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type JournalEntryMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    observationId: string | null
+    title: string | null
+    body: string | null
+    reflection: string | null
+    feedback: string | null
+    feedbackAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type JournalEntryCountAggregateOutputType = {
+    id: number
+    userId: number
+    date: number
+    observationId: number
+    title: number
+    body: number
+    evidence: number
+    reflection: number
+    feedback: number
+    feedbackAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type JournalEntryMinAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    observationId?: true
+    title?: true
+    body?: true
+    reflection?: true
+    feedback?: true
+    feedbackAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type JournalEntryMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    observationId?: true
+    title?: true
+    body?: true
+    reflection?: true
+    feedback?: true
+    feedbackAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type JournalEntryCountAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    observationId?: true
+    title?: true
+    body?: true
+    evidence?: true
+    reflection?: true
+    feedback?: true
+    feedbackAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type JournalEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JournalEntry to aggregate.
+     */
+    where?: JournalEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntries to fetch.
+     */
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JournalEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JournalEntries
+    **/
+    _count?: true | JournalEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JournalEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JournalEntryMaxAggregateInputType
+  }
+
+  export type GetJournalEntryAggregateType<T extends JournalEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateJournalEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJournalEntry[P]>
+      : GetScalarType<T[P], AggregateJournalEntry[P]>
+  }
+
+
+
+
+  export type JournalEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryWhereInput
+    orderBy?: JournalEntryOrderByWithAggregationInput | JournalEntryOrderByWithAggregationInput[]
+    by: JournalEntryScalarFieldEnum[] | JournalEntryScalarFieldEnum
+    having?: JournalEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JournalEntryCountAggregateInputType | true
+    _min?: JournalEntryMinAggregateInputType
+    _max?: JournalEntryMaxAggregateInputType
+  }
+
+  export type JournalEntryGroupByOutputType = {
+    id: string
+    userId: string
+    date: Date
+    observationId: string
+    title: string
+    body: string
+    evidence: JsonValue | null
+    reflection: string
+    feedback: string | null
+    feedbackAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: JournalEntryCountAggregateOutputType | null
+    _min: JournalEntryMinAggregateOutputType | null
+    _max: JournalEntryMaxAggregateOutputType | null
+  }
+
+  type GetJournalEntryGroupByPayload<T extends JournalEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JournalEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JournalEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JournalEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], JournalEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JournalEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    observationId?: boolean
+    title?: boolean
+    body?: boolean
+    evidence?: boolean
+    reflection?: boolean
+    feedback?: boolean
+    feedbackAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journalEntry"]>
+
+  export type JournalEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    observationId?: boolean
+    title?: boolean
+    body?: boolean
+    evidence?: boolean
+    reflection?: boolean
+    feedback?: boolean
+    feedbackAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journalEntry"]>
+
+  export type JournalEntrySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    observationId?: boolean
+    title?: boolean
+    body?: boolean
+    evidence?: boolean
+    reflection?: boolean
+    feedback?: boolean
+    feedbackAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type JournalEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type JournalEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $JournalEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JournalEntry"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      date: Date
+      observationId: string
+      title: string
+      body: string
+      evidence: Prisma.JsonValue | null
+      reflection: string
+      feedback: string | null
+      feedbackAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["journalEntry"]>
+    composites: {}
+  }
+
+  type JournalEntryGetPayload<S extends boolean | null | undefined | JournalEntryDefaultArgs> = $Result.GetResult<Prisma.$JournalEntryPayload, S>
+
+  type JournalEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<JournalEntryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: JournalEntryCountAggregateInputType | true
+    }
+
+  export interface JournalEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JournalEntry'], meta: { name: 'JournalEntry' } }
+    /**
+     * Find zero or one JournalEntry that matches the filter.
+     * @param {JournalEntryFindUniqueArgs} args - Arguments to find a JournalEntry
+     * @example
+     * // Get one JournalEntry
+     * const journalEntry = await prisma.journalEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JournalEntryFindUniqueArgs>(args: SelectSubset<T, JournalEntryFindUniqueArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one JournalEntry that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {JournalEntryFindUniqueOrThrowArgs} args - Arguments to find a JournalEntry
+     * @example
+     * // Get one JournalEntry
+     * const journalEntry = await prisma.journalEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JournalEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, JournalEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first JournalEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryFindFirstArgs} args - Arguments to find a JournalEntry
+     * @example
+     * // Get one JournalEntry
+     * const journalEntry = await prisma.journalEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JournalEntryFindFirstArgs>(args?: SelectSubset<T, JournalEntryFindFirstArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first JournalEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryFindFirstOrThrowArgs} args - Arguments to find a JournalEntry
+     * @example
+     * // Get one JournalEntry
+     * const journalEntry = await prisma.journalEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JournalEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, JournalEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more JournalEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JournalEntries
+     * const journalEntries = await prisma.journalEntry.findMany()
+     * 
+     * // Get first 10 JournalEntries
+     * const journalEntries = await prisma.journalEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const journalEntryWithIdOnly = await prisma.journalEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JournalEntryFindManyArgs>(args?: SelectSubset<T, JournalEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a JournalEntry.
+     * @param {JournalEntryCreateArgs} args - Arguments to create a JournalEntry.
+     * @example
+     * // Create one JournalEntry
+     * const JournalEntry = await prisma.journalEntry.create({
+     *   data: {
+     *     // ... data to create a JournalEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends JournalEntryCreateArgs>(args: SelectSubset<T, JournalEntryCreateArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many JournalEntries.
+     * @param {JournalEntryCreateManyArgs} args - Arguments to create many JournalEntries.
+     * @example
+     * // Create many JournalEntries
+     * const journalEntry = await prisma.journalEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JournalEntryCreateManyArgs>(args?: SelectSubset<T, JournalEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JournalEntries and returns the data saved in the database.
+     * @param {JournalEntryCreateManyAndReturnArgs} args - Arguments to create many JournalEntries.
+     * @example
+     * // Create many JournalEntries
+     * const journalEntry = await prisma.journalEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JournalEntries and only return the `id`
+     * const journalEntryWithIdOnly = await prisma.journalEntry.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JournalEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, JournalEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a JournalEntry.
+     * @param {JournalEntryDeleteArgs} args - Arguments to delete one JournalEntry.
+     * @example
+     * // Delete one JournalEntry
+     * const JournalEntry = await prisma.journalEntry.delete({
+     *   where: {
+     *     // ... filter to delete one JournalEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JournalEntryDeleteArgs>(args: SelectSubset<T, JournalEntryDeleteArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one JournalEntry.
+     * @param {JournalEntryUpdateArgs} args - Arguments to update one JournalEntry.
+     * @example
+     * // Update one JournalEntry
+     * const journalEntry = await prisma.journalEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JournalEntryUpdateArgs>(args: SelectSubset<T, JournalEntryUpdateArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more JournalEntries.
+     * @param {JournalEntryDeleteManyArgs} args - Arguments to filter JournalEntries to delete.
+     * @example
+     * // Delete a few JournalEntries
+     * const { count } = await prisma.journalEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JournalEntryDeleteManyArgs>(args?: SelectSubset<T, JournalEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JournalEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JournalEntries
+     * const journalEntry = await prisma.journalEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JournalEntryUpdateManyArgs>(args: SelectSubset<T, JournalEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one JournalEntry.
+     * @param {JournalEntryUpsertArgs} args - Arguments to update or create a JournalEntry.
+     * @example
+     * // Update or create a JournalEntry
+     * const journalEntry = await prisma.journalEntry.upsert({
+     *   create: {
+     *     // ... data to create a JournalEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JournalEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JournalEntryUpsertArgs>(args: SelectSubset<T, JournalEntryUpsertArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of JournalEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryCountArgs} args - Arguments to filter JournalEntries to count.
+     * @example
+     * // Count the number of JournalEntries
+     * const count = await prisma.journalEntry.count({
+     *   where: {
+     *     // ... the filter for the JournalEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends JournalEntryCountArgs>(
+      args?: Subset<T, JournalEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JournalEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JournalEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JournalEntryAggregateArgs>(args: Subset<T, JournalEntryAggregateArgs>): Prisma.PrismaPromise<GetJournalEntryAggregateType<T>>
+
+    /**
+     * Group by JournalEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JournalEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JournalEntryGroupByArgs['orderBy'] }
+        : { orderBy?: JournalEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JournalEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJournalEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JournalEntry model
+   */
+  readonly fields: JournalEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JournalEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JournalEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JournalEntry model
+   */ 
+  interface JournalEntryFieldRefs {
+    readonly id: FieldRef<"JournalEntry", 'String'>
+    readonly userId: FieldRef<"JournalEntry", 'String'>
+    readonly date: FieldRef<"JournalEntry", 'DateTime'>
+    readonly observationId: FieldRef<"JournalEntry", 'String'>
+    readonly title: FieldRef<"JournalEntry", 'String'>
+    readonly body: FieldRef<"JournalEntry", 'String'>
+    readonly evidence: FieldRef<"JournalEntry", 'Json'>
+    readonly reflection: FieldRef<"JournalEntry", 'String'>
+    readonly feedback: FieldRef<"JournalEntry", 'String'>
+    readonly feedbackAt: FieldRef<"JournalEntry", 'DateTime'>
+    readonly createdAt: FieldRef<"JournalEntry", 'DateTime'>
+    readonly updatedAt: FieldRef<"JournalEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JournalEntry findUnique
+   */
+  export type JournalEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntry to fetch.
+     */
+    where: JournalEntryWhereUniqueInput
+  }
+
+  /**
+   * JournalEntry findUniqueOrThrow
+   */
+  export type JournalEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntry to fetch.
+     */
+    where: JournalEntryWhereUniqueInput
+  }
+
+  /**
+   * JournalEntry findFirst
+   */
+  export type JournalEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntry to fetch.
+     */
+    where?: JournalEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntries to fetch.
+     */
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JournalEntries.
+     */
+    cursor?: JournalEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JournalEntries.
+     */
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntry findFirstOrThrow
+   */
+  export type JournalEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntry to fetch.
+     */
+    where?: JournalEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntries to fetch.
+     */
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JournalEntries.
+     */
+    cursor?: JournalEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JournalEntries.
+     */
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntry findMany
+   */
+  export type JournalEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntries to fetch.
+     */
+    where?: JournalEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntries to fetch.
+     */
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JournalEntries.
+     */
+    cursor?: JournalEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntries.
+     */
+    skip?: number
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntry create
+   */
+  export type JournalEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JournalEntry.
+     */
+    data: XOR<JournalEntryCreateInput, JournalEntryUncheckedCreateInput>
+  }
+
+  /**
+   * JournalEntry createMany
+   */
+  export type JournalEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JournalEntries.
+     */
+    data: JournalEntryCreateManyInput | JournalEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JournalEntry createManyAndReturn
+   */
+  export type JournalEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many JournalEntries.
+     */
+    data: JournalEntryCreateManyInput | JournalEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JournalEntry update
+   */
+  export type JournalEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JournalEntry.
+     */
+    data: XOR<JournalEntryUpdateInput, JournalEntryUncheckedUpdateInput>
+    /**
+     * Choose, which JournalEntry to update.
+     */
+    where: JournalEntryWhereUniqueInput
+  }
+
+  /**
+   * JournalEntry updateMany
+   */
+  export type JournalEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JournalEntries.
+     */
+    data: XOR<JournalEntryUpdateManyMutationInput, JournalEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which JournalEntries to update
+     */
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * JournalEntry upsert
+   */
+  export type JournalEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JournalEntry to update in case it exists.
+     */
+    where: JournalEntryWhereUniqueInput
+    /**
+     * In case the JournalEntry found by the `where` argument doesn't exist, create a new JournalEntry with this data.
+     */
+    create: XOR<JournalEntryCreateInput, JournalEntryUncheckedCreateInput>
+    /**
+     * In case the JournalEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JournalEntryUpdateInput, JournalEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * JournalEntry delete
+   */
+  export type JournalEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter which JournalEntry to delete.
+     */
+    where: JournalEntryWhereUniqueInput
+  }
+
+  /**
+   * JournalEntry deleteMany
+   */
+  export type JournalEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JournalEntries to delete
+     */
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * JournalEntry without action
+   */
+  export type JournalEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17259,6 +21911,7 @@ export namespace Prisma {
     genres: 'genres',
     spotifyId: 'spotifyId',
     youtubeId: 'youtubeId',
+    popularity: 'popularity',
     createdAt: 'createdAt'
   };
 
@@ -17378,12 +22031,88 @@ export namespace Prisma {
   export type UserMonthlyStatArtistScalarFieldEnum = (typeof UserMonthlyStatArtistScalarFieldEnum)[keyof typeof UserMonthlyStatArtistScalarFieldEnum]
 
 
+  export const AudioFeatureScalarFieldEnum: {
+    id: 'id',
+    trackId: 'trackId',
+    acousticness: 'acousticness',
+    danceability: 'danceability',
+    energy: 'energy',
+    instrumentalness: 'instrumentalness',
+    liveness: 'liveness',
+    loudness: 'loudness',
+    speechiness: 'speechiness',
+    tempo: 'tempo',
+    valence: 'valence'
+  };
+
+  export type AudioFeatureScalarFieldEnum = (typeof AudioFeatureScalarFieldEnum)[keyof typeof AudioFeatureScalarFieldEnum]
+
+
+  export const BehaviorSnapshotScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    window: 'window',
+    novelty: 'novelty',
+    repeatRate: 'repeatRate',
+    genreDiversity: 'genreDiversity',
+    sessionLength: 'sessionLength',
+    peakListeningHour: 'peakListeningHour',
+    confidence: 'confidence',
+    calculatedAt: 'calculatedAt'
+  };
+
+  export type BehaviorSnapshotScalarFieldEnum = (typeof BehaviorSnapshotScalarFieldEnum)[keyof typeof BehaviorSnapshotScalarFieldEnum]
+
+
+  export const IdentitySnapshotScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    window: 'window',
+    identityId: 'identityId',
+    displayName: 'displayName',
+    score: 'score',
+    confidence: 'confidence',
+    why: 'why',
+    reflection: 'reflection',
+    engineVersion: 'engineVersion',
+    calculatedAt: 'calculatedAt'
+  };
+
+  export type IdentitySnapshotScalarFieldEnum = (typeof IdentitySnapshotScalarFieldEnum)[keyof typeof IdentitySnapshotScalarFieldEnum]
+
+
+  export const JournalEntryScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    date: 'date',
+    observationId: 'observationId',
+    title: 'title',
+    body: 'body',
+    evidence: 'evidence',
+    reflection: 'reflection',
+    feedback: 'feedback',
+    feedbackAt: 'feedbackAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type JournalEntryScalarFieldEnum = (typeof JournalEntryScalarFieldEnum)[keyof typeof JournalEntryScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -17400,6 +22129,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -17496,6 +22234,13 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
   /**
    * Deep Input Types
    */
@@ -17527,6 +22272,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeListRelationFilter
     syncLogs?: SyncLogListRelationFilter
     monthlyStats?: UserMonthlyStatListRelationFilter
+    behaviorSnapshots?: BehaviorSnapshotListRelationFilter
+    identitySnapshots?: IdentitySnapshotListRelationFilter
+    journalEntries?: JournalEntryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17552,6 +22300,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeOrderByRelationAggregateInput
     syncLogs?: SyncLogOrderByRelationAggregateInput
     monthlyStats?: UserMonthlyStatOrderByRelationAggregateInput
+    behaviorSnapshots?: BehaviorSnapshotOrderByRelationAggregateInput
+    identitySnapshots?: IdentitySnapshotOrderByRelationAggregateInput
+    journalEntries?: JournalEntryOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17580,6 +22331,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeListRelationFilter
     syncLogs?: SyncLogListRelationFilter
     monthlyStats?: UserMonthlyStatListRelationFilter
+    behaviorSnapshots?: BehaviorSnapshotListRelationFilter
+    identitySnapshots?: IdentitySnapshotListRelationFilter
+    journalEntries?: JournalEntryListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -17818,7 +22572,9 @@ export namespace Prisma {
     genres?: StringNullableFilter<"Track"> | string | null
     spotifyId?: StringNullableFilter<"Track"> | string | null
     youtubeId?: StringNullableFilter<"Track"> | string | null
+    popularity?: IntNullableFilter<"Track"> | number | null
     createdAt?: DateTimeFilter<"Track"> | Date | string
+    audioFeature?: XOR<AudioFeatureNullableRelationFilter, AudioFeatureWhereInput> | null
     playlists?: PlaylistTrackListRelationFilter
     likes?: LikeListRelationFilter
     syncLogs?: SyncLogListRelationFilter
@@ -17837,7 +22593,9 @@ export namespace Prisma {
     genres?: SortOrderInput | SortOrder
     spotifyId?: SortOrderInput | SortOrder
     youtubeId?: SortOrderInput | SortOrder
+    popularity?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    audioFeature?: AudioFeatureOrderByWithRelationInput
     playlists?: PlaylistTrackOrderByRelationAggregateInput
     likes?: LikeOrderByRelationAggregateInput
     syncLogs?: SyncLogOrderByRelationAggregateInput
@@ -17859,7 +22617,9 @@ export namespace Prisma {
     coverImg?: StringNullableFilter<"Track"> | string | null
     dominantColor?: StringNullableFilter<"Track"> | string | null
     genres?: StringNullableFilter<"Track"> | string | null
+    popularity?: IntNullableFilter<"Track"> | number | null
     createdAt?: DateTimeFilter<"Track"> | Date | string
+    audioFeature?: XOR<AudioFeatureNullableRelationFilter, AudioFeatureWhereInput> | null
     playlists?: PlaylistTrackListRelationFilter
     likes?: LikeListRelationFilter
     syncLogs?: SyncLogListRelationFilter
@@ -17878,6 +22638,7 @@ export namespace Prisma {
     genres?: SortOrderInput | SortOrder
     spotifyId?: SortOrderInput | SortOrder
     youtubeId?: SortOrderInput | SortOrder
+    popularity?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: TrackCountOrderByAggregateInput
     _avg?: TrackAvgOrderByAggregateInput
@@ -17902,6 +22663,7 @@ export namespace Prisma {
     genres?: StringNullableWithAggregatesFilter<"Track"> | string | null
     spotifyId?: StringNullableWithAggregatesFilter<"Track"> | string | null
     youtubeId?: StringNullableWithAggregatesFilter<"Track"> | string | null
+    popularity?: IntNullableWithAggregatesFilter<"Track"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Track"> | Date | string
   }
 
@@ -18510,6 +23272,354 @@ export namespace Prisma {
     artist?: StringWithAggregatesFilter<"UserMonthlyStatArtist"> | string
   }
 
+  export type AudioFeatureWhereInput = {
+    AND?: AudioFeatureWhereInput | AudioFeatureWhereInput[]
+    OR?: AudioFeatureWhereInput[]
+    NOT?: AudioFeatureWhereInput | AudioFeatureWhereInput[]
+    id?: StringFilter<"AudioFeature"> | string
+    trackId?: StringFilter<"AudioFeature"> | string
+    acousticness?: FloatFilter<"AudioFeature"> | number
+    danceability?: FloatFilter<"AudioFeature"> | number
+    energy?: FloatFilter<"AudioFeature"> | number
+    instrumentalness?: FloatFilter<"AudioFeature"> | number
+    liveness?: FloatFilter<"AudioFeature"> | number
+    loudness?: FloatFilter<"AudioFeature"> | number
+    speechiness?: FloatFilter<"AudioFeature"> | number
+    tempo?: FloatFilter<"AudioFeature"> | number
+    valence?: FloatFilter<"AudioFeature"> | number
+    track?: XOR<TrackRelationFilter, TrackWhereInput>
+  }
+
+  export type AudioFeatureOrderByWithRelationInput = {
+    id?: SortOrder
+    trackId?: SortOrder
+    acousticness?: SortOrder
+    danceability?: SortOrder
+    energy?: SortOrder
+    instrumentalness?: SortOrder
+    liveness?: SortOrder
+    loudness?: SortOrder
+    speechiness?: SortOrder
+    tempo?: SortOrder
+    valence?: SortOrder
+    track?: TrackOrderByWithRelationInput
+  }
+
+  export type AudioFeatureWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    trackId?: string
+    AND?: AudioFeatureWhereInput | AudioFeatureWhereInput[]
+    OR?: AudioFeatureWhereInput[]
+    NOT?: AudioFeatureWhereInput | AudioFeatureWhereInput[]
+    acousticness?: FloatFilter<"AudioFeature"> | number
+    danceability?: FloatFilter<"AudioFeature"> | number
+    energy?: FloatFilter<"AudioFeature"> | number
+    instrumentalness?: FloatFilter<"AudioFeature"> | number
+    liveness?: FloatFilter<"AudioFeature"> | number
+    loudness?: FloatFilter<"AudioFeature"> | number
+    speechiness?: FloatFilter<"AudioFeature"> | number
+    tempo?: FloatFilter<"AudioFeature"> | number
+    valence?: FloatFilter<"AudioFeature"> | number
+    track?: XOR<TrackRelationFilter, TrackWhereInput>
+  }, "id" | "trackId">
+
+  export type AudioFeatureOrderByWithAggregationInput = {
+    id?: SortOrder
+    trackId?: SortOrder
+    acousticness?: SortOrder
+    danceability?: SortOrder
+    energy?: SortOrder
+    instrumentalness?: SortOrder
+    liveness?: SortOrder
+    loudness?: SortOrder
+    speechiness?: SortOrder
+    tempo?: SortOrder
+    valence?: SortOrder
+    _count?: AudioFeatureCountOrderByAggregateInput
+    _avg?: AudioFeatureAvgOrderByAggregateInput
+    _max?: AudioFeatureMaxOrderByAggregateInput
+    _min?: AudioFeatureMinOrderByAggregateInput
+    _sum?: AudioFeatureSumOrderByAggregateInput
+  }
+
+  export type AudioFeatureScalarWhereWithAggregatesInput = {
+    AND?: AudioFeatureScalarWhereWithAggregatesInput | AudioFeatureScalarWhereWithAggregatesInput[]
+    OR?: AudioFeatureScalarWhereWithAggregatesInput[]
+    NOT?: AudioFeatureScalarWhereWithAggregatesInput | AudioFeatureScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AudioFeature"> | string
+    trackId?: StringWithAggregatesFilter<"AudioFeature"> | string
+    acousticness?: FloatWithAggregatesFilter<"AudioFeature"> | number
+    danceability?: FloatWithAggregatesFilter<"AudioFeature"> | number
+    energy?: FloatWithAggregatesFilter<"AudioFeature"> | number
+    instrumentalness?: FloatWithAggregatesFilter<"AudioFeature"> | number
+    liveness?: FloatWithAggregatesFilter<"AudioFeature"> | number
+    loudness?: FloatWithAggregatesFilter<"AudioFeature"> | number
+    speechiness?: FloatWithAggregatesFilter<"AudioFeature"> | number
+    tempo?: FloatWithAggregatesFilter<"AudioFeature"> | number
+    valence?: FloatWithAggregatesFilter<"AudioFeature"> | number
+  }
+
+  export type BehaviorSnapshotWhereInput = {
+    AND?: BehaviorSnapshotWhereInput | BehaviorSnapshotWhereInput[]
+    OR?: BehaviorSnapshotWhereInput[]
+    NOT?: BehaviorSnapshotWhereInput | BehaviorSnapshotWhereInput[]
+    id?: StringFilter<"BehaviorSnapshot"> | string
+    userId?: StringFilter<"BehaviorSnapshot"> | string
+    window?: StringFilter<"BehaviorSnapshot"> | string
+    novelty?: FloatFilter<"BehaviorSnapshot"> | number
+    repeatRate?: FloatFilter<"BehaviorSnapshot"> | number
+    genreDiversity?: FloatFilter<"BehaviorSnapshot"> | number
+    sessionLength?: FloatFilter<"BehaviorSnapshot"> | number
+    peakListeningHour?: IntFilter<"BehaviorSnapshot"> | number
+    confidence?: FloatFilter<"BehaviorSnapshot"> | number
+    calculatedAt?: DateTimeFilter<"BehaviorSnapshot"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type BehaviorSnapshotOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    novelty?: SortOrder
+    repeatRate?: SortOrder
+    genreDiversity?: SortOrder
+    sessionLength?: SortOrder
+    peakListeningHour?: SortOrder
+    confidence?: SortOrder
+    calculatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type BehaviorSnapshotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_window?: BehaviorSnapshotUserIdWindowCompoundUniqueInput
+    AND?: BehaviorSnapshotWhereInput | BehaviorSnapshotWhereInput[]
+    OR?: BehaviorSnapshotWhereInput[]
+    NOT?: BehaviorSnapshotWhereInput | BehaviorSnapshotWhereInput[]
+    userId?: StringFilter<"BehaviorSnapshot"> | string
+    window?: StringFilter<"BehaviorSnapshot"> | string
+    novelty?: FloatFilter<"BehaviorSnapshot"> | number
+    repeatRate?: FloatFilter<"BehaviorSnapshot"> | number
+    genreDiversity?: FloatFilter<"BehaviorSnapshot"> | number
+    sessionLength?: FloatFilter<"BehaviorSnapshot"> | number
+    peakListeningHour?: IntFilter<"BehaviorSnapshot"> | number
+    confidence?: FloatFilter<"BehaviorSnapshot"> | number
+    calculatedAt?: DateTimeFilter<"BehaviorSnapshot"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId_window">
+
+  export type BehaviorSnapshotOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    novelty?: SortOrder
+    repeatRate?: SortOrder
+    genreDiversity?: SortOrder
+    sessionLength?: SortOrder
+    peakListeningHour?: SortOrder
+    confidence?: SortOrder
+    calculatedAt?: SortOrder
+    _count?: BehaviorSnapshotCountOrderByAggregateInput
+    _avg?: BehaviorSnapshotAvgOrderByAggregateInput
+    _max?: BehaviorSnapshotMaxOrderByAggregateInput
+    _min?: BehaviorSnapshotMinOrderByAggregateInput
+    _sum?: BehaviorSnapshotSumOrderByAggregateInput
+  }
+
+  export type BehaviorSnapshotScalarWhereWithAggregatesInput = {
+    AND?: BehaviorSnapshotScalarWhereWithAggregatesInput | BehaviorSnapshotScalarWhereWithAggregatesInput[]
+    OR?: BehaviorSnapshotScalarWhereWithAggregatesInput[]
+    NOT?: BehaviorSnapshotScalarWhereWithAggregatesInput | BehaviorSnapshotScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BehaviorSnapshot"> | string
+    userId?: StringWithAggregatesFilter<"BehaviorSnapshot"> | string
+    window?: StringWithAggregatesFilter<"BehaviorSnapshot"> | string
+    novelty?: FloatWithAggregatesFilter<"BehaviorSnapshot"> | number
+    repeatRate?: FloatWithAggregatesFilter<"BehaviorSnapshot"> | number
+    genreDiversity?: FloatWithAggregatesFilter<"BehaviorSnapshot"> | number
+    sessionLength?: FloatWithAggregatesFilter<"BehaviorSnapshot"> | number
+    peakListeningHour?: IntWithAggregatesFilter<"BehaviorSnapshot"> | number
+    confidence?: FloatWithAggregatesFilter<"BehaviorSnapshot"> | number
+    calculatedAt?: DateTimeWithAggregatesFilter<"BehaviorSnapshot"> | Date | string
+  }
+
+  export type IdentitySnapshotWhereInput = {
+    AND?: IdentitySnapshotWhereInput | IdentitySnapshotWhereInput[]
+    OR?: IdentitySnapshotWhereInput[]
+    NOT?: IdentitySnapshotWhereInput | IdentitySnapshotWhereInput[]
+    id?: StringFilter<"IdentitySnapshot"> | string
+    userId?: StringFilter<"IdentitySnapshot"> | string
+    window?: StringFilter<"IdentitySnapshot"> | string
+    identityId?: StringFilter<"IdentitySnapshot"> | string
+    displayName?: StringFilter<"IdentitySnapshot"> | string
+    score?: FloatFilter<"IdentitySnapshot"> | number
+    confidence?: FloatFilter<"IdentitySnapshot"> | number
+    why?: StringFilter<"IdentitySnapshot"> | string
+    reflection?: StringFilter<"IdentitySnapshot"> | string
+    engineVersion?: StringFilter<"IdentitySnapshot"> | string
+    calculatedAt?: DateTimeFilter<"IdentitySnapshot"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type IdentitySnapshotOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    identityId?: SortOrder
+    displayName?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrder
+    why?: SortOrder
+    reflection?: SortOrder
+    engineVersion?: SortOrder
+    calculatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type IdentitySnapshotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_window_identityId?: IdentitySnapshotUserIdWindowIdentityIdCompoundUniqueInput
+    AND?: IdentitySnapshotWhereInput | IdentitySnapshotWhereInput[]
+    OR?: IdentitySnapshotWhereInput[]
+    NOT?: IdentitySnapshotWhereInput | IdentitySnapshotWhereInput[]
+    userId?: StringFilter<"IdentitySnapshot"> | string
+    window?: StringFilter<"IdentitySnapshot"> | string
+    identityId?: StringFilter<"IdentitySnapshot"> | string
+    displayName?: StringFilter<"IdentitySnapshot"> | string
+    score?: FloatFilter<"IdentitySnapshot"> | number
+    confidence?: FloatFilter<"IdentitySnapshot"> | number
+    why?: StringFilter<"IdentitySnapshot"> | string
+    reflection?: StringFilter<"IdentitySnapshot"> | string
+    engineVersion?: StringFilter<"IdentitySnapshot"> | string
+    calculatedAt?: DateTimeFilter<"IdentitySnapshot"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId_window_identityId">
+
+  export type IdentitySnapshotOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    identityId?: SortOrder
+    displayName?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrder
+    why?: SortOrder
+    reflection?: SortOrder
+    engineVersion?: SortOrder
+    calculatedAt?: SortOrder
+    _count?: IdentitySnapshotCountOrderByAggregateInput
+    _avg?: IdentitySnapshotAvgOrderByAggregateInput
+    _max?: IdentitySnapshotMaxOrderByAggregateInput
+    _min?: IdentitySnapshotMinOrderByAggregateInput
+    _sum?: IdentitySnapshotSumOrderByAggregateInput
+  }
+
+  export type IdentitySnapshotScalarWhereWithAggregatesInput = {
+    AND?: IdentitySnapshotScalarWhereWithAggregatesInput | IdentitySnapshotScalarWhereWithAggregatesInput[]
+    OR?: IdentitySnapshotScalarWhereWithAggregatesInput[]
+    NOT?: IdentitySnapshotScalarWhereWithAggregatesInput | IdentitySnapshotScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IdentitySnapshot"> | string
+    userId?: StringWithAggregatesFilter<"IdentitySnapshot"> | string
+    window?: StringWithAggregatesFilter<"IdentitySnapshot"> | string
+    identityId?: StringWithAggregatesFilter<"IdentitySnapshot"> | string
+    displayName?: StringWithAggregatesFilter<"IdentitySnapshot"> | string
+    score?: FloatWithAggregatesFilter<"IdentitySnapshot"> | number
+    confidence?: FloatWithAggregatesFilter<"IdentitySnapshot"> | number
+    why?: StringWithAggregatesFilter<"IdentitySnapshot"> | string
+    reflection?: StringWithAggregatesFilter<"IdentitySnapshot"> | string
+    engineVersion?: StringWithAggregatesFilter<"IdentitySnapshot"> | string
+    calculatedAt?: DateTimeWithAggregatesFilter<"IdentitySnapshot"> | Date | string
+  }
+
+  export type JournalEntryWhereInput = {
+    AND?: JournalEntryWhereInput | JournalEntryWhereInput[]
+    OR?: JournalEntryWhereInput[]
+    NOT?: JournalEntryWhereInput | JournalEntryWhereInput[]
+    id?: StringFilter<"JournalEntry"> | string
+    userId?: StringFilter<"JournalEntry"> | string
+    date?: DateTimeFilter<"JournalEntry"> | Date | string
+    observationId?: StringFilter<"JournalEntry"> | string
+    title?: StringFilter<"JournalEntry"> | string
+    body?: StringFilter<"JournalEntry"> | string
+    evidence?: JsonNullableFilter<"JournalEntry">
+    reflection?: StringFilter<"JournalEntry"> | string
+    feedback?: StringNullableFilter<"JournalEntry"> | string | null
+    feedbackAt?: DateTimeNullableFilter<"JournalEntry"> | Date | string | null
+    createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    updatedAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type JournalEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    observationId?: SortOrder
+    title?: SortOrder
+    body?: SortOrder
+    evidence?: SortOrderInput | SortOrder
+    reflection?: SortOrder
+    feedback?: SortOrderInput | SortOrder
+    feedbackAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type JournalEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: JournalEntryWhereInput | JournalEntryWhereInput[]
+    OR?: JournalEntryWhereInput[]
+    NOT?: JournalEntryWhereInput | JournalEntryWhereInput[]
+    userId?: StringFilter<"JournalEntry"> | string
+    date?: DateTimeFilter<"JournalEntry"> | Date | string
+    observationId?: StringFilter<"JournalEntry"> | string
+    title?: StringFilter<"JournalEntry"> | string
+    body?: StringFilter<"JournalEntry"> | string
+    evidence?: JsonNullableFilter<"JournalEntry">
+    reflection?: StringFilter<"JournalEntry"> | string
+    feedback?: StringNullableFilter<"JournalEntry"> | string | null
+    feedbackAt?: DateTimeNullableFilter<"JournalEntry"> | Date | string | null
+    createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    updatedAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type JournalEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    observationId?: SortOrder
+    title?: SortOrder
+    body?: SortOrder
+    evidence?: SortOrderInput | SortOrder
+    reflection?: SortOrder
+    feedback?: SortOrderInput | SortOrder
+    feedbackAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: JournalEntryCountOrderByAggregateInput
+    _max?: JournalEntryMaxOrderByAggregateInput
+    _min?: JournalEntryMinOrderByAggregateInput
+  }
+
+  export type JournalEntryScalarWhereWithAggregatesInput = {
+    AND?: JournalEntryScalarWhereWithAggregatesInput | JournalEntryScalarWhereWithAggregatesInput[]
+    OR?: JournalEntryScalarWhereWithAggregatesInput[]
+    NOT?: JournalEntryScalarWhereWithAggregatesInput | JournalEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JournalEntry"> | string
+    userId?: StringWithAggregatesFilter<"JournalEntry"> | string
+    date?: DateTimeWithAggregatesFilter<"JournalEntry"> | Date | string
+    observationId?: StringWithAggregatesFilter<"JournalEntry"> | string
+    title?: StringWithAggregatesFilter<"JournalEntry"> | string
+    body?: StringWithAggregatesFilter<"JournalEntry"> | string
+    evidence?: JsonNullableWithAggregatesFilter<"JournalEntry">
+    reflection?: StringWithAggregatesFilter<"JournalEntry"> | string
+    feedback?: StringNullableWithAggregatesFilter<"JournalEntry"> | string | null
+    feedbackAt?: DateTimeNullableWithAggregatesFilter<"JournalEntry"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"JournalEntry"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"JournalEntry"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -18533,6 +23643,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -18558,6 +23671,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -18583,6 +23699,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -18608,6 +23727,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -18859,7 +23981,9 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
+    audioFeature?: AudioFeatureCreateNestedOneWithoutTrackInput
     playlists?: PlaylistTrackCreateNestedManyWithoutTrackInput
     likes?: LikeCreateNestedManyWithoutTrackInput
     syncLogs?: SyncLogCreateNestedManyWithoutTrackInput
@@ -18878,7 +24002,9 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
+    audioFeature?: AudioFeatureUncheckedCreateNestedOneWithoutTrackInput
     playlists?: PlaylistTrackUncheckedCreateNestedManyWithoutTrackInput
     likes?: LikeUncheckedCreateNestedManyWithoutTrackInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutTrackInput
@@ -18897,7 +24023,9 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    audioFeature?: AudioFeatureUpdateOneWithoutTrackNestedInput
     playlists?: PlaylistTrackUpdateManyWithoutTrackNestedInput
     likes?: LikeUpdateManyWithoutTrackNestedInput
     syncLogs?: SyncLogUpdateManyWithoutTrackNestedInput
@@ -18916,7 +24044,9 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    audioFeature?: AudioFeatureUncheckedUpdateOneWithoutTrackNestedInput
     playlists?: PlaylistTrackUncheckedUpdateManyWithoutTrackNestedInput
     likes?: LikeUncheckedUpdateManyWithoutTrackNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutTrackNestedInput
@@ -18935,6 +24065,7 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
   }
 
@@ -18951,6 +24082,7 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18967,6 +24099,7 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19551,6 +24684,394 @@ export namespace Prisma {
     artist?: StringFieldUpdateOperationsInput | string
   }
 
+  export type AudioFeatureCreateInput = {
+    id?: string
+    acousticness: number
+    danceability: number
+    energy: number
+    instrumentalness: number
+    liveness: number
+    loudness: number
+    speechiness: number
+    tempo: number
+    valence: number
+    track: TrackCreateNestedOneWithoutAudioFeatureInput
+  }
+
+  export type AudioFeatureUncheckedCreateInput = {
+    id?: string
+    trackId: string
+    acousticness: number
+    danceability: number
+    energy: number
+    instrumentalness: number
+    liveness: number
+    loudness: number
+    speechiness: number
+    tempo: number
+    valence: number
+  }
+
+  export type AudioFeatureUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    acousticness?: FloatFieldUpdateOperationsInput | number
+    danceability?: FloatFieldUpdateOperationsInput | number
+    energy?: FloatFieldUpdateOperationsInput | number
+    instrumentalness?: FloatFieldUpdateOperationsInput | number
+    liveness?: FloatFieldUpdateOperationsInput | number
+    loudness?: FloatFieldUpdateOperationsInput | number
+    speechiness?: FloatFieldUpdateOperationsInput | number
+    tempo?: FloatFieldUpdateOperationsInput | number
+    valence?: FloatFieldUpdateOperationsInput | number
+    track?: TrackUpdateOneRequiredWithoutAudioFeatureNestedInput
+  }
+
+  export type AudioFeatureUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trackId?: StringFieldUpdateOperationsInput | string
+    acousticness?: FloatFieldUpdateOperationsInput | number
+    danceability?: FloatFieldUpdateOperationsInput | number
+    energy?: FloatFieldUpdateOperationsInput | number
+    instrumentalness?: FloatFieldUpdateOperationsInput | number
+    liveness?: FloatFieldUpdateOperationsInput | number
+    loudness?: FloatFieldUpdateOperationsInput | number
+    speechiness?: FloatFieldUpdateOperationsInput | number
+    tempo?: FloatFieldUpdateOperationsInput | number
+    valence?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AudioFeatureCreateManyInput = {
+    id?: string
+    trackId: string
+    acousticness: number
+    danceability: number
+    energy: number
+    instrumentalness: number
+    liveness: number
+    loudness: number
+    speechiness: number
+    tempo: number
+    valence: number
+  }
+
+  export type AudioFeatureUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    acousticness?: FloatFieldUpdateOperationsInput | number
+    danceability?: FloatFieldUpdateOperationsInput | number
+    energy?: FloatFieldUpdateOperationsInput | number
+    instrumentalness?: FloatFieldUpdateOperationsInput | number
+    liveness?: FloatFieldUpdateOperationsInput | number
+    loudness?: FloatFieldUpdateOperationsInput | number
+    speechiness?: FloatFieldUpdateOperationsInput | number
+    tempo?: FloatFieldUpdateOperationsInput | number
+    valence?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AudioFeatureUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trackId?: StringFieldUpdateOperationsInput | string
+    acousticness?: FloatFieldUpdateOperationsInput | number
+    danceability?: FloatFieldUpdateOperationsInput | number
+    energy?: FloatFieldUpdateOperationsInput | number
+    instrumentalness?: FloatFieldUpdateOperationsInput | number
+    liveness?: FloatFieldUpdateOperationsInput | number
+    loudness?: FloatFieldUpdateOperationsInput | number
+    speechiness?: FloatFieldUpdateOperationsInput | number
+    tempo?: FloatFieldUpdateOperationsInput | number
+    valence?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type BehaviorSnapshotCreateInput = {
+    id?: string
+    window: string
+    novelty: number
+    repeatRate: number
+    genreDiversity: number
+    sessionLength: number
+    peakListeningHour: number
+    confidence: number
+    calculatedAt?: Date | string
+    user: UserCreateNestedOneWithoutBehaviorSnapshotsInput
+  }
+
+  export type BehaviorSnapshotUncheckedCreateInput = {
+    id?: string
+    userId: string
+    window: string
+    novelty: number
+    repeatRate: number
+    genreDiversity: number
+    sessionLength: number
+    peakListeningHour: number
+    confidence: number
+    calculatedAt?: Date | string
+  }
+
+  export type BehaviorSnapshotUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    novelty?: FloatFieldUpdateOperationsInput | number
+    repeatRate?: FloatFieldUpdateOperationsInput | number
+    genreDiversity?: FloatFieldUpdateOperationsInput | number
+    sessionLength?: FloatFieldUpdateOperationsInput | number
+    peakListeningHour?: IntFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBehaviorSnapshotsNestedInput
+  }
+
+  export type BehaviorSnapshotUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    novelty?: FloatFieldUpdateOperationsInput | number
+    repeatRate?: FloatFieldUpdateOperationsInput | number
+    genreDiversity?: FloatFieldUpdateOperationsInput | number
+    sessionLength?: FloatFieldUpdateOperationsInput | number
+    peakListeningHour?: IntFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BehaviorSnapshotCreateManyInput = {
+    id?: string
+    userId: string
+    window: string
+    novelty: number
+    repeatRate: number
+    genreDiversity: number
+    sessionLength: number
+    peakListeningHour: number
+    confidence: number
+    calculatedAt?: Date | string
+  }
+
+  export type BehaviorSnapshotUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    novelty?: FloatFieldUpdateOperationsInput | number
+    repeatRate?: FloatFieldUpdateOperationsInput | number
+    genreDiversity?: FloatFieldUpdateOperationsInput | number
+    sessionLength?: FloatFieldUpdateOperationsInput | number
+    peakListeningHour?: IntFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BehaviorSnapshotUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    novelty?: FloatFieldUpdateOperationsInput | number
+    repeatRate?: FloatFieldUpdateOperationsInput | number
+    genreDiversity?: FloatFieldUpdateOperationsInput | number
+    sessionLength?: FloatFieldUpdateOperationsInput | number
+    peakListeningHour?: IntFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdentitySnapshotCreateInput = {
+    id?: string
+    window: string
+    identityId: string
+    displayName: string
+    score: number
+    confidence: number
+    why: string
+    reflection: string
+    engineVersion: string
+    calculatedAt?: Date | string
+    user: UserCreateNestedOneWithoutIdentitySnapshotsInput
+  }
+
+  export type IdentitySnapshotUncheckedCreateInput = {
+    id?: string
+    userId: string
+    window: string
+    identityId: string
+    displayName: string
+    score: number
+    confidence: number
+    why: string
+    reflection: string
+    engineVersion: string
+    calculatedAt?: Date | string
+  }
+
+  export type IdentitySnapshotUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    identityId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    why?: StringFieldUpdateOperationsInput | string
+    reflection?: StringFieldUpdateOperationsInput | string
+    engineVersion?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutIdentitySnapshotsNestedInput
+  }
+
+  export type IdentitySnapshotUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    identityId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    why?: StringFieldUpdateOperationsInput | string
+    reflection?: StringFieldUpdateOperationsInput | string
+    engineVersion?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdentitySnapshotCreateManyInput = {
+    id?: string
+    userId: string
+    window: string
+    identityId: string
+    displayName: string
+    score: number
+    confidence: number
+    why: string
+    reflection: string
+    engineVersion: string
+    calculatedAt?: Date | string
+  }
+
+  export type IdentitySnapshotUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    identityId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    why?: StringFieldUpdateOperationsInput | string
+    reflection?: StringFieldUpdateOperationsInput | string
+    engineVersion?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdentitySnapshotUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    identityId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    why?: StringFieldUpdateOperationsInput | string
+    reflection?: StringFieldUpdateOperationsInput | string
+    engineVersion?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryCreateInput = {
+    id?: string
+    date?: Date | string
+    observationId: string
+    title: string
+    body: string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection: string
+    feedback?: string | null
+    feedbackAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutJournalEntriesInput
+  }
+
+  export type JournalEntryUncheckedCreateInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    observationId: string
+    title: string
+    body: string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection: string
+    feedback?: string | null
+    feedbackAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JournalEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutJournalEntriesNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryCreateManyInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    observationId: string
+    title: string
+    body: string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection: string
+    feedback?: string | null
+    feedbackAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JournalEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19657,6 +25178,24 @@ export namespace Prisma {
     none?: UserMonthlyStatWhereInput
   }
 
+  export type BehaviorSnapshotListRelationFilter = {
+    every?: BehaviorSnapshotWhereInput
+    some?: BehaviorSnapshotWhereInput
+    none?: BehaviorSnapshotWhereInput
+  }
+
+  export type IdentitySnapshotListRelationFilter = {
+    every?: IdentitySnapshotWhereInput
+    some?: IdentitySnapshotWhereInput
+    none?: IdentitySnapshotWhereInput
+  }
+
+  export type JournalEntryListRelationFilter = {
+    every?: JournalEntryWhereInput
+    some?: JournalEntryWhereInput
+    none?: JournalEntryWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -19695,6 +25234,18 @@ export namespace Prisma {
   }
 
   export type UserMonthlyStatOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BehaviorSnapshotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IdentitySnapshotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JournalEntryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -19951,6 +25502,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type AudioFeatureNullableRelationFilter = {
+    is?: AudioFeatureWhereInput | null
+    isNot?: AudioFeatureWhereInput | null
+  }
+
   export type PlaylistTrackListRelationFilter = {
     every?: PlaylistTrackWhereInput
     some?: PlaylistTrackWhereInput
@@ -19974,11 +25530,13 @@ export namespace Prisma {
     genres?: SortOrder
     spotifyId?: SortOrder
     youtubeId?: SortOrder
+    popularity?: SortOrder
     createdAt?: SortOrder
   }
 
   export type TrackAvgOrderByAggregateInput = {
     duration?: SortOrder
+    popularity?: SortOrder
   }
 
   export type TrackMaxOrderByAggregateInput = {
@@ -19994,6 +25552,7 @@ export namespace Prisma {
     genres?: SortOrder
     spotifyId?: SortOrder
     youtubeId?: SortOrder
+    popularity?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -20010,11 +25569,13 @@ export namespace Prisma {
     genres?: SortOrder
     spotifyId?: SortOrder
     youtubeId?: SortOrder
+    popularity?: SortOrder
     createdAt?: SortOrder
   }
 
   export type TrackSumOrderByAggregateInput = {
     duration?: SortOrder
+    popularity?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -20417,6 +25978,309 @@ export namespace Prisma {
     artist?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type AudioFeatureCountOrderByAggregateInput = {
+    id?: SortOrder
+    trackId?: SortOrder
+    acousticness?: SortOrder
+    danceability?: SortOrder
+    energy?: SortOrder
+    instrumentalness?: SortOrder
+    liveness?: SortOrder
+    loudness?: SortOrder
+    speechiness?: SortOrder
+    tempo?: SortOrder
+    valence?: SortOrder
+  }
+
+  export type AudioFeatureAvgOrderByAggregateInput = {
+    acousticness?: SortOrder
+    danceability?: SortOrder
+    energy?: SortOrder
+    instrumentalness?: SortOrder
+    liveness?: SortOrder
+    loudness?: SortOrder
+    speechiness?: SortOrder
+    tempo?: SortOrder
+    valence?: SortOrder
+  }
+
+  export type AudioFeatureMaxOrderByAggregateInput = {
+    id?: SortOrder
+    trackId?: SortOrder
+    acousticness?: SortOrder
+    danceability?: SortOrder
+    energy?: SortOrder
+    instrumentalness?: SortOrder
+    liveness?: SortOrder
+    loudness?: SortOrder
+    speechiness?: SortOrder
+    tempo?: SortOrder
+    valence?: SortOrder
+  }
+
+  export type AudioFeatureMinOrderByAggregateInput = {
+    id?: SortOrder
+    trackId?: SortOrder
+    acousticness?: SortOrder
+    danceability?: SortOrder
+    energy?: SortOrder
+    instrumentalness?: SortOrder
+    liveness?: SortOrder
+    loudness?: SortOrder
+    speechiness?: SortOrder
+    tempo?: SortOrder
+    valence?: SortOrder
+  }
+
+  export type AudioFeatureSumOrderByAggregateInput = {
+    acousticness?: SortOrder
+    danceability?: SortOrder
+    energy?: SortOrder
+    instrumentalness?: SortOrder
+    liveness?: SortOrder
+    loudness?: SortOrder
+    speechiness?: SortOrder
+    tempo?: SortOrder
+    valence?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type BehaviorSnapshotUserIdWindowCompoundUniqueInput = {
+    userId: string
+    window: string
+  }
+
+  export type BehaviorSnapshotCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    novelty?: SortOrder
+    repeatRate?: SortOrder
+    genreDiversity?: SortOrder
+    sessionLength?: SortOrder
+    peakListeningHour?: SortOrder
+    confidence?: SortOrder
+    calculatedAt?: SortOrder
+  }
+
+  export type BehaviorSnapshotAvgOrderByAggregateInput = {
+    novelty?: SortOrder
+    repeatRate?: SortOrder
+    genreDiversity?: SortOrder
+    sessionLength?: SortOrder
+    peakListeningHour?: SortOrder
+    confidence?: SortOrder
+  }
+
+  export type BehaviorSnapshotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    novelty?: SortOrder
+    repeatRate?: SortOrder
+    genreDiversity?: SortOrder
+    sessionLength?: SortOrder
+    peakListeningHour?: SortOrder
+    confidence?: SortOrder
+    calculatedAt?: SortOrder
+  }
+
+  export type BehaviorSnapshotMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    novelty?: SortOrder
+    repeatRate?: SortOrder
+    genreDiversity?: SortOrder
+    sessionLength?: SortOrder
+    peakListeningHour?: SortOrder
+    confidence?: SortOrder
+    calculatedAt?: SortOrder
+  }
+
+  export type BehaviorSnapshotSumOrderByAggregateInput = {
+    novelty?: SortOrder
+    repeatRate?: SortOrder
+    genreDiversity?: SortOrder
+    sessionLength?: SortOrder
+    peakListeningHour?: SortOrder
+    confidence?: SortOrder
+  }
+
+  export type IdentitySnapshotUserIdWindowIdentityIdCompoundUniqueInput = {
+    userId: string
+    window: string
+    identityId: string
+  }
+
+  export type IdentitySnapshotCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    identityId?: SortOrder
+    displayName?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrder
+    why?: SortOrder
+    reflection?: SortOrder
+    engineVersion?: SortOrder
+    calculatedAt?: SortOrder
+  }
+
+  export type IdentitySnapshotAvgOrderByAggregateInput = {
+    score?: SortOrder
+    confidence?: SortOrder
+  }
+
+  export type IdentitySnapshotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    identityId?: SortOrder
+    displayName?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrder
+    why?: SortOrder
+    reflection?: SortOrder
+    engineVersion?: SortOrder
+    calculatedAt?: SortOrder
+  }
+
+  export type IdentitySnapshotMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    window?: SortOrder
+    identityId?: SortOrder
+    displayName?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrder
+    why?: SortOrder
+    reflection?: SortOrder
+    engineVersion?: SortOrder
+    calculatedAt?: SortOrder
+  }
+
+  export type IdentitySnapshotSumOrderByAggregateInput = {
+    score?: SortOrder
+    confidence?: SortOrder
+  }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type JournalEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    observationId?: SortOrder
+    title?: SortOrder
+    body?: SortOrder
+    evidence?: SortOrder
+    reflection?: SortOrder
+    feedback?: SortOrder
+    feedbackAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type JournalEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    observationId?: SortOrder
+    title?: SortOrder
+    body?: SortOrder
+    reflection?: SortOrder
+    feedback?: SortOrder
+    feedbackAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type JournalEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    observationId?: SortOrder
+    title?: SortOrder
+    body?: SortOrder
+    reflection?: SortOrder
+    feedback?: SortOrder
+    feedbackAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20494,6 +26358,27 @@ export namespace Prisma {
     connect?: UserMonthlyStatWhereUniqueInput | UserMonthlyStatWhereUniqueInput[]
   }
 
+  export type BehaviorSnapshotCreateNestedManyWithoutUserInput = {
+    create?: XOR<BehaviorSnapshotCreateWithoutUserInput, BehaviorSnapshotUncheckedCreateWithoutUserInput> | BehaviorSnapshotCreateWithoutUserInput[] | BehaviorSnapshotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BehaviorSnapshotCreateOrConnectWithoutUserInput | BehaviorSnapshotCreateOrConnectWithoutUserInput[]
+    createMany?: BehaviorSnapshotCreateManyUserInputEnvelope
+    connect?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+  }
+
+  export type IdentitySnapshotCreateNestedManyWithoutUserInput = {
+    create?: XOR<IdentitySnapshotCreateWithoutUserInput, IdentitySnapshotUncheckedCreateWithoutUserInput> | IdentitySnapshotCreateWithoutUserInput[] | IdentitySnapshotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IdentitySnapshotCreateOrConnectWithoutUserInput | IdentitySnapshotCreateOrConnectWithoutUserInput[]
+    createMany?: IdentitySnapshotCreateManyUserInputEnvelope
+    connect?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+  }
+
+  export type JournalEntryCreateNestedManyWithoutUserInput = {
+    create?: XOR<JournalEntryCreateWithoutUserInput, JournalEntryUncheckedCreateWithoutUserInput> | JournalEntryCreateWithoutUserInput[] | JournalEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutUserInput | JournalEntryCreateOrConnectWithoutUserInput[]
+    createMany?: JournalEntryCreateManyUserInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20569,6 +26454,27 @@ export namespace Prisma {
     connectOrCreate?: UserMonthlyStatCreateOrConnectWithoutUserInput | UserMonthlyStatCreateOrConnectWithoutUserInput[]
     createMany?: UserMonthlyStatCreateManyUserInputEnvelope
     connect?: UserMonthlyStatWhereUniqueInput | UserMonthlyStatWhereUniqueInput[]
+  }
+
+  export type BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BehaviorSnapshotCreateWithoutUserInput, BehaviorSnapshotUncheckedCreateWithoutUserInput> | BehaviorSnapshotCreateWithoutUserInput[] | BehaviorSnapshotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BehaviorSnapshotCreateOrConnectWithoutUserInput | BehaviorSnapshotCreateOrConnectWithoutUserInput[]
+    createMany?: BehaviorSnapshotCreateManyUserInputEnvelope
+    connect?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+  }
+
+  export type IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<IdentitySnapshotCreateWithoutUserInput, IdentitySnapshotUncheckedCreateWithoutUserInput> | IdentitySnapshotCreateWithoutUserInput[] | IdentitySnapshotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IdentitySnapshotCreateOrConnectWithoutUserInput | IdentitySnapshotCreateOrConnectWithoutUserInput[]
+    createMany?: IdentitySnapshotCreateManyUserInputEnvelope
+    connect?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+  }
+
+  export type JournalEntryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<JournalEntryCreateWithoutUserInput, JournalEntryUncheckedCreateWithoutUserInput> | JournalEntryCreateWithoutUserInput[] | JournalEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutUserInput | JournalEntryCreateOrConnectWithoutUserInput[]
+    createMany?: JournalEntryCreateManyUserInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -20741,6 +26647,48 @@ export namespace Prisma {
     deleteMany?: UserMonthlyStatScalarWhereInput | UserMonthlyStatScalarWhereInput[]
   }
 
+  export type BehaviorSnapshotUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BehaviorSnapshotCreateWithoutUserInput, BehaviorSnapshotUncheckedCreateWithoutUserInput> | BehaviorSnapshotCreateWithoutUserInput[] | BehaviorSnapshotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BehaviorSnapshotCreateOrConnectWithoutUserInput | BehaviorSnapshotCreateOrConnectWithoutUserInput[]
+    upsert?: BehaviorSnapshotUpsertWithWhereUniqueWithoutUserInput | BehaviorSnapshotUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BehaviorSnapshotCreateManyUserInputEnvelope
+    set?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+    disconnect?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+    delete?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+    connect?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+    update?: BehaviorSnapshotUpdateWithWhereUniqueWithoutUserInput | BehaviorSnapshotUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BehaviorSnapshotUpdateManyWithWhereWithoutUserInput | BehaviorSnapshotUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BehaviorSnapshotScalarWhereInput | BehaviorSnapshotScalarWhereInput[]
+  }
+
+  export type IdentitySnapshotUpdateManyWithoutUserNestedInput = {
+    create?: XOR<IdentitySnapshotCreateWithoutUserInput, IdentitySnapshotUncheckedCreateWithoutUserInput> | IdentitySnapshotCreateWithoutUserInput[] | IdentitySnapshotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IdentitySnapshotCreateOrConnectWithoutUserInput | IdentitySnapshotCreateOrConnectWithoutUserInput[]
+    upsert?: IdentitySnapshotUpsertWithWhereUniqueWithoutUserInput | IdentitySnapshotUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: IdentitySnapshotCreateManyUserInputEnvelope
+    set?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+    disconnect?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+    delete?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+    connect?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+    update?: IdentitySnapshotUpdateWithWhereUniqueWithoutUserInput | IdentitySnapshotUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: IdentitySnapshotUpdateManyWithWhereWithoutUserInput | IdentitySnapshotUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: IdentitySnapshotScalarWhereInput | IdentitySnapshotScalarWhereInput[]
+  }
+
+  export type JournalEntryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutUserInput, JournalEntryUncheckedCreateWithoutUserInput> | JournalEntryCreateWithoutUserInput[] | JournalEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutUserInput | JournalEntryCreateOrConnectWithoutUserInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutUserInput | JournalEntryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: JournalEntryCreateManyUserInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutUserInput | JournalEntryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutUserInput | JournalEntryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20895,6 +26843,48 @@ export namespace Prisma {
     deleteMany?: UserMonthlyStatScalarWhereInput | UserMonthlyStatScalarWhereInput[]
   }
 
+  export type BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BehaviorSnapshotCreateWithoutUserInput, BehaviorSnapshotUncheckedCreateWithoutUserInput> | BehaviorSnapshotCreateWithoutUserInput[] | BehaviorSnapshotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BehaviorSnapshotCreateOrConnectWithoutUserInput | BehaviorSnapshotCreateOrConnectWithoutUserInput[]
+    upsert?: BehaviorSnapshotUpsertWithWhereUniqueWithoutUserInput | BehaviorSnapshotUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BehaviorSnapshotCreateManyUserInputEnvelope
+    set?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+    disconnect?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+    delete?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+    connect?: BehaviorSnapshotWhereUniqueInput | BehaviorSnapshotWhereUniqueInput[]
+    update?: BehaviorSnapshotUpdateWithWhereUniqueWithoutUserInput | BehaviorSnapshotUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BehaviorSnapshotUpdateManyWithWhereWithoutUserInput | BehaviorSnapshotUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BehaviorSnapshotScalarWhereInput | BehaviorSnapshotScalarWhereInput[]
+  }
+
+  export type IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<IdentitySnapshotCreateWithoutUserInput, IdentitySnapshotUncheckedCreateWithoutUserInput> | IdentitySnapshotCreateWithoutUserInput[] | IdentitySnapshotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IdentitySnapshotCreateOrConnectWithoutUserInput | IdentitySnapshotCreateOrConnectWithoutUserInput[]
+    upsert?: IdentitySnapshotUpsertWithWhereUniqueWithoutUserInput | IdentitySnapshotUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: IdentitySnapshotCreateManyUserInputEnvelope
+    set?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+    disconnect?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+    delete?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+    connect?: IdentitySnapshotWhereUniqueInput | IdentitySnapshotWhereUniqueInput[]
+    update?: IdentitySnapshotUpdateWithWhereUniqueWithoutUserInput | IdentitySnapshotUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: IdentitySnapshotUpdateManyWithWhereWithoutUserInput | IdentitySnapshotUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: IdentitySnapshotScalarWhereInput | IdentitySnapshotScalarWhereInput[]
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutUserInput, JournalEntryUncheckedCreateWithoutUserInput> | JournalEntryCreateWithoutUserInput[] | JournalEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutUserInput | JournalEntryCreateOrConnectWithoutUserInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutUserInput | JournalEntryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: JournalEntryCreateManyUserInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutUserInput | JournalEntryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutUserInput | JournalEntryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -20931,6 +26921,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
   }
 
+  export type AudioFeatureCreateNestedOneWithoutTrackInput = {
+    create?: XOR<AudioFeatureCreateWithoutTrackInput, AudioFeatureUncheckedCreateWithoutTrackInput>
+    connectOrCreate?: AudioFeatureCreateOrConnectWithoutTrackInput
+    connect?: AudioFeatureWhereUniqueInput
+  }
+
   export type PlaylistTrackCreateNestedManyWithoutTrackInput = {
     create?: XOR<PlaylistTrackCreateWithoutTrackInput, PlaylistTrackUncheckedCreateWithoutTrackInput> | PlaylistTrackCreateWithoutTrackInput[] | PlaylistTrackUncheckedCreateWithoutTrackInput[]
     connectOrCreate?: PlaylistTrackCreateOrConnectWithoutTrackInput | PlaylistTrackCreateOrConnectWithoutTrackInput[]
@@ -20950,6 +26946,12 @@ export namespace Prisma {
     connectOrCreate?: SyncLogCreateOrConnectWithoutTrackInput | SyncLogCreateOrConnectWithoutTrackInput[]
     createMany?: SyncLogCreateManyTrackInputEnvelope
     connect?: SyncLogWhereUniqueInput | SyncLogWhereUniqueInput[]
+  }
+
+  export type AudioFeatureUncheckedCreateNestedOneWithoutTrackInput = {
+    create?: XOR<AudioFeatureCreateWithoutTrackInput, AudioFeatureUncheckedCreateWithoutTrackInput>
+    connectOrCreate?: AudioFeatureCreateOrConnectWithoutTrackInput
+    connect?: AudioFeatureWhereUniqueInput
   }
 
   export type PlaylistTrackUncheckedCreateNestedManyWithoutTrackInput = {
@@ -20979,6 +26981,16 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type AudioFeatureUpdateOneWithoutTrackNestedInput = {
+    create?: XOR<AudioFeatureCreateWithoutTrackInput, AudioFeatureUncheckedCreateWithoutTrackInput>
+    connectOrCreate?: AudioFeatureCreateOrConnectWithoutTrackInput
+    upsert?: AudioFeatureUpsertWithoutTrackInput
+    disconnect?: AudioFeatureWhereInput | boolean
+    delete?: AudioFeatureWhereInput | boolean
+    connect?: AudioFeatureWhereUniqueInput
+    update?: XOR<XOR<AudioFeatureUpdateToOneWithWhereWithoutTrackInput, AudioFeatureUpdateWithoutTrackInput>, AudioFeatureUncheckedUpdateWithoutTrackInput>
   }
 
   export type PlaylistTrackUpdateManyWithoutTrackNestedInput = {
@@ -21021,6 +27033,16 @@ export namespace Prisma {
     update?: SyncLogUpdateWithWhereUniqueWithoutTrackInput | SyncLogUpdateWithWhereUniqueWithoutTrackInput[]
     updateMany?: SyncLogUpdateManyWithWhereWithoutTrackInput | SyncLogUpdateManyWithWhereWithoutTrackInput[]
     deleteMany?: SyncLogScalarWhereInput | SyncLogScalarWhereInput[]
+  }
+
+  export type AudioFeatureUncheckedUpdateOneWithoutTrackNestedInput = {
+    create?: XOR<AudioFeatureCreateWithoutTrackInput, AudioFeatureUncheckedCreateWithoutTrackInput>
+    connectOrCreate?: AudioFeatureCreateOrConnectWithoutTrackInput
+    upsert?: AudioFeatureUpsertWithoutTrackInput
+    disconnect?: AudioFeatureWhereInput | boolean
+    delete?: AudioFeatureWhereInput | boolean
+    connect?: AudioFeatureWhereUniqueInput
+    update?: XOR<XOR<AudioFeatureUpdateToOneWithWhereWithoutTrackInput, AudioFeatureUpdateWithoutTrackInput>, AudioFeatureUncheckedUpdateWithoutTrackInput>
   }
 
   export type PlaylistTrackUncheckedUpdateManyWithoutTrackNestedInput = {
@@ -21469,6 +27491,70 @@ export namespace Prisma {
     update?: XOR<XOR<UserMonthlyStatUpdateToOneWithWhereWithoutTopArtistsInput, UserMonthlyStatUpdateWithoutTopArtistsInput>, UserMonthlyStatUncheckedUpdateWithoutTopArtistsInput>
   }
 
+  export type TrackCreateNestedOneWithoutAudioFeatureInput = {
+    create?: XOR<TrackCreateWithoutAudioFeatureInput, TrackUncheckedCreateWithoutAudioFeatureInput>
+    connectOrCreate?: TrackCreateOrConnectWithoutAudioFeatureInput
+    connect?: TrackWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type TrackUpdateOneRequiredWithoutAudioFeatureNestedInput = {
+    create?: XOR<TrackCreateWithoutAudioFeatureInput, TrackUncheckedCreateWithoutAudioFeatureInput>
+    connectOrCreate?: TrackCreateOrConnectWithoutAudioFeatureInput
+    upsert?: TrackUpsertWithoutAudioFeatureInput
+    connect?: TrackWhereUniqueInput
+    update?: XOR<XOR<TrackUpdateToOneWithWhereWithoutAudioFeatureInput, TrackUpdateWithoutAudioFeatureInput>, TrackUncheckedUpdateWithoutAudioFeatureInput>
+  }
+
+  export type UserCreateNestedOneWithoutBehaviorSnapshotsInput = {
+    create?: XOR<UserCreateWithoutBehaviorSnapshotsInput, UserUncheckedCreateWithoutBehaviorSnapshotsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBehaviorSnapshotsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutBehaviorSnapshotsNestedInput = {
+    create?: XOR<UserCreateWithoutBehaviorSnapshotsInput, UserUncheckedCreateWithoutBehaviorSnapshotsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBehaviorSnapshotsInput
+    upsert?: UserUpsertWithoutBehaviorSnapshotsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBehaviorSnapshotsInput, UserUpdateWithoutBehaviorSnapshotsInput>, UserUncheckedUpdateWithoutBehaviorSnapshotsInput>
+  }
+
+  export type UserCreateNestedOneWithoutIdentitySnapshotsInput = {
+    create?: XOR<UserCreateWithoutIdentitySnapshotsInput, UserUncheckedCreateWithoutIdentitySnapshotsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutIdentitySnapshotsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutIdentitySnapshotsNestedInput = {
+    create?: XOR<UserCreateWithoutIdentitySnapshotsInput, UserUncheckedCreateWithoutIdentitySnapshotsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutIdentitySnapshotsInput
+    upsert?: UserUpsertWithoutIdentitySnapshotsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutIdentitySnapshotsInput, UserUpdateWithoutIdentitySnapshotsInput>, UserUncheckedUpdateWithoutIdentitySnapshotsInput>
+  }
+
+  export type UserCreateNestedOneWithoutJournalEntriesInput = {
+    create?: XOR<UserCreateWithoutJournalEntriesInput, UserUncheckedCreateWithoutJournalEntriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJournalEntriesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutJournalEntriesNestedInput = {
+    create?: XOR<UserCreateWithoutJournalEntriesInput, UserUncheckedCreateWithoutJournalEntriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJournalEntriesInput
+    upsert?: UserUpsertWithoutJournalEntriesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJournalEntriesInput, UserUpdateWithoutJournalEntriesInput>, UserUncheckedUpdateWithoutJournalEntriesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -21702,6 +27788,44 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMatchStatusFilter<$PrismaModel>
     _max?: NestedEnumMatchStatusFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -22006,6 +28130,114 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BehaviorSnapshotCreateWithoutUserInput = {
+    id?: string
+    window: string
+    novelty: number
+    repeatRate: number
+    genreDiversity: number
+    sessionLength: number
+    peakListeningHour: number
+    confidence: number
+    calculatedAt?: Date | string
+  }
+
+  export type BehaviorSnapshotUncheckedCreateWithoutUserInput = {
+    id?: string
+    window: string
+    novelty: number
+    repeatRate: number
+    genreDiversity: number
+    sessionLength: number
+    peakListeningHour: number
+    confidence: number
+    calculatedAt?: Date | string
+  }
+
+  export type BehaviorSnapshotCreateOrConnectWithoutUserInput = {
+    where: BehaviorSnapshotWhereUniqueInput
+    create: XOR<BehaviorSnapshotCreateWithoutUserInput, BehaviorSnapshotUncheckedCreateWithoutUserInput>
+  }
+
+  export type BehaviorSnapshotCreateManyUserInputEnvelope = {
+    data: BehaviorSnapshotCreateManyUserInput | BehaviorSnapshotCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type IdentitySnapshotCreateWithoutUserInput = {
+    id?: string
+    window: string
+    identityId: string
+    displayName: string
+    score: number
+    confidence: number
+    why: string
+    reflection: string
+    engineVersion: string
+    calculatedAt?: Date | string
+  }
+
+  export type IdentitySnapshotUncheckedCreateWithoutUserInput = {
+    id?: string
+    window: string
+    identityId: string
+    displayName: string
+    score: number
+    confidence: number
+    why: string
+    reflection: string
+    engineVersion: string
+    calculatedAt?: Date | string
+  }
+
+  export type IdentitySnapshotCreateOrConnectWithoutUserInput = {
+    where: IdentitySnapshotWhereUniqueInput
+    create: XOR<IdentitySnapshotCreateWithoutUserInput, IdentitySnapshotUncheckedCreateWithoutUserInput>
+  }
+
+  export type IdentitySnapshotCreateManyUserInputEnvelope = {
+    data: IdentitySnapshotCreateManyUserInput | IdentitySnapshotCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JournalEntryCreateWithoutUserInput = {
+    id?: string
+    date?: Date | string
+    observationId: string
+    title: string
+    body: string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection: string
+    feedback?: string | null
+    feedbackAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JournalEntryUncheckedCreateWithoutUserInput = {
+    id?: string
+    date?: Date | string
+    observationId: string
+    title: string
+    body: string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection: string
+    feedback?: string | null
+    feedbackAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JournalEntryCreateOrConnectWithoutUserInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutUserInput, JournalEntryUncheckedCreateWithoutUserInput>
+  }
+
+  export type JournalEntryCreateManyUserInputEnvelope = {
+    data: JournalEntryCreateManyUserInput | JournalEntryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -22292,6 +28524,105 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"UserMonthlyStat"> | Date | string
   }
 
+  export type BehaviorSnapshotUpsertWithWhereUniqueWithoutUserInput = {
+    where: BehaviorSnapshotWhereUniqueInput
+    update: XOR<BehaviorSnapshotUpdateWithoutUserInput, BehaviorSnapshotUncheckedUpdateWithoutUserInput>
+    create: XOR<BehaviorSnapshotCreateWithoutUserInput, BehaviorSnapshotUncheckedCreateWithoutUserInput>
+  }
+
+  export type BehaviorSnapshotUpdateWithWhereUniqueWithoutUserInput = {
+    where: BehaviorSnapshotWhereUniqueInput
+    data: XOR<BehaviorSnapshotUpdateWithoutUserInput, BehaviorSnapshotUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BehaviorSnapshotUpdateManyWithWhereWithoutUserInput = {
+    where: BehaviorSnapshotScalarWhereInput
+    data: XOR<BehaviorSnapshotUpdateManyMutationInput, BehaviorSnapshotUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BehaviorSnapshotScalarWhereInput = {
+    AND?: BehaviorSnapshotScalarWhereInput | BehaviorSnapshotScalarWhereInput[]
+    OR?: BehaviorSnapshotScalarWhereInput[]
+    NOT?: BehaviorSnapshotScalarWhereInput | BehaviorSnapshotScalarWhereInput[]
+    id?: StringFilter<"BehaviorSnapshot"> | string
+    userId?: StringFilter<"BehaviorSnapshot"> | string
+    window?: StringFilter<"BehaviorSnapshot"> | string
+    novelty?: FloatFilter<"BehaviorSnapshot"> | number
+    repeatRate?: FloatFilter<"BehaviorSnapshot"> | number
+    genreDiversity?: FloatFilter<"BehaviorSnapshot"> | number
+    sessionLength?: FloatFilter<"BehaviorSnapshot"> | number
+    peakListeningHour?: IntFilter<"BehaviorSnapshot"> | number
+    confidence?: FloatFilter<"BehaviorSnapshot"> | number
+    calculatedAt?: DateTimeFilter<"BehaviorSnapshot"> | Date | string
+  }
+
+  export type IdentitySnapshotUpsertWithWhereUniqueWithoutUserInput = {
+    where: IdentitySnapshotWhereUniqueInput
+    update: XOR<IdentitySnapshotUpdateWithoutUserInput, IdentitySnapshotUncheckedUpdateWithoutUserInput>
+    create: XOR<IdentitySnapshotCreateWithoutUserInput, IdentitySnapshotUncheckedCreateWithoutUserInput>
+  }
+
+  export type IdentitySnapshotUpdateWithWhereUniqueWithoutUserInput = {
+    where: IdentitySnapshotWhereUniqueInput
+    data: XOR<IdentitySnapshotUpdateWithoutUserInput, IdentitySnapshotUncheckedUpdateWithoutUserInput>
+  }
+
+  export type IdentitySnapshotUpdateManyWithWhereWithoutUserInput = {
+    where: IdentitySnapshotScalarWhereInput
+    data: XOR<IdentitySnapshotUpdateManyMutationInput, IdentitySnapshotUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type IdentitySnapshotScalarWhereInput = {
+    AND?: IdentitySnapshotScalarWhereInput | IdentitySnapshotScalarWhereInput[]
+    OR?: IdentitySnapshotScalarWhereInput[]
+    NOT?: IdentitySnapshotScalarWhereInput | IdentitySnapshotScalarWhereInput[]
+    id?: StringFilter<"IdentitySnapshot"> | string
+    userId?: StringFilter<"IdentitySnapshot"> | string
+    window?: StringFilter<"IdentitySnapshot"> | string
+    identityId?: StringFilter<"IdentitySnapshot"> | string
+    displayName?: StringFilter<"IdentitySnapshot"> | string
+    score?: FloatFilter<"IdentitySnapshot"> | number
+    confidence?: FloatFilter<"IdentitySnapshot"> | number
+    why?: StringFilter<"IdentitySnapshot"> | string
+    reflection?: StringFilter<"IdentitySnapshot"> | string
+    engineVersion?: StringFilter<"IdentitySnapshot"> | string
+    calculatedAt?: DateTimeFilter<"IdentitySnapshot"> | Date | string
+  }
+
+  export type JournalEntryUpsertWithWhereUniqueWithoutUserInput = {
+    where: JournalEntryWhereUniqueInput
+    update: XOR<JournalEntryUpdateWithoutUserInput, JournalEntryUncheckedUpdateWithoutUserInput>
+    create: XOR<JournalEntryCreateWithoutUserInput, JournalEntryUncheckedCreateWithoutUserInput>
+  }
+
+  export type JournalEntryUpdateWithWhereUniqueWithoutUserInput = {
+    where: JournalEntryWhereUniqueInput
+    data: XOR<JournalEntryUpdateWithoutUserInput, JournalEntryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type JournalEntryUpdateManyWithWhereWithoutUserInput = {
+    where: JournalEntryScalarWhereInput
+    data: XOR<JournalEntryUpdateManyMutationInput, JournalEntryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type JournalEntryScalarWhereInput = {
+    AND?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+    OR?: JournalEntryScalarWhereInput[]
+    NOT?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+    id?: StringFilter<"JournalEntry"> | string
+    userId?: StringFilter<"JournalEntry"> | string
+    date?: DateTimeFilter<"JournalEntry"> | Date | string
+    observationId?: StringFilter<"JournalEntry"> | string
+    title?: StringFilter<"JournalEntry"> | string
+    body?: StringFilter<"JournalEntry"> | string
+    evidence?: JsonNullableFilter<"JournalEntry">
+    reflection?: StringFilter<"JournalEntry"> | string
+    feedback?: StringNullableFilter<"JournalEntry"> | string | null
+    feedbackAt?: DateTimeNullableFilter<"JournalEntry"> | Date | string | null
+    createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    updatedAt?: DateTimeFilter<"JournalEntry"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -22314,6 +28645,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -22338,6 +28672,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -22378,6 +28715,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -22402,6 +28742,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -22426,6 +28769,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -22450,6 +28796,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -22490,6 +28839,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -22514,6 +28866,40 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AudioFeatureCreateWithoutTrackInput = {
+    id?: string
+    acousticness: number
+    danceability: number
+    energy: number
+    instrumentalness: number
+    liveness: number
+    loudness: number
+    speechiness: number
+    tempo: number
+    valence: number
+  }
+
+  export type AudioFeatureUncheckedCreateWithoutTrackInput = {
+    id?: string
+    acousticness: number
+    danceability: number
+    energy: number
+    instrumentalness: number
+    liveness: number
+    loudness: number
+    speechiness: number
+    tempo: number
+    valence: number
+  }
+
+  export type AudioFeatureCreateOrConnectWithoutTrackInput = {
+    where: AudioFeatureWhereUniqueInput
+    create: XOR<AudioFeatureCreateWithoutTrackInput, AudioFeatureUncheckedCreateWithoutTrackInput>
   }
 
   export type PlaylistTrackCreateWithoutTrackInput = {
@@ -22588,6 +28974,43 @@ export namespace Prisma {
   export type SyncLogCreateManyTrackInputEnvelope = {
     data: SyncLogCreateManyTrackInput | SyncLogCreateManyTrackInput[]
     skipDuplicates?: boolean
+  }
+
+  export type AudioFeatureUpsertWithoutTrackInput = {
+    update: XOR<AudioFeatureUpdateWithoutTrackInput, AudioFeatureUncheckedUpdateWithoutTrackInput>
+    create: XOR<AudioFeatureCreateWithoutTrackInput, AudioFeatureUncheckedCreateWithoutTrackInput>
+    where?: AudioFeatureWhereInput
+  }
+
+  export type AudioFeatureUpdateToOneWithWhereWithoutTrackInput = {
+    where?: AudioFeatureWhereInput
+    data: XOR<AudioFeatureUpdateWithoutTrackInput, AudioFeatureUncheckedUpdateWithoutTrackInput>
+  }
+
+  export type AudioFeatureUpdateWithoutTrackInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    acousticness?: FloatFieldUpdateOperationsInput | number
+    danceability?: FloatFieldUpdateOperationsInput | number
+    energy?: FloatFieldUpdateOperationsInput | number
+    instrumentalness?: FloatFieldUpdateOperationsInput | number
+    liveness?: FloatFieldUpdateOperationsInput | number
+    loudness?: FloatFieldUpdateOperationsInput | number
+    speechiness?: FloatFieldUpdateOperationsInput | number
+    tempo?: FloatFieldUpdateOperationsInput | number
+    valence?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AudioFeatureUncheckedUpdateWithoutTrackInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    acousticness?: FloatFieldUpdateOperationsInput | number
+    danceability?: FloatFieldUpdateOperationsInput | number
+    energy?: FloatFieldUpdateOperationsInput | number
+    instrumentalness?: FloatFieldUpdateOperationsInput | number
+    liveness?: FloatFieldUpdateOperationsInput | number
+    loudness?: FloatFieldUpdateOperationsInput | number
+    speechiness?: FloatFieldUpdateOperationsInput | number
+    tempo?: FloatFieldUpdateOperationsInput | number
+    valence?: FloatFieldUpdateOperationsInput | number
   }
 
   export type PlaylistTrackUpsertWithWhereUniqueWithoutTrackInput = {
@@ -22673,6 +29096,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPlaylistsInput = {
@@ -22697,6 +29123,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPlaylistsInput = {
@@ -22765,6 +29194,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPlaylistsInput = {
@@ -22789,6 +29221,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PlaylistTrackUpsertWithWhereUniqueWithoutPlaylistInput = {
@@ -22847,7 +29282,9 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
+    audioFeature?: AudioFeatureCreateNestedOneWithoutTrackInput
     likes?: LikeCreateNestedManyWithoutTrackInput
     syncLogs?: SyncLogCreateNestedManyWithoutTrackInput
   }
@@ -22865,7 +29302,9 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
+    audioFeature?: AudioFeatureUncheckedCreateNestedOneWithoutTrackInput
     likes?: LikeUncheckedCreateNestedManyWithoutTrackInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutTrackInput
   }
@@ -22932,7 +29371,9 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    audioFeature?: AudioFeatureUpdateOneWithoutTrackNestedInput
     likes?: LikeUpdateManyWithoutTrackNestedInput
     syncLogs?: SyncLogUpdateManyWithoutTrackNestedInput
   }
@@ -22950,7 +29391,9 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    audioFeature?: AudioFeatureUncheckedUpdateOneWithoutTrackNestedInput
     likes?: LikeUncheckedUpdateManyWithoutTrackNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutTrackNestedInput
   }
@@ -22977,6 +29420,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikesInput = {
@@ -23001,6 +29447,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikesInput = {
@@ -23021,7 +29470,9 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
+    audioFeature?: AudioFeatureCreateNestedOneWithoutTrackInput
     playlists?: PlaylistTrackCreateNestedManyWithoutTrackInput
     syncLogs?: SyncLogCreateNestedManyWithoutTrackInput
   }
@@ -23039,7 +29490,9 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
+    audioFeature?: AudioFeatureUncheckedCreateNestedOneWithoutTrackInput
     playlists?: PlaylistTrackUncheckedCreateNestedManyWithoutTrackInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutTrackInput
   }
@@ -23082,6 +29535,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikesInput = {
@@ -23106,6 +29562,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TrackUpsertWithoutLikesInput = {
@@ -23132,7 +29591,9 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    audioFeature?: AudioFeatureUpdateOneWithoutTrackNestedInput
     playlists?: PlaylistTrackUpdateManyWithoutTrackNestedInput
     syncLogs?: SyncLogUpdateManyWithoutTrackNestedInput
   }
@@ -23150,7 +29611,9 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    audioFeature?: AudioFeatureUncheckedUpdateOneWithoutTrackNestedInput
     playlists?: PlaylistTrackUncheckedUpdateManyWithoutTrackNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutTrackNestedInput
   }
@@ -23177,6 +29640,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSwipesGivenInput = {
@@ -23201,6 +29667,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSwipesGivenInput = {
@@ -23230,6 +29699,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeCreateNestedManyWithoutSwiperInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSwipesReceivedInput = {
@@ -23254,6 +29726,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUncheckedCreateNestedManyWithoutSwiperInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSwipesReceivedInput = {
@@ -23294,6 +29769,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSwipesGivenInput = {
@@ -23318,6 +29796,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSwipesReceivedInput = {
@@ -23353,6 +29834,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUpdateManyWithoutSwiperNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSwipesReceivedInput = {
@@ -23377,6 +29861,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUncheckedUpdateManyWithoutSwiperNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMatchRooms1Input = {
@@ -23401,6 +29888,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMatchRooms1Input = {
@@ -23425,6 +29915,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMatchRooms1Input = {
@@ -23454,6 +29947,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMatchRooms2Input = {
@@ -23478,6 +29974,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMatchRooms2Input = {
@@ -23542,6 +30041,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMatchRooms1Input = {
@@ -23566,6 +30068,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutMatchRooms2Input = {
@@ -23601,6 +30106,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMatchRooms2Input = {
@@ -23625,6 +30133,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutRoomInput = {
@@ -23692,6 +30203,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesInput = {
@@ -23716,6 +30230,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesInput = {
@@ -23789,6 +30306,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -23813,6 +30333,9 @@ export namespace Prisma {
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSyncLogsInput = {
@@ -23837,6 +30360,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeCreateNestedManyWithoutSwiperInput
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSyncLogsInput = {
@@ -23861,6 +30387,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUncheckedCreateNestedManyWithoutSwiperInput
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSyncLogsInput = {
@@ -23881,7 +30410,9 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
+    audioFeature?: AudioFeatureCreateNestedOneWithoutTrackInput
     playlists?: PlaylistTrackCreateNestedManyWithoutTrackInput
     likes?: LikeCreateNestedManyWithoutTrackInput
   }
@@ -23899,7 +30430,9 @@ export namespace Prisma {
     genres?: string | null
     spotifyId?: string | null
     youtubeId?: string | null
+    popularity?: number | null
     createdAt?: Date | string
+    audioFeature?: AudioFeatureUncheckedCreateNestedOneWithoutTrackInput
     playlists?: PlaylistTrackUncheckedCreateNestedManyWithoutTrackInput
     likes?: LikeUncheckedCreateNestedManyWithoutTrackInput
   }
@@ -23942,6 +30475,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUpdateManyWithoutSwiperNestedInput
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSyncLogsInput = {
@@ -23966,6 +30502,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUncheckedUpdateManyWithoutSwiperNestedInput
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TrackUpsertWithoutSyncLogsInput = {
@@ -23992,7 +30531,9 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    audioFeature?: AudioFeatureUpdateOneWithoutTrackNestedInput
     playlists?: PlaylistTrackUpdateManyWithoutTrackNestedInput
     likes?: LikeUpdateManyWithoutTrackNestedInput
   }
@@ -24010,7 +30551,9 @@ export namespace Prisma {
     genres?: NullableStringFieldUpdateOperationsInput | string | null
     spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    audioFeature?: AudioFeatureUncheckedUpdateOneWithoutTrackNestedInput
     playlists?: PlaylistTrackUncheckedUpdateManyWithoutTrackNestedInput
     likes?: LikeUncheckedUpdateManyWithoutTrackNestedInput
   }
@@ -24037,6 +30580,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeCreateNestedManyWithoutSwiperInput
     swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMonthlyStatsInput = {
@@ -24061,6 +30607,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUncheckedCreateNestedManyWithoutSwiperInput
     swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMonthlyStatsInput = {
@@ -24141,6 +30690,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUpdateManyWithoutSwiperNestedInput
     swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMonthlyStatsInput = {
@@ -24165,6 +30717,9 @@ export namespace Prisma {
     swipesGiven?: UserSwipeUncheckedUpdateManyWithoutSwiperNestedInput
     swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserMonthlyStatTagUpsertWithWhereUniqueWithoutStatInput = {
@@ -24321,6 +30876,474 @@ export namespace Prisma {
     topTags?: UserMonthlyStatTagUncheckedUpdateManyWithoutStatNestedInput
   }
 
+  export type TrackCreateWithoutAudioFeatureInput = {
+    id?: string
+    title: string
+    artist: string
+    album?: string | null
+    duration: number
+    url: string
+    previewUrl?: string | null
+    coverImg?: string | null
+    dominantColor?: string | null
+    genres?: string | null
+    spotifyId?: string | null
+    youtubeId?: string | null
+    popularity?: number | null
+    createdAt?: Date | string
+    playlists?: PlaylistTrackCreateNestedManyWithoutTrackInput
+    likes?: LikeCreateNestedManyWithoutTrackInput
+    syncLogs?: SyncLogCreateNestedManyWithoutTrackInput
+  }
+
+  export type TrackUncheckedCreateWithoutAudioFeatureInput = {
+    id?: string
+    title: string
+    artist: string
+    album?: string | null
+    duration: number
+    url: string
+    previewUrl?: string | null
+    coverImg?: string | null
+    dominantColor?: string | null
+    genres?: string | null
+    spotifyId?: string | null
+    youtubeId?: string | null
+    popularity?: number | null
+    createdAt?: Date | string
+    playlists?: PlaylistTrackUncheckedCreateNestedManyWithoutTrackInput
+    likes?: LikeUncheckedCreateNestedManyWithoutTrackInput
+    syncLogs?: SyncLogUncheckedCreateNestedManyWithoutTrackInput
+  }
+
+  export type TrackCreateOrConnectWithoutAudioFeatureInput = {
+    where: TrackWhereUniqueInput
+    create: XOR<TrackCreateWithoutAudioFeatureInput, TrackUncheckedCreateWithoutAudioFeatureInput>
+  }
+
+  export type TrackUpsertWithoutAudioFeatureInput = {
+    update: XOR<TrackUpdateWithoutAudioFeatureInput, TrackUncheckedUpdateWithoutAudioFeatureInput>
+    create: XOR<TrackCreateWithoutAudioFeatureInput, TrackUncheckedCreateWithoutAudioFeatureInput>
+    where?: TrackWhereInput
+  }
+
+  export type TrackUpdateToOneWithWhereWithoutAudioFeatureInput = {
+    where?: TrackWhereInput
+    data: XOR<TrackUpdateWithoutAudioFeatureInput, TrackUncheckedUpdateWithoutAudioFeatureInput>
+  }
+
+  export type TrackUpdateWithoutAudioFeatureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    artist?: StringFieldUpdateOperationsInput | string
+    album?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImg?: NullableStringFieldUpdateOperationsInput | string | null
+    dominantColor?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: NullableStringFieldUpdateOperationsInput | string | null
+    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlists?: PlaylistTrackUpdateManyWithoutTrackNestedInput
+    likes?: LikeUpdateManyWithoutTrackNestedInput
+    syncLogs?: SyncLogUpdateManyWithoutTrackNestedInput
+  }
+
+  export type TrackUncheckedUpdateWithoutAudioFeatureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    artist?: StringFieldUpdateOperationsInput | string
+    album?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImg?: NullableStringFieldUpdateOperationsInput | string | null
+    dominantColor?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: NullableStringFieldUpdateOperationsInput | string | null
+    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeId?: NullableStringFieldUpdateOperationsInput | string | null
+    popularity?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlists?: PlaylistTrackUncheckedUpdateManyWithoutTrackNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutTrackNestedInput
+    syncLogs?: SyncLogUncheckedUpdateManyWithoutTrackNestedInput
+  }
+
+  export type UserCreateWithoutBehaviorSnapshotsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    username?: string | null
+    password?: string | null
+    bio?: string | null
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    playlists?: PlaylistCreateNestedManyWithoutUserInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    matchRooms1?: MatchRoomCreateNestedManyWithoutUser1Input
+    matchRooms2?: MatchRoomCreateNestedManyWithoutUser2Input
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    swipesGiven?: UserSwipeCreateNestedManyWithoutSwiperInput
+    swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
+    syncLogs?: SyncLogCreateNestedManyWithoutUserInput
+    monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBehaviorSnapshotsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    username?: string | null
+    password?: string | null
+    bio?: string | null
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    matchRooms1?: MatchRoomUncheckedCreateNestedManyWithoutUser1Input
+    matchRooms2?: MatchRoomUncheckedCreateNestedManyWithoutUser2Input
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    swipesGiven?: UserSwipeUncheckedCreateNestedManyWithoutSwiperInput
+    swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
+    syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
+    monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBehaviorSnapshotsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBehaviorSnapshotsInput, UserUncheckedCreateWithoutBehaviorSnapshotsInput>
+  }
+
+  export type UserUpsertWithoutBehaviorSnapshotsInput = {
+    update: XOR<UserUpdateWithoutBehaviorSnapshotsInput, UserUncheckedUpdateWithoutBehaviorSnapshotsInput>
+    create: XOR<UserCreateWithoutBehaviorSnapshotsInput, UserUncheckedCreateWithoutBehaviorSnapshotsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBehaviorSnapshotsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBehaviorSnapshotsInput, UserUncheckedUpdateWithoutBehaviorSnapshotsInput>
+  }
+
+  export type UserUpdateWithoutBehaviorSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    playlists?: PlaylistUpdateManyWithoutUserNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    matchRooms1?: MatchRoomUpdateManyWithoutUser1NestedInput
+    matchRooms2?: MatchRoomUpdateManyWithoutUser2NestedInput
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    swipesGiven?: UserSwipeUpdateManyWithoutSwiperNestedInput
+    swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
+    syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
+    monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBehaviorSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    matchRooms1?: MatchRoomUncheckedUpdateManyWithoutUser1NestedInput
+    matchRooms2?: MatchRoomUncheckedUpdateManyWithoutUser2NestedInput
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    swipesGiven?: UserSwipeUncheckedUpdateManyWithoutSwiperNestedInput
+    swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
+    syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
+    monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutIdentitySnapshotsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    username?: string | null
+    password?: string | null
+    bio?: string | null
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    playlists?: PlaylistCreateNestedManyWithoutUserInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    matchRooms1?: MatchRoomCreateNestedManyWithoutUser1Input
+    matchRooms2?: MatchRoomCreateNestedManyWithoutUser2Input
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    swipesGiven?: UserSwipeCreateNestedManyWithoutSwiperInput
+    swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
+    syncLogs?: SyncLogCreateNestedManyWithoutUserInput
+    monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutIdentitySnapshotsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    username?: string | null
+    password?: string | null
+    bio?: string | null
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    matchRooms1?: MatchRoomUncheckedCreateNestedManyWithoutUser1Input
+    matchRooms2?: MatchRoomUncheckedCreateNestedManyWithoutUser2Input
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    swipesGiven?: UserSwipeUncheckedCreateNestedManyWithoutSwiperInput
+    swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
+    syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
+    monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutIdentitySnapshotsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutIdentitySnapshotsInput, UserUncheckedCreateWithoutIdentitySnapshotsInput>
+  }
+
+  export type UserUpsertWithoutIdentitySnapshotsInput = {
+    update: XOR<UserUpdateWithoutIdentitySnapshotsInput, UserUncheckedUpdateWithoutIdentitySnapshotsInput>
+    create: XOR<UserCreateWithoutIdentitySnapshotsInput, UserUncheckedCreateWithoutIdentitySnapshotsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutIdentitySnapshotsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutIdentitySnapshotsInput, UserUncheckedUpdateWithoutIdentitySnapshotsInput>
+  }
+
+  export type UserUpdateWithoutIdentitySnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    playlists?: PlaylistUpdateManyWithoutUserNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    matchRooms1?: MatchRoomUpdateManyWithoutUser1NestedInput
+    matchRooms2?: MatchRoomUpdateManyWithoutUser2NestedInput
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    swipesGiven?: UserSwipeUpdateManyWithoutSwiperNestedInput
+    swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
+    syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
+    monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutIdentitySnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    matchRooms1?: MatchRoomUncheckedUpdateManyWithoutUser1NestedInput
+    matchRooms2?: MatchRoomUncheckedUpdateManyWithoutUser2NestedInput
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    swipesGiven?: UserSwipeUncheckedUpdateManyWithoutSwiperNestedInput
+    swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
+    syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
+    monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutJournalEntriesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    username?: string | null
+    password?: string | null
+    bio?: string | null
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    playlists?: PlaylistCreateNestedManyWithoutUserInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    matchRooms1?: MatchRoomCreateNestedManyWithoutUser1Input
+    matchRooms2?: MatchRoomCreateNestedManyWithoutUser2Input
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    swipesGiven?: UserSwipeCreateNestedManyWithoutSwiperInput
+    swipesReceived?: UserSwipeCreateNestedManyWithoutTargetInput
+    syncLogs?: SyncLogCreateNestedManyWithoutUserInput
+    monthlyStats?: UserMonthlyStatCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutJournalEntriesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    username?: string | null
+    password?: string | null
+    bio?: string | null
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    matchRooms1?: MatchRoomUncheckedCreateNestedManyWithoutUser1Input
+    matchRooms2?: MatchRoomUncheckedCreateNestedManyWithoutUser2Input
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    swipesGiven?: UserSwipeUncheckedCreateNestedManyWithoutSwiperInput
+    swipesReceived?: UserSwipeUncheckedCreateNestedManyWithoutTargetInput
+    syncLogs?: SyncLogUncheckedCreateNestedManyWithoutUserInput
+    monthlyStats?: UserMonthlyStatUncheckedCreateNestedManyWithoutUserInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedCreateNestedManyWithoutUserInput
+    identitySnapshots?: IdentitySnapshotUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutJournalEntriesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutJournalEntriesInput, UserUncheckedCreateWithoutJournalEntriesInput>
+  }
+
+  export type UserUpsertWithoutJournalEntriesInput = {
+    update: XOR<UserUpdateWithoutJournalEntriesInput, UserUncheckedUpdateWithoutJournalEntriesInput>
+    create: XOR<UserCreateWithoutJournalEntriesInput, UserUncheckedCreateWithoutJournalEntriesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutJournalEntriesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutJournalEntriesInput, UserUncheckedUpdateWithoutJournalEntriesInput>
+  }
+
+  export type UserUpdateWithoutJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    playlists?: PlaylistUpdateManyWithoutUserNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    matchRooms1?: MatchRoomUpdateManyWithoutUser1NestedInput
+    matchRooms2?: MatchRoomUpdateManyWithoutUser2NestedInput
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    swipesGiven?: UserSwipeUpdateManyWithoutSwiperNestedInput
+    swipesReceived?: UserSwipeUpdateManyWithoutTargetNestedInput
+    syncLogs?: SyncLogUpdateManyWithoutUserNestedInput
+    monthlyStats?: UserMonthlyStatUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    matchRooms1?: MatchRoomUncheckedUpdateManyWithoutUser1NestedInput
+    matchRooms2?: MatchRoomUncheckedUpdateManyWithoutUser2NestedInput
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    swipesGiven?: UserSwipeUncheckedUpdateManyWithoutSwiperNestedInput
+    swipesReceived?: UserSwipeUncheckedUpdateManyWithoutTargetNestedInput
+    syncLogs?: SyncLogUncheckedUpdateManyWithoutUserNestedInput
+    monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
+    behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
+    identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type AccountCreateManyUserInput = {
     id?: string
     type: string
@@ -24410,6 +31433,45 @@ export namespace Prisma {
     month: string
     totalDurationMs: number
     createdAt?: Date | string
+  }
+
+  export type BehaviorSnapshotCreateManyUserInput = {
+    id?: string
+    window: string
+    novelty: number
+    repeatRate: number
+    genreDiversity: number
+    sessionLength: number
+    peakListeningHour: number
+    confidence: number
+    calculatedAt?: Date | string
+  }
+
+  export type IdentitySnapshotCreateManyUserInput = {
+    id?: string
+    window: string
+    identityId: string
+    displayName: string
+    score: number
+    confidence: number
+    why: string
+    reflection: string
+    engineVersion: string
+    calculatedAt?: Date | string
+  }
+
+  export type JournalEntryCreateManyUserInput = {
+    id?: string
+    date?: Date | string
+    observationId: string
+    title: string
+    body: string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection: string
+    feedback?: string | null
+    feedbackAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -24695,6 +31757,123 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BehaviorSnapshotUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    novelty?: FloatFieldUpdateOperationsInput | number
+    repeatRate?: FloatFieldUpdateOperationsInput | number
+    genreDiversity?: FloatFieldUpdateOperationsInput | number
+    sessionLength?: FloatFieldUpdateOperationsInput | number
+    peakListeningHour?: IntFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BehaviorSnapshotUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    novelty?: FloatFieldUpdateOperationsInput | number
+    repeatRate?: FloatFieldUpdateOperationsInput | number
+    genreDiversity?: FloatFieldUpdateOperationsInput | number
+    sessionLength?: FloatFieldUpdateOperationsInput | number
+    peakListeningHour?: IntFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BehaviorSnapshotUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    novelty?: FloatFieldUpdateOperationsInput | number
+    repeatRate?: FloatFieldUpdateOperationsInput | number
+    genreDiversity?: FloatFieldUpdateOperationsInput | number
+    sessionLength?: FloatFieldUpdateOperationsInput | number
+    peakListeningHour?: IntFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdentitySnapshotUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    identityId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    why?: StringFieldUpdateOperationsInput | string
+    reflection?: StringFieldUpdateOperationsInput | string
+    engineVersion?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdentitySnapshotUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    identityId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    why?: StringFieldUpdateOperationsInput | string
+    reflection?: StringFieldUpdateOperationsInput | string
+    engineVersion?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdentitySnapshotUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    window?: StringFieldUpdateOperationsInput | string
+    identityId?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: FloatFieldUpdateOperationsInput | number
+    why?: StringFieldUpdateOperationsInput | string
+    reflection?: StringFieldUpdateOperationsInput | string
+    engineVersion?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PlaylistTrackCreateManyTrackInput = {
     id?: string
     playlistId: string
@@ -24972,6 +32151,22 @@ export namespace Prisma {
      * @deprecated Use UserMonthlyStatArtistDefaultArgs instead
      */
     export type UserMonthlyStatArtistArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserMonthlyStatArtistDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AudioFeatureDefaultArgs instead
+     */
+    export type AudioFeatureArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AudioFeatureDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BehaviorSnapshotDefaultArgs instead
+     */
+    export type BehaviorSnapshotArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BehaviorSnapshotDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use IdentitySnapshotDefaultArgs instead
+     */
+    export type IdentitySnapshotArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IdentitySnapshotDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JournalEntryDefaultArgs instead
+     */
+    export type JournalEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JournalEntryDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
