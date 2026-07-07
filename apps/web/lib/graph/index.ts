@@ -5,7 +5,7 @@
 export { createEntity, SEED_ENTITIES } from "./entity";
 export type { Entity, EntityType, EntityConfidence } from "./entity";
 
-export { createEdge, SEED_EDGES } from "./edge";
+export { SEED_EDGES } from "./edge";
 export type { Edge, EdgeType, FactSource } from "./edge";
 
 export { MusicKnowledgeGraph, createSeededGraph } from "./graph";

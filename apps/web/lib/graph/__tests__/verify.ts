@@ -4,7 +4,7 @@
  * 測試最新調整：
  * 1. 忠於事實，移除 Charlie Puth -> 250 直接邊。
  * 2. 遍歷引擎 (discoverBridge) 能主動尋訪多階 (Multi-depth) 的關聯路徑。
- * 3. 測試 Entity 與 Edge 上新增的所有細節屬性 (factSource, aliases, country, confidence 等)。
+ * 3. 測試 Entity 與 Edge 上新增的所有細節屬性。
  */
 
 import { createSeededGraph, discoverBridge } from "../index";
@@ -30,10 +30,10 @@ function verify() {
     entry.paths.forEach((path, idx) => {
       console.log(`   Path #${idx + 1} (length: ${path.length} steps):`);
       path.steps.forEach((step, stepIdx) => {
-        const edgeDesc = step.edge ? ` --[${step.edge.type} (${step.edge.factSource})]--> ` : "";
+        const edgeDesc = step.edge ? ` --[${step.edge.type}]--> ` : "";
         console.log(`     ${edgeDesc}${step.entity.name} (${step.entity.type})`);
-        if (step.edge) {
-          console.log(`       Fact: "${step.edge.fact}"`);
+        if (step.edge && step.edge.evidences && step.edge.evidences[0]) {
+          console.log(`       FactId: "${step.edge.evidences[0].factId}"`);
         }
       });
     });
@@ -89,11 +89,11 @@ function verify() {
 
   console.log();
 
-  // --- Test 4: 遍歷事件與細節 (Podcast Event) ---
+  // --- Test 4: 遍歷事件與細節 ---
   console.log("--- Test 4: Event entity details ---");
-  const eventNode = graph.findEntity("charlie_puth_demo_to_250");
-  if (eventNode && eventNode.type === "event" && eventNode.links?.youtube) {
-    console.log(`✅ PASS: Found event node with source links: "${eventNode.name}"`);
+  const eventNode = graph.findEntity("coachella_2022");
+  if (eventNode && eventNode.type === "event" && eventNode.metadata?.location) {
+    console.log(`✅ PASS: Found event node: "${eventNode.name}" in ${eventNode.metadata.location}`);
     passed++;
   } else {
     console.log("❌ FAIL: Event node verification failed");

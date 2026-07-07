@@ -4,9 +4,6 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { generateEraName } from "@/lib/journey/era-generator";
-import { getTodaysDiscovery } from "@/lib/discovery/discovery";
-import { formatDiscoveryForUI } from "@/lib/discovery/presenter";
-
 
 interface JournalEntry {
   id: string;
@@ -19,13 +16,44 @@ interface JournalEntry {
   feedback: string | null;
 }
 
+interface PresentedRevelation {
+  id: string;
+  title: string;
+  introduction: string;
+  steps: {
+    entityName: string;
+    type: string;
+    connectionDetails?: {
+      relation: string;
+      fact: string;
+      evidences: readonly {
+        factId: string;
+        sources: readonly {
+          type: string;
+          title: string;
+          url?: string;
+          directness: string;
+          retrievedAt?: string;
+        }[];
+      }[];
+    };
+  }[];
+  score: number;
+}
+
 export default function DashboardPage() {
   const { data: userSession, status: authStatus } = useSession();
   const navigation = useRouter();
   const [stats, setStats] = useState<any>(null);
   
-  const todaysDiscoveryRaw = getTodaysDiscovery();
-  const todaysDiscovery = formatDiscoveryForUI(todaysDiscoveryRaw);
+  // 驚喜揭露非同步狀態
+  const [revelation, setRevelation] = useState<PresentedRevelation | null>(null);
+  const [generatedList, setGeneratedList] = useState<PresentedRevelation[]>([]);
+  const [alternatives, setAlternatives] = useState<PresentedRevelation[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isLoadingRevelations, setIsLoadingRevelations] = useState(true);
+  const [showAlternatives, setShowAlternatives] = useState(false);
+  const [expandedAlternativeId, setExpandedAlternativeId] = useState<string | null>(null);
   
   const showLegacyJournal = false;
   
@@ -46,6 +74,28 @@ export default function DashboardPage() {
       navigation.push("/");
     }
   }, [authStatus, navigation]);
+
+  useEffect(() => {
+    if (authStatus === "authenticated") {
+      setIsLoadingRevelations(true);
+      fetch("/api/revelations")
+        .then((res) => res.json())
+        .then((payload) => {
+          if (payload?.data) {
+            setRevelation(payload.data.revelation);
+            if (payload.data.revelation) {
+              setGeneratedList([payload.data.revelation]);
+            }
+            setAlternatives(payload.data.alternatives || []);
+          }
+          setIsLoadingRevelations(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching revelations:", err);
+          setIsLoadingRevelations(false);
+        });
+    }
+  }, [authStatus]);
 
   useEffect(() => {
     if (authStatus === "authenticated") {
@@ -178,6 +228,34 @@ export default function DashboardPage() {
     setIsPastReflectionOpened(false);
   };
 
+  const handleGenerateMore = async () => {
+    setIsLoadingRevelations(true);
+    try {
+      const response = await fetch("/api/revelations?regenerate=true");
+      const payload = await response.json();
+      if (payload?.data?.revelation) {
+        const newRev = payload.data.revelation;
+        setGeneratedList((prev) => {
+          if (prev.some((item) => item.id === newRev.id)) {
+            return prev;
+          }
+          return [...prev, newRev];
+        });
+        if (payload.data.alternatives) {
+          setAlternatives(payload.data.alternatives);
+        }
+      }
+    } catch (err) {
+      console.error("Error generating more revelations:", err);
+    } finally {
+      setIsLoadingRevelations(false);
+    }
+  };
+
+  const removeGeneratedCard = (id: string) => {
+    setGeneratedList((prev) => prev.filter((item) => item.id !== id));
+  };
+
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
     return d.toLocaleDateString("zh-TW", { month: "long", day: "numeric" });
@@ -245,185 +323,695 @@ export default function DashboardPage() {
             animation: "fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          {/* Card Container */}
-          <div
-            style={{
-              backgroundColor: "rgba(234, 229, 224, 0.02)",
-              border: "1px solid rgba(234, 229, 224, 0.08)",
-              borderRadius: "24px",
-              padding: "2.5rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "2rem",
-              boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.08)",
-              backdropFilter: "blur(4px)",
-            }}
-          >
-            {/* Card Title */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "0.8rem",
-                  color: "var(--text-secondary)",
-                  letterSpacing: "0.15em",
-                  fontWeight: 500,
-                  textTransform: "uppercase",
-                }}
-              >
-                🎧 Today's Discovery
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "0.7rem",
-                  color: "rgba(234, 229, 224, 0.3)",
-                  border: "1px solid rgba(234, 229, 224, 0.15)",
-                  borderRadius: "100px",
-                  padding: "0.2rem 0.6rem",
-                }}
-              >
-                Confidence: {todaysDiscovery.confidenceLevel}
-              </span>
-            </div>
-
-            {/* Connection Path Visualization */}
+          {isLoadingRevelations ? (
+            /* Loading Skeleton */
             <div
+              style={{
+                backgroundColor: "rgba(234, 229, 224, 0.02)",
+                border: "1px solid rgba(234, 229, 224, 0.08)",
+                borderRadius: "24px",
+                padding: "2.5rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.5rem",
+                boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.08)",
+                backdropFilter: "blur(4px)",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ width: "120px", height: "16px", backgroundColor: "rgba(234, 229, 224, 0.05)", borderRadius: "4px" }} />
+                <div style={{ width: "80px", height: "16px", backgroundColor: "rgba(234, 229, 224, 0.05)", borderRadius: "100px" }} />
+              </div>
+              <div style={{ height: "100px", backgroundColor: "rgba(234, 229, 224, 0.03)", borderRadius: "16px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>正在從你的聆聽歷史中尋索驚喜發現...</span>
+              </div>
+            </div>
+          ) : generatedList.length === 0 ? (
+            /* No Revelation Fallback */
+            <div
+              style={{
+                backgroundColor: "rgba(234, 229, 224, 0.02)",
+                border: "1px solid rgba(234, 229, 224, 0.08)",
+                borderRadius: "24px",
+                padding: "2.5rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.5rem",
+                boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.08)",
+                backdropFilter: "blur(4px)",
+                textAlign: "center"
+              }}
+            >
+              <span style={{ fontSize: "1.2rem" }}>🧩</span>
+              <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", margin: 0 }}>
+                你最近的聆聽歷史較為單一，目前尚無足夠的跨界連通線索。
+              </p>
+            </div>
+          ) : (
+            /* Multiple Generated Cards Column */
+            <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem", width: "100%" }}>
+              {generatedList.map((rev, revIdx) => (
+                <div
+                  key={rev.id + revIdx}
+                  style={{
+                    backgroundColor: "rgba(234, 229, 224, 0.02)",
+                    border: "1px solid rgba(234, 229, 224, 0.08)",
+                    borderRadius: "24px",
+                    padding: "2.5rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "2rem",
+                    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.08)",
+                    backdropFilter: "blur(4px)",
+                    position: "relative",
+                    animation: "fadeIn 0.5s ease-out",
+                  }}
+                >
+                  {/* Close Card Button */}
+                  {generatedList.length > 1 && (
+                    <button
+                      onClick={() => removeGeneratedCard(rev.id)}
+                      style={{
+                        position: "absolute",
+                        top: "1.25rem",
+                        right: "1.25rem",
+                        background: "transparent",
+                        border: "none",
+                        color: "var(--text-secondary)",
+                        cursor: "pointer",
+                        fontSize: "0.9rem",
+                        opacity: 0.5,
+                        transition: "opacity 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.5")}
+                      title="關閉此揭露"
+                    >
+                      ✕
+                    </button>
+                  )}
+
+                  {/* Card Title */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-inter), sans-serif",
+                        fontSize: "0.8rem",
+                        color: "var(--text-secondary)",
+                        letterSpacing: "0.15em",
+                        fontWeight: 500,
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      🎧 Discovery Path #{revIdx + 1}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-inter), sans-serif",
+                        fontSize: "0.7rem",
+                        color: "rgba(234, 229, 224, 0.6)",
+                        border: "1px solid rgba(234, 229, 224, 0.15)",
+                        borderRadius: "100px",
+                        padding: "0.2rem 0.6rem",
+                      }}
+                    >
+                      Curiosity Score: {Math.round(rev.score * 100)}%
+                    </span>
+                  </div>
+
+                  {/* Connection Path Visualization */}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      padding: "1.5rem 0",
+                      backgroundColor: "rgba(234, 229, 224, 0.01)",
+                      borderRadius: "16px",
+                      border: "1px solid rgba(234, 229, 224, 0.03)",
+                    }}
+                  >
+                    {rev.steps.map((node, index) => (
+                      <div
+                        key={node.entityName + index}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                        }}
+                      >
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                          <span
+                            style={{
+                              fontFamily: "var(--font-outfit), sans-serif",
+                              fontSize: "1.15rem",
+                              fontWeight: index === rev.steps.length - 1 ? 400 : 300,
+                              color: index === rev.steps.length - 1 ? "var(--text-primary)" : "var(--text-secondary)",
+                              letterSpacing: "0.02em",
+                            }}
+                          >
+                            {node.entityName}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: "0.65rem",
+                              color: "rgba(234, 229, 224, 0.3)",
+                              textTransform: "uppercase",
+                              letterSpacing: "0.05em",
+                              marginTop: "0.1rem"
+                            }}
+                          >
+                            {node.type}
+                          </span>
+                        </div>
+
+                        {index < rev.steps.length - 1 && (
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "0.2rem 0" }}>
+                            <span
+                              style={{
+                                color: "rgba(234, 229, 224, 0.25)",
+                                fontSize: "0.8rem",
+                                fontFamily: "var(--font-inter), sans-serif",
+                              }}
+                            >
+                              ↓
+                            </span>
+                            {rev.steps[index + 1]?.connectionDetails && (
+                              <span
+                                style={{
+                                  fontSize: "0.7rem",
+                                  color: "rgba(234, 229, 224, 0.4)",
+                                  fontStyle: "italic",
+                                  textAlign: "center",
+                                  maxWidth: "280px",
+                                  margin: "0.1rem 0"
+                                }}
+                              >
+                                {rev.steps[index + 1].connectionDetails?.relation}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Divider */}
+                  <div style={{ height: "1px", backgroundColor: "rgba(234, 229, 224, 0.06)" }} />
+
+                  {/* Story Title & Summary */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-outfit), sans-serif",
+                        fontSize: "1.25rem",
+                        fontWeight: 400,
+                        margin: 0,
+                        color: "var(--text-primary)"
+                      }}
+                    >
+                      {rev.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-outfit), sans-serif",
+                        fontSize: "1.02rem",
+                        fontWeight: 300,
+                        lineHeight: "1.7",
+                        color: "var(--text-secondary)",
+                        margin: 0,
+                        letterSpacing: "0.01em",
+                        whiteSpace: "pre-line",
+                      }}
+                    >
+                      {rev.introduction}
+                    </p>
+                    
+                    {/* Dynamically build narration based on path facts */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", marginTop: "0.5rem" }}>
+                      {rev.steps.map((step, idx) => {
+                        if (!step.connectionDetails) return null;
+                        return (
+                          <div
+                            key={idx}
+                            style={{
+                              fontSize: "0.9rem",
+                              backgroundColor: "rgba(234, 229, 224, 0.01)",
+                              borderLeft: "2px solid rgba(234, 229, 224, 0.15)",
+                              padding: "0.5rem 0.75rem",
+                              borderRadius: "0 8px 8px 0"
+                            }}
+                          >
+                            <span style={{ color: "var(--text-primary)", fontWeight: 400 }}>{step.entityName}</span>:{" "}
+                            <span style={{ color: "var(--text-secondary)", fontWeight: 300 }}>{step.connectionDetails.fact}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div style={{ height: "1px", backgroundColor: "rgba(234, 229, 224, 0.06)" }} />
+
+                  {/* Sources */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-inter), sans-serif",
+                        fontSize: "0.7rem",
+                        color: "var(--text-secondary)",
+                        letterSpacing: "0.1em",
+                        fontWeight: 600,
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Sources {`{圖譜信賴來源}`}
+                    </span>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                      {rev.steps.map((s, sIdx) => {
+                        if (!s.connectionDetails?.evidences) return null;
+                        return s.connectionDetails.evidences.map((ev, evIdx) => (
+                          <div key={`${sIdx}-${evIdx}`} style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                            {ev.sources.map((src: any, srcIdx) => {
+                              const hasUrl = !!src.url;
+                              const availability = src.status?.availability || "Unknown";
+                              const statusDot = 
+                                availability === "Live" ? "🟢" :
+                                availability === "Archived" ? "🟡" :
+                                availability === "Dead" ? "🔴" : "⚪";
+                              const isDead = availability === "Dead";
+                              
+                              return (
+                                <div
+                                  key={srcIdx}
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "baseline",
+                                    gap: "0.4rem",
+                                    fontFamily: "var(--font-inter), sans-serif",
+                                    fontSize: "0.78rem",
+                                    color: "var(--text-secondary)",
+                                    lineHeight: "1.4"
+                                  }}
+                                >
+                                  <span style={{ fontSize: "0.65rem", marginRight: "0.15rem" }} title={`來源存活狀態: ${availability}`}>
+                                    {statusDot}
+                                  </span>
+                                  <span
+                                    style={{
+                                      fontSize: "0.65rem",
+                                      color: "rgba(234, 229, 224, 0.4)",
+                                      border: "1px solid rgba(234, 229, 224, 0.12)",
+                                      borderRadius: "3px",
+                                      padding: "0.05rem 0.25rem",
+                                      textTransform: "uppercase",
+                                      fontWeight: 500
+                                    }}
+                                  >
+                                    {src.type}
+                                  </span>
+                                  {hasUrl ? (
+                                    <a
+                                      href={src.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{
+                                        color: isDead ? "rgba(234, 229, 224, 0.45)" : "var(--text-primary)",
+                                        textDecoration: isDead ? "line-through underline" : "underline",
+                                        textUnderlineOffset: "3px",
+                                        transition: "color 0.2s ease"
+                                      }}
+                                    >
+                                      {src.title} ↗
+                                    </a>
+                                  ) : (
+                                    <span style={{ color: isDead ? "rgba(234, 229, 224, 0.45)" : "inherit", textDecoration: isDead ? "line-through" : "none" }}>
+                                      {src.title} {isDead && "(無法存取)"}
+                                    </span>
+                                  )}
+                                  {src.archive && (
+                                    <span style={{ fontSize: "0.72rem", color: "rgba(234, 229, 224, 0.45)", marginLeft: "0.15rem" }}>
+                                      (
+                                      <a
+                                        href={src.archive.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                          color: "rgba(234, 229, 224, 0.65)",
+                                          textDecoration: "underline",
+                                          textUnderlineOffset: "2px"
+                                        }}
+                                        title={`備份服務: ${src.archive.provider} | 備份時間: ${src.archive.capturedAt}${src.archive.snapshotId ? ` | 快照ID: ${src.archive.snapshotId}` : ""}`}
+                                      >
+                                        備份 ↗
+                                      </a>
+                                      )
+                                    </span>
+                                  )}
+                                  <span style={{ fontSize: "0.7rem", color: "rgba(234, 229, 224, 0.25)" }}>
+                                    ({src.directness === "Primary" ? "直接證據" : "次要證據"})
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ));
+                      })}
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* Action Button Container (Placed at bottom of card column) */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  gap: "1rem",
+                  width: "100%",
+                  marginTop: "0.5rem",
+                }}
+              >
+                {/* Generate More Button */}
+                <button
+                  disabled={isLoadingRevelations}
+                  style={{
+                    padding: "0.75rem 2rem",
+                    borderRadius: "100px",
+                    border: "1px solid rgba(234, 229, 224, 0.15)",
+                    backgroundColor: "transparent",
+                    color: "var(--text-primary)",
+                    fontFamily: "var(--font-inter), sans-serif",
+                    fontSize: "0.85rem",
+                    fontWeight: 400,
+                    cursor: isLoadingRevelations ? "not-allowed" : "pointer",
+                    transition: "all 0.3s ease",
+                    letterSpacing: "0.05em",
+                    opacity: isLoadingRevelations ? 0.5 : 1,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isLoadingRevelations) {
+                      e.currentTarget.style.backgroundColor = "rgba(234, 229, 224, 0.05)";
+                      e.currentTarget.style.borderColor = "var(--text-primary)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isLoadingRevelations) {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                      e.currentTarget.style.borderColor = "rgba(234, 229, 224, 0.15)";
+                    }
+                  }}
+                  onClick={handleGenerateMore}
+                >
+                  {isLoadingRevelations ? "Shuffling... 🔮" : "Generate 🔮"}
+                </button>
+
+                {/* Explore Alternatives Button */}
+                {alternatives.length > 0 && (
+                  <button
+                    style={{
+                      padding: "0.75rem 2rem",
+                      borderRadius: "100px",
+                      border: showAlternatives ? "1px solid var(--text-primary)" : "1px solid rgba(234, 229, 224, 0.15)",
+                      backgroundColor: showAlternatives ? "rgba(234, 229, 224, 0.05)" : "transparent",
+                      color: "var(--text-primary)",
+                      fontFamily: "var(--font-inter), sans-serif",
+                      fontSize: "0.85rem",
+                      fontWeight: 400,
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                      letterSpacing: "0.05em",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "rgba(234, 229, 224, 0.05)";
+                      e.currentTarget.style.borderColor = "var(--text-primary)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!showAlternatives) {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.borderColor = "rgba(234, 229, 224, 0.15)";
+                      }
+                    }}
+                    onClick={() => setShowAlternatives(!showAlternatives)}
+                  >
+                    {showAlternatives ? "Close Alternatives ↑" : `Explore Alternatives (${alternatives.length}) →`}
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* Alternatives (Rabbit Hole) Panel */}
+        {showAlternatives && alternatives.length > 0 && (() => {
+          // 按照第一個 Known Artist 節點進行分組
+          const grouped: Record<string, PresentedRevelation[]> = {};
+          alternatives.forEach((alt) => {
+            const artistGroup = alt.steps[0]?.entityName || "其他線索";
+            if (!grouped[artistGroup]) {
+              grouped[artistGroup] = [];
+            }
+            grouped[artistGroup].push(alt);
+          });
+
+          // 模糊搜尋過濾
+          const query = searchQuery.trim().toLowerCase();
+          const filteredGroups = Object.keys(grouped).reduce((acc, artistName) => {
+            if (!query) {
+              acc[artistName] = grouped[artistName];
+              return acc;
+            }
+            const matchesArtist = artistName.toLowerCase().includes(query);
+            const matchingPaths = grouped[artistName].filter((alt) => {
+              const matchesTitle = alt.title.toLowerCase().includes(query);
+              const matchesSteps = alt.steps.some((step) =>
+                step.entityName.toLowerCase().includes(query)
+              );
+              return matchesTitle || matchesSteps;
+            });
+            if (matchesArtist || matchingPaths.length > 0) {
+              acc[artistName] = matchesArtist ? grouped[artistName] : matchingPaths;
+            }
+            return acc;
+          }, {} as Record<string, PresentedRevelation[]>);
+
+          const totalFilteredPaths = Object.values(filteredGroups).reduce((sum, list) => sum + list.length, 0);
+
+          return (
+            <section
               style={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "1.5rem 0",
-                backgroundColor: "rgba(234, 229, 224, 0.01)",
-                borderRadius: "16px",
-                border: "1px solid rgba(234, 229, 224, 0.03)",
+                gap: "1.5rem",
+                marginTop: "-2rem",
+                animation: "fadeIn 0.4s ease-out",
               }}
             >
-              {todaysDiscovery.visualizationPath.map((node, index) => (
-                <div
-                  key={node}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "0 0.5rem" }}>
+                <span
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.5rem",
+                    fontFamily: "var(--font-inter), sans-serif",
+                    fontSize: "0.75rem",
+                    color: "var(--text-secondary)",
+                    letterSpacing: "0.1em",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-outfit), sans-serif",
-                      fontSize: "1.15rem",
-                      fontWeight: 300,
-                      color: index === todaysDiscovery.visualizationPath.length - 1 ? "var(--text-primary)" : "var(--text-secondary)",
-                      letterSpacing: "0.02em",
-                    }}
-                  >
-                    {node}
-                  </span>
-                  {index < todaysDiscovery.visualizationPath.length - 1 && (
-                    <span
-                      style={{
-                        color: "rgba(234, 229, 224, 0.25)",
-                        fontSize: "0.8rem",
-                        fontFamily: "var(--font-inter), sans-serif",
-                      }}
-                    >
-                      ↓
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
+                  🕳️ Music Rabbit Holes {`{其餘關聯線索}`}
+                </span>
+                <span style={{ fontSize: "0.7rem", color: "var(--text-secondary)", fontFamily: "var(--font-inter), sans-serif" }}>
+                  共 {totalFilteredPaths} 條符合
+                </span>
+              </div>
 
-            {/* Divider */}
-            <div style={{ height: "1px", backgroundColor: "rgba(234, 229, 224, 0.06)" }} />
+              {/* Search Bar */}
+              <div style={{ padding: "0 0.5rem" }}>
+                <input
+                  type="text"
+                  placeholder="搜尋藝人、歌名或音樂事件..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "0.75rem 1.25rem",
+                    borderRadius: "12px",
+                    border: "1px solid rgba(234, 229, 224, 0.08)",
+                    backgroundColor: "rgba(234, 229, 224, 0.02)",
+                    color: "var(--text-primary)",
+                    fontFamily: "var(--font-inter), sans-serif",
+                    fontSize: "0.85rem",
+                    outline: "none",
+                    transition: "all 0.3s ease",
+                  }}
+                  onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(234, 229, 224, 0.3)")}
+                  onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(234, 229, 224, 0.08)")}
+                />
+              </div>
 
-            {/* Story Summary */}
-            <p
-              style={{
-                fontFamily: "var(--font-outfit), sans-serif",
-                fontSize: "1.05rem",
-                fontWeight: 300,
-                lineHeight: "1.8",
-                color: "var(--text-primary)",
-                margin: 0,
-                letterSpacing: "0.01em",
-                whiteSpace: "pre-line",
-              }}
-            >
-              {todaysDiscovery.storySummary}
-            </p>
+              {/* Grouped Artist Panels */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+                {Object.keys(filteredGroups).map((artistName) => {
+                  const pathsInGroup = filteredGroups[artistName];
+                  if (pathsInGroup.length === 0) return null;
 
-            {/* Divider */}
-            <div style={{ height: "1px", backgroundColor: "rgba(234, 229, 224, 0.06)" }} />
+                  return (
+                    <div key={artistName} style={{ display: "flex", flexDirection: "column", gap: "0.75rem", padding: "0 0.5rem" }}>
+                      {/* Group Header */}
+                      <div
+                        style={{
+                          fontFamily: "var(--font-outfit), sans-serif",
+                          fontSize: "0.95rem",
+                          fontWeight: 400,
+                          color: "var(--text-primary)",
+                          borderBottom: "1px solid rgba(234, 229, 224, 0.06)",
+                          paddingBottom: "0.4rem",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center"
+                        }}
+                      >
+                        <span>🎤 {artistName}</span>
+                        <span style={{ fontSize: "0.7rem", color: "var(--text-secondary)", fontFamily: "var(--font-inter), sans-serif" }}>
+                          {pathsInGroup.length} 條線索
+                        </span>
+                      </div>
 
-            {/* Sources */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "0.7rem",
-                  color: "var(--text-secondary)",
-                  letterSpacing: "0.1em",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                Sources {`{圖譜信賴來源}`}
-              </span>
-              <ul
-                style={{
-                  margin: 0,
-                  paddingLeft: "1.1rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.4rem",
-                  color: "var(--text-secondary)",
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "0.8rem",
-                  lineHeight: "1.5",
-                }}
-              >
-                {todaysDiscovery.sourcesList.map((src) => (
-                  <li key={src} style={{ listStyleType: "circle" }}>
-                    {src}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Action Button */}
-            <button
-              style={{
-                alignSelf: "flex-end",
-                marginTop: "1rem",
-                padding: "0.75rem 2rem",
-                borderRadius: "100px",
-                border: "1px solid rgba(234, 229, 224, 0.15)",
-                backgroundColor: "transparent",
-                color: "var(--text-primary)",
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: "0.85rem",
-                fontWeight: 400,
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                letterSpacing: "0.05em",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(234, 229, 224, 0.05)";
-                e.currentTarget.style.borderColor = "var(--text-primary)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.borderColor = "rgba(234, 229, 224, 0.15)";
-              }}
-              onClick={() => alert("發現圖譜擴展中...")}
-            >
-              Explore →
-            </button>
-          </div>
-        </section>
+                      {/* Paths List in Group */}
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                        {pathsInGroup.map((alt) => {
+                          const isExpanded = expandedAlternativeId === alt.id;
+                          return (
+                            <div
+                              key={alt.id}
+                              style={{
+                                backgroundColor: "rgba(234, 229, 224, 0.01)",
+                                border: "1px solid rgba(234, 229, 224, 0.04)",
+                                borderRadius: "16px",
+                                padding: "1.25rem",
+                                cursor: "pointer",
+                                transition: "all 0.2s ease",
+                              }}
+                              onClick={() => setExpandedAlternativeId(isExpanded ? null : alt.id)}
+                            >
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <h4
+                                  style={{
+                                    fontFamily: "var(--font-outfit), sans-serif",
+                                    fontSize: "0.92rem",
+                                    fontWeight: 400,
+                                    margin: 0,
+                                    color: "var(--text-secondary)"
+                                  }}
+                                >
+                                  {alt.title}
+                                </h4>
+                                <span style={{ fontSize: "0.7rem", color: "var(--text-secondary)" }}>
+                                  {isExpanded ? "[收折 ↑]" : "[展開 ↓]"}
+                                </span>
+                              </div>
+                              
+                              {isExpanded && (
+                                <div
+                                  style={{
+                                    marginTop: "1rem",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "1rem",
+                                    borderTop: "1px solid rgba(234, 229, 224, 0.05)",
+                                    paddingTop: "1rem",
+                                    animation: "fadeIn 0.2s ease"
+                                  }}
+                                  onClick={(e) => e.stopPropagation()} // 避免觸發收折
+                                >
+                                  <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", margin: 0, lineHeight: "1.5" }}>
+                                    {alt.introduction}
+                                  </p>
+                                  
+                                  <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                                    {alt.steps.map((step, idx) => (
+                                      <div key={idx} style={{ display: "flex", flexDirection: "column", gap: "0.15rem", paddingLeft: "0.5rem" }}>
+                                        <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
+                                          <span style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 400 }}>
+                                            {idx > 0 ? "↓ " : ""}{step.entityName}
+                                          </span>
+                                          <span style={{ fontSize: "0.6rem", color: "rgba(234, 229, 224, 0.3)" }}>
+                                            ({step.type})
+                                          </span>
+                                        </div>
+                                        {step.connectionDetails && (
+                                          <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", paddingLeft: "1rem", marginTop: "0.15rem" }}>
+                                            <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontStyle: "italic" }}>
+                                              ↳ {step.connectionDetails.fact}
+                                            </div>
+                                            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginTop: "0.05rem" }}>
+                                              {step.connectionDetails.evidences?.flatMap(ev => ev.sources).map((src: any, srcIdx) => {
+                                                 const availability = src.status?.availability || "Unknown";
+                                                 const statusDot = 
+                                                   availability === "Live" ? "🟢" :
+                                                   availability === "Archived" ? "🟡" :
+                                                   availability === "Dead" ? "🔴" : "⚪";
+                                                 const isDead = availability === "Dead";
+                                                 
+                                                 return (
+                                                   <span key={srcIdx} style={{ fontSize: "0.7rem", color: isDead ? "rgba(234, 229, 224, 0.35)" : "rgba(234, 229, 224, 0.45)", display: "inline-flex", alignItems: "baseline", gap: "0.2rem" }}>
+                                                     <span>{statusDot}</span>
+                                                     <span style={{ fontSize: "0.65rem", color: "rgba(234, 229, 224, 0.3)" }}>[{src.type}]</span>
+                                                     {src.url ? (
+                                                       <a
+                                                         href={src.url}
+                                                         target="_blank"
+                                                         rel="noopener noreferrer"
+                                                         style={{
+                                                           textDecoration: "underline",
+                                                           color: "inherit",
+                                                           textDecorationLine: isDead ? "line-through underline" : "underline"
+                                                         }}
+                                                       >
+                                                         {src.title} ↗
+                                                       </a>
+                                                      ) : (
+                                                       <span style={{ textDecoration: isDead ? "line-through" : "none" }}>{src.title}</span>
+                                                      )}
+                                                      {src.archive && (
+                                                        <a
+                                                          href={src.archive.url}
+                                                          target="_blank"
+                                                          rel="noopener noreferrer"
+                                                          style={{
+                                                            color: "rgba(234, 229, 224, 0.55)",
+                                                            textDecoration: "underline",
+                                                            fontSize: "0.68rem"
+                                                          }}
+                                                          title={`備份: ${src.archive.provider} | ${src.archive.capturedAt}`}
+                                                        >
+                                                          (備份 ↗)
+                                                        </a>
+                                                      )}
+                                                   </span>
+                                                 );
+                                               })}</div>
+                                          </div>
+                                        )}
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })()}
 
         {/* 1. Curiosity Loop (開場引導狀態) */}
         {showLegacyJournal && isCuriosityLoop && activeJournal && bodyParagraphs.length >= 3 && (

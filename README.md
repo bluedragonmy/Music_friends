@@ -3,10 +3,17 @@
 > **Most music apps remember what you listened to. Very few help you understand why it matters.**
 >
 > *(絕大多數音樂 App 僅僅記錄了你聽過什麼。極少數能協助你理解為什麼這對你重要。)*
+>
+> **Reveal the hidden connections behind what people already love.**
+
+> **"Every commit should either improve a revelation or help validate one."**
+
+### ⚠️ Architecture Freeze
+Until Research Sprint 1 finishes, no architectural refactoring is allowed unless it directly enables user testing or fixes a blocking defect. Do not introduce new engines, layers, DTOs, or abstractions.
 
 ---
 
-This repository contains the codebase for **μ(sic)**, a platform designed to reveal the hidden connections and stories behind the music you experience.
+This repository contains the codebase for **μ(sic)**, a platform designed to reveal the hidden connections behind what people already love.
 
 ## System Architecture of Revelation {揭露的系統層級架構}
 

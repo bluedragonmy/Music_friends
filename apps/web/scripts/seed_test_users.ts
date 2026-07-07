@@ -1,6 +1,6 @@
 /**
  * seed_test_users.ts
- * 塞入假用戶資料，並透過 Spotify Search API 將歌曲資訊與真實的 Spotify Track ID (及封面等) 自動關聯。
+ * 塞入五種不同音樂人格的用戶資料。
  * 執行方式：npx tsx scripts/seed_test_users.ts
  */
 
@@ -9,96 +9,69 @@ import dotenv from "dotenv";
 import path from "path";
 import { fetchFallbackPreviewUrl } from "../lib/audio";
 
-// 載入 .env 設定
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
-
 const prisma = new PrismaClient();
 
-
-// ── 假用戶資料設定 ──────────────────────────────────────────────────────
+// ── 五種不同音樂人格用戶資料設定 ───────────────────────────────────────
 const TEST_USERS = [
   {
-    name: "測試用戶 A（高度相似）",
+    name: "User A (Hip-Hop 樂迷)",
     email: "test_a@example.com",
-    bio: "喜歡周杰倫和五月天的樂迷",
+    bio: "只聽美國嘻哈與饒舌音樂",
     tracks: [
-      { title: "七里香", artist: "周杰倫", album: "七里香" },
-      { title: "稻香", artist: "周杰倫", album: "魔杰座" },
-      { title: "突然好想你", artist: "五月天", album: "後青春期的詩" },
-      { title: "傷心的人別聽慢歌", artist: "五月天", album: "為愛而生" },
-      { title: "普通朋友", artist: "陶喆", album: "I'm OK" },
+      { title: "Sicko Mode", artist: "Travis Scott", album: "Astroworld" },
+      { title: "Humble", artist: "Kendrick Lamar", album: "DAMN." },
+      { title: "God's Plan", artist: "Drake", album: "Scorpion" },
     ],
   },
   {
-    name: "測試用戶 B（中度相似）",
+    name: "User B (K-pop 追星族)",
     email: "test_b@example.com",
-    bio: "獨立音樂愛好者",
+    bio: "熱愛新世代 K-pop 女團，特別是 NewJeans",
     tracks: [
-      { title: "不能說的秘密", artist: "周杰倫", album: "不能說的秘密" },
-      { title: "Daydreaming", artist: "Radiohead", album: "A Moon Shaped Pool" },
-      { title: "Shape of You", artist: "Ed Sheeran", album: "÷" },
-      { title: "Blinding Lights", artist: "The Weeknd", album: "After Hours" },
-      { title: "Bad Guy", artist: "Billie Eilish", album: "WHEN WE ALL FALL ASLEEP" },
+      { title: "Attention", artist: "NewJeans", album: "New Jeans" },
+      { title: "Hype Boy", artist: "NewJeans", album: "New Jeans" },
+      { title: "Ditto", artist: "NewJeans", album: "OMG" },
     ],
   },
   {
-    name: "測試用戶 C（低度相似）",
+    name: "User C (幕後製作人 Nerd)",
     email: "test_c@example.com",
-    bio: "歐美流行樂迷",
+    bio: "買唱片一定會看 Credits，超迷 250 與 Jack Antonoff",
     tracks: [
-      { title: "Flowers", artist: "Miley Cyrus", album: "Endless Summer Vacation" },
-      { title: "As It Was", artist: "Harry Styles", album: "Harry's House" },
-      { title: "Anti-Hero", artist: "Taylor Swift", album: "Midnights" },
-      { title: "Unholy", artist: "Sam Smith", album: "Gloria" },
-      { title: "Calm Down", artist: "Rema", album: "Calm Down" },
+      { title: "Attention", artist: "NewJeans", album: "New Jeans" },
+      { title: "Melodrama", artist: "Lorde", album: "Melodrama" },
+      { title: "1989", artist: "Taylor Swift", album: "1989" },
     ],
   },
   {
-    name: "測試用戶 D（完全不相似）",
+    name: "User D (Only Taylor Swift 粉絲)",
     email: "test_d@example.com",
-    bio: "爵士與古典樂迷",
+    bio: "Swiftie，除了 Taylor Swift 之外什麼都不聽",
     tracks: [
-      { title: "Autumn Leaves", artist: "Miles Davis", album: "Portrait in Jazz" },
-      { title: "So What", artist: "Miles Davis", album: "Kind of Blue" },
-      { title: "Moonlight Sonata", artist: "Beethoven", album: "Classical Essentials" },
-      { title: "Take Five", artist: "Dave Brubeck", album: "Time Out" },
-      { title: "Blue in Green", artist: "Bill Evans", album: "Kind of Blue" },
+      { title: "Anti-Hero", artist: "Taylor Swift", album: "Midnights" },
+      { title: "Blank Space", artist: "Taylor Swift", album: "1989" },
+      { title: "Cruel Summer", artist: "Taylor Swift", album: "Lover" },
     ],
   },
   {
-    name: "測試用戶 E（五月天愛好者）",
+    name: "User E (純粹 Jazz 聽眾)",
     email: "test_e@example.com",
-    bio: "五月天死忠粉",
+    bio: "只沉浸在經典爵士與小號的世界中",
     tracks: [
-      { title: "乾杯", artist: "五月天", album: "第二人生" },
-      { title: "知足", artist: "五月天", album: "知足" },
-      { title: "頑固", artist: "五月天", album: "自傳" },
-      { title: "聽不到", artist: "梁靜茹", album: "燕子" },
-      { title: "我不願讓你一個人", artist: "五月天", album: "第二人生" },
-    ],
-  },
-  {
-    name: "測試用戶 F（Silent User）",
-    email: "test_silent@example.com",
-    bio: "安靜沉靜的聽歌者",
-    tracks: [
-      { title: "Daydreaming", artist: "Radiohead", album: "A Moon Shaped Pool" },
-      { title: "Gymnopédie No. 1", artist: "Erik Satie", album: "Gymnopédies" },
-      { title: "Space Song", artist: "Beach House", album: "Depression Cherry" },
-      { title: "Intro", artist: "The xx", album: "xx" },
-      { title: "Youth", artist: "Daughter", album: "If You Leave" },
+      { title: "So What", artist: "Miles Davis", album: "Kind of Blue" },
+      { title: "Autumn Leaves", artist: "Miles Davis", album: "Portrait in Jazz" },
+      { title: "Take Five", artist: "Dave Brubeck", album: "Time Out" },
     ],
   },
 ];
 
-
-// 1. 取得 Spotify Client Credentials Access Token
 async function getSpotifyAccessToken(): Promise<string | null> {
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
-    console.warn("⚠️ .env 中缺少 Spotify Client ID/Secret，無法動態關聯真實 ID。");
+    console.warn("⚠️ .env 中缺少 Spotify Client ID/Secret，將採用 Fallback 虛擬種子數據填充。");
     return null;
   }
 
@@ -116,12 +89,11 @@ async function getSpotifyAccessToken(): Promise<string | null> {
     const data = await res.json();
     return data.access_token;
   } catch (error) {
-    console.error("❌ 獲取 Spotify Token 失敗:", error);
+    console.error("❌ 獲取 Spotify Token 失敗，改用 Fallback 虛擬種子數據填充:", error);
     return null;
   }
 }
 
-// 2. 搜尋真實歌曲的 ID 與 Metadata
 async function searchRealSpotifyTrack(
   token: string,
   title: string,
@@ -147,22 +119,18 @@ async function searchRealSpotifyTrack(
       previewUrl: track.preview_url || null,
     };
   } catch (error) {
-    console.error(`❌ 搜尋歌曲 [${title} - ${artist}] 失敗:`, error);
     return null;
   }
 }
 
 async function main() {
-  console.log("🌱 開始向 Spotify 搜尋並灌入真實的歌曲種子資料...\n");
+  console.log("🌱 開始向 Spotify 搜尋並灌入歌曲種子資料...\n");
 
   const spotifyToken = await getSpotifyAccessToken();
-  if (!spotifyToken) {
-    console.error("❌ 無法取得 Spotify Token，終止執行。請確認 .env 中的 Spotify 金鑰配置。");
-    return;
-  }
+  const hasToken = spotifyToken !== null;
 
   for (const userData of TEST_USERS) {
-    // 1. 建立或更新假用戶
+    // 1. 建立或更新用戶
     const user = await prisma.user.upsert({
       where: { email: userData.email },
       update: { name: userData.name, bio: userData.bio },
@@ -174,30 +142,39 @@ async function main() {
     });
     console.log(`👤 用戶: ${user.name} (${user.id})`);
 
-    // 2. 建立/更新歌曲 (使用真實的 Spotify ID)
+    // 2. 建立/更新歌曲
     const trackIds: string[] = [];
     for (let i = 0; i < userData.tracks.length; i++) {
       const t = userData.tracks[i];
-      const spotifyInfo = await searchRealSpotifyTrack(spotifyToken, t.title, t.artist);
+      let spotifyInfo: { spotifyId: string; coverImg: string | null; duration: number; previewUrl: string | null } | null = null;
 
+      if (hasToken && spotifyToken) {
+        spotifyInfo = await searchRealSpotifyTrack(spotifyToken, t.title, t.artist);
+      }
+
+      // Fallback
       if (!spotifyInfo) {
-        console.warn(`   ⚠️ 找不到歌曲: ${t.title} - ${t.artist}，跳過。`);
-        continue;
+        const mockId = `mock_${t.title.replace(/\s+/g, "_").toLowerCase()}_${t.artist.replace(/\s+/g, "_").toLowerCase()}`;
+        spotifyInfo = {
+          spotifyId: mockId,
+          coverImg: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300",
+          duration: 180,
+          previewUrl: null,
+        };
       }
 
       let previewUrl = spotifyInfo.previewUrl;
-      if (!previewUrl) {
+      if (!previewUrl && !previewUrl?.startsWith("mock")) {
         previewUrl = await fetchFallbackPreviewUrl(t.title, t.artist);
       }
 
-      // 用真實的 Spotify ID 作為唯一鍵值，並儲存播放連結（Web Playback SDK 可播放 spotify:track:[spotifyId]）
       const track = await prisma.track.upsert({
         where: { spotifyId: spotifyInfo.spotifyId },
         update: {
           title: t.title,
           artist: t.artist,
           album: t.album,
-          url: `spotify:track:${spotifyInfo.spotifyId}`, // 這裡儲存 Web Playback SDK 標準的 URI
+          url: `spotify:track:${spotifyInfo.spotifyId}`,
           coverImg: spotifyInfo.coverImg,
           duration: spotifyInfo.duration,
           previewUrl,
@@ -214,11 +191,11 @@ async function main() {
         },
       });
 
-      console.log(`   🎵 [${track.title} - ${track.artist}] -> 🟢 真實 Spotify ID: ${track.spotifyId}`);
+      console.log(`   🎵 [${track.title} - ${track.artist}] -> 🟢 ID: ${track.spotifyId}`);
       trackIds.push(track.id);
     }
 
-    // 3. 建立或更新歌單
+    // 3. 建立或更新歌單 "My Spotify Top Tracks"
     let playlist = await prisma.playlist.findFirst({
       where: { userId: user.id, name: "My Spotify Top Tracks" },
     });
@@ -243,10 +220,21 @@ async function main() {
       })),
     });
 
-    console.log(`   📂 歌單「${playlist.name}」建立完成，共關聯 ${trackIds.length} 首真實歌曲。\n`);
+    // 5. 順便為該用戶塞一些 SyncLog，用來多重驗證
+    await prisma.syncLog.deleteMany({ where: { userId: user.id } });
+    await prisma.syncLog.createMany({
+      data: trackIds.map((trackId) => ({
+        userId: user.id,
+        trackId,
+        playedAt: new Date(),
+        listenDurationMs: 120000,
+      })),
+    });
+
+    console.log(`   📂 歌單「${playlist.name}」與 SyncLogs 建立完成，共關聯 ${trackIds.length} 首歌曲。\n`);
   }
 
-  console.log("🎉 測試用戶種子資料全面升級為真實 Spotify ID！資料同步完畢。");
+  console.log("🎉 測試用戶種子資料更新與同步完畢！");
 }
 
 main()

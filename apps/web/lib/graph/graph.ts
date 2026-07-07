@@ -19,6 +19,7 @@ export class MusicKnowledgeGraph {
   private readonly entities: Map<string, Entity> = new Map();
   private readonly edgeList: Edge[] = [];
   private readonly adjacency: Map<string, Edge[]> = new Map();
+  readonly version: string = "seed-facts-2026-07-08";
 
   /** 新增一個實體到圖譜中。如果 ID 已存在則覆蓋。 */
   addEntity(entity: Entity): void {
