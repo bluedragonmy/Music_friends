@@ -320,6 +320,14 @@ exports.Prisma.JournalEntryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.JournalAnalyticsScalarFieldEnum = {
+  id: 'id',
+  journalId: 'journalId',
+  viewCount: 'viewCount',
+  avgReadTime: 'avgReadTime',
+  lastViewedAt: 'lastViewedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -375,7 +383,8 @@ exports.Prisma.ModelName = {
   AudioFeature: 'AudioFeature',
   BehaviorSnapshot: 'BehaviorSnapshot',
   IdentitySnapshot: 'IdentitySnapshot',
-  JournalEntry: 'JournalEntry'
+  JournalEntry: 'JournalEntry',
+  JournalAnalytics: 'JournalAnalytics'
 };
 
 /**

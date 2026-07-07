@@ -1,4 +1,5 @@
-export type ObservationCategory = "pattern" | "change" | "milestone" | "memory";
+export type ObservationCategory = "pattern" | "moment" | "change" | "remembering" | "echo";
+
 
 export type RarityLevel = "common" | "uncommon" | "rare" | "legendary";
 
@@ -20,6 +21,8 @@ export interface ObservationRule {
   tone: string;
   microcopy: MicrocopyTemplate;
   reflection: string;
+  version?: string; // 新增：Rule Version
+  evidenceTemplate?: string; // 新增：Evidence Template
 }
 
 export interface CandidateJournal {
@@ -28,4 +31,19 @@ export interface CandidateJournal {
   variables: Record<string, any>;
   confidence: number;
   rarityScore: number; // 根據 rarity 轉換出的數值，便於排序
+}
+
+// ── Behavior Baseline Abstraction ──────────────────────────────
+// Narrative Engine 不知道資料從哪裡來。
+// 第一版：SyncLog Rolling Window。
+// 未來：Redis / Cache / Materialized View — 只換 Provider，不動 Engine。
+
+export interface BehaviorBaseline {
+  mean: { novelty: number; repeatRate: number; genreDiversity: number };
+  std: { novelty: number; repeatRate: number; genreDiversity: number };
+  sampleCount: number; // 窗口數量。< 3 時 Unexpectedness 回退為 1.0
+}
+
+export interface BehaviorBaselineProvider {
+  getBaseline(userId: string, referenceDate?: Date): Promise<BehaviorBaseline>;
 }

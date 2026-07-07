@@ -108,6 +108,11 @@ export type IdentitySnapshot = $Result.DefaultSelection<Prisma.$IdentitySnapshot
  * 
  */
 export type JournalEntry = $Result.DefaultSelection<Prisma.$JournalEntryPayload>
+/**
+ * Model JournalAnalytics
+ * 
+ */
+export type JournalAnalytics = $Result.DefaultSelection<Prisma.$JournalAnalyticsPayload>
 
 /**
  * Enums
@@ -451,6 +456,16 @@ export class PrismaClient<
     * ```
     */
   get journalEntry(): Prisma.JournalEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.journalAnalytics`: Exposes CRUD operations for the **JournalAnalytics** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JournalAnalytics
+    * const journalAnalytics = await prisma.journalAnalytics.findMany()
+    * ```
+    */
+  get journalAnalytics(): Prisma.JournalAnalyticsDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -910,7 +925,8 @@ export namespace Prisma {
     AudioFeature: 'AudioFeature',
     BehaviorSnapshot: 'BehaviorSnapshot',
     IdentitySnapshot: 'IdentitySnapshot',
-    JournalEntry: 'JournalEntry'
+    JournalEntry: 'JournalEntry',
+    JournalAnalytics: 'JournalAnalytics'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -926,7 +942,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "track" | "playlist" | "playlistTrack" | "like" | "userSwipe" | "matchRoom" | "message" | "syncLog" | "userMonthlyStat" | "userMonthlyStatTag" | "userMonthlyStatArtist" | "audioFeature" | "behaviorSnapshot" | "identitySnapshot" | "journalEntry"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "track" | "playlist" | "playlistTrack" | "like" | "userSwipe" | "matchRoom" | "message" | "syncLog" | "userMonthlyStat" | "userMonthlyStatTag" | "userMonthlyStatArtist" | "audioFeature" | "behaviorSnapshot" | "identitySnapshot" | "journalEntry" | "journalAnalytics"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2257,6 +2273,76 @@ export namespace Prisma {
           count: {
             args: Prisma.JournalEntryCountArgs<ExtArgs>
             result: $Utils.Optional<JournalEntryCountAggregateOutputType> | number
+          }
+        }
+      }
+      JournalAnalytics: {
+        payload: Prisma.$JournalAnalyticsPayload<ExtArgs>
+        fields: Prisma.JournalAnalyticsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JournalAnalyticsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JournalAnalyticsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload>
+          }
+          findFirst: {
+            args: Prisma.JournalAnalyticsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JournalAnalyticsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload>
+          }
+          findMany: {
+            args: Prisma.JournalAnalyticsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload>[]
+          }
+          create: {
+            args: Prisma.JournalAnalyticsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload>
+          }
+          createMany: {
+            args: Prisma.JournalAnalyticsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JournalAnalyticsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload>[]
+          }
+          delete: {
+            args: Prisma.JournalAnalyticsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload>
+          }
+          update: {
+            args: Prisma.JournalAnalyticsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload>
+          }
+          deleteMany: {
+            args: Prisma.JournalAnalyticsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JournalAnalyticsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.JournalAnalyticsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalAnalyticsPayload>
+          }
+          aggregate: {
+            args: Prisma.JournalAnalyticsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJournalAnalytics>
+          }
+          groupBy: {
+            args: Prisma.JournalAnalyticsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JournalAnalyticsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JournalAnalyticsCountArgs<ExtArgs>
+            result: $Utils.Optional<JournalAnalyticsCountAggregateOutputType> | number
           }
         }
       }
@@ -21033,6 +21119,7 @@ export namespace Prisma {
     feedbackAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    analytics?: boolean | JournalEntry$analyticsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["journalEntry"]>
 
@@ -21068,6 +21155,7 @@ export namespace Prisma {
   }
 
   export type JournalEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    analytics?: boolean | JournalEntry$analyticsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type JournalEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21077,6 +21165,7 @@ export namespace Prisma {
   export type $JournalEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "JournalEntry"
     objects: {
+      analytics: Prisma.$JournalAnalyticsPayload<ExtArgs> | null
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -21456,6 +21545,7 @@ export namespace Prisma {
    */
   export interface Prisma__JournalEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    analytics<T extends JournalEntry$analyticsArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$analyticsArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -21816,6 +21906,21 @@ export namespace Prisma {
   }
 
   /**
+   * JournalEntry.analytics
+   */
+  export type JournalEntry$analyticsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    where?: JournalAnalyticsWhereInput
+  }
+
+  /**
    * JournalEntry without action
    */
   export type JournalEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21827,6 +21932,977 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: JournalEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model JournalAnalytics
+   */
+
+  export type AggregateJournalAnalytics = {
+    _count: JournalAnalyticsCountAggregateOutputType | null
+    _avg: JournalAnalyticsAvgAggregateOutputType | null
+    _sum: JournalAnalyticsSumAggregateOutputType | null
+    _min: JournalAnalyticsMinAggregateOutputType | null
+    _max: JournalAnalyticsMaxAggregateOutputType | null
+  }
+
+  export type JournalAnalyticsAvgAggregateOutputType = {
+    viewCount: number | null
+    avgReadTime: number | null
+  }
+
+  export type JournalAnalyticsSumAggregateOutputType = {
+    viewCount: number | null
+    avgReadTime: number | null
+  }
+
+  export type JournalAnalyticsMinAggregateOutputType = {
+    id: string | null
+    journalId: string | null
+    viewCount: number | null
+    avgReadTime: number | null
+    lastViewedAt: Date | null
+  }
+
+  export type JournalAnalyticsMaxAggregateOutputType = {
+    id: string | null
+    journalId: string | null
+    viewCount: number | null
+    avgReadTime: number | null
+    lastViewedAt: Date | null
+  }
+
+  export type JournalAnalyticsCountAggregateOutputType = {
+    id: number
+    journalId: number
+    viewCount: number
+    avgReadTime: number
+    lastViewedAt: number
+    _all: number
+  }
+
+
+  export type JournalAnalyticsAvgAggregateInputType = {
+    viewCount?: true
+    avgReadTime?: true
+  }
+
+  export type JournalAnalyticsSumAggregateInputType = {
+    viewCount?: true
+    avgReadTime?: true
+  }
+
+  export type JournalAnalyticsMinAggregateInputType = {
+    id?: true
+    journalId?: true
+    viewCount?: true
+    avgReadTime?: true
+    lastViewedAt?: true
+  }
+
+  export type JournalAnalyticsMaxAggregateInputType = {
+    id?: true
+    journalId?: true
+    viewCount?: true
+    avgReadTime?: true
+    lastViewedAt?: true
+  }
+
+  export type JournalAnalyticsCountAggregateInputType = {
+    id?: true
+    journalId?: true
+    viewCount?: true
+    avgReadTime?: true
+    lastViewedAt?: true
+    _all?: true
+  }
+
+  export type JournalAnalyticsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JournalAnalytics to aggregate.
+     */
+    where?: JournalAnalyticsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalAnalytics to fetch.
+     */
+    orderBy?: JournalAnalyticsOrderByWithRelationInput | JournalAnalyticsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JournalAnalyticsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalAnalytics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalAnalytics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JournalAnalytics
+    **/
+    _count?: true | JournalAnalyticsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: JournalAnalyticsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JournalAnalyticsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JournalAnalyticsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JournalAnalyticsMaxAggregateInputType
+  }
+
+  export type GetJournalAnalyticsAggregateType<T extends JournalAnalyticsAggregateArgs> = {
+        [P in keyof T & keyof AggregateJournalAnalytics]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJournalAnalytics[P]>
+      : GetScalarType<T[P], AggregateJournalAnalytics[P]>
+  }
+
+
+
+
+  export type JournalAnalyticsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalAnalyticsWhereInput
+    orderBy?: JournalAnalyticsOrderByWithAggregationInput | JournalAnalyticsOrderByWithAggregationInput[]
+    by: JournalAnalyticsScalarFieldEnum[] | JournalAnalyticsScalarFieldEnum
+    having?: JournalAnalyticsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JournalAnalyticsCountAggregateInputType | true
+    _avg?: JournalAnalyticsAvgAggregateInputType
+    _sum?: JournalAnalyticsSumAggregateInputType
+    _min?: JournalAnalyticsMinAggregateInputType
+    _max?: JournalAnalyticsMaxAggregateInputType
+  }
+
+  export type JournalAnalyticsGroupByOutputType = {
+    id: string
+    journalId: string
+    viewCount: number
+    avgReadTime: number
+    lastViewedAt: Date | null
+    _count: JournalAnalyticsCountAggregateOutputType | null
+    _avg: JournalAnalyticsAvgAggregateOutputType | null
+    _sum: JournalAnalyticsSumAggregateOutputType | null
+    _min: JournalAnalyticsMinAggregateOutputType | null
+    _max: JournalAnalyticsMaxAggregateOutputType | null
+  }
+
+  type GetJournalAnalyticsGroupByPayload<T extends JournalAnalyticsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JournalAnalyticsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JournalAnalyticsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JournalAnalyticsGroupByOutputType[P]>
+            : GetScalarType<T[P], JournalAnalyticsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JournalAnalyticsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    journalId?: boolean
+    viewCount?: boolean
+    avgReadTime?: boolean
+    lastViewedAt?: boolean
+    journal?: boolean | JournalEntryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journalAnalytics"]>
+
+  export type JournalAnalyticsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    journalId?: boolean
+    viewCount?: boolean
+    avgReadTime?: boolean
+    lastViewedAt?: boolean
+    journal?: boolean | JournalEntryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journalAnalytics"]>
+
+  export type JournalAnalyticsSelectScalar = {
+    id?: boolean
+    journalId?: boolean
+    viewCount?: boolean
+    avgReadTime?: boolean
+    lastViewedAt?: boolean
+  }
+
+  export type JournalAnalyticsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journal?: boolean | JournalEntryDefaultArgs<ExtArgs>
+  }
+  export type JournalAnalyticsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journal?: boolean | JournalEntryDefaultArgs<ExtArgs>
+  }
+
+  export type $JournalAnalyticsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JournalAnalytics"
+    objects: {
+      journal: Prisma.$JournalEntryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      journalId: string
+      viewCount: number
+      avgReadTime: number
+      lastViewedAt: Date | null
+    }, ExtArgs["result"]["journalAnalytics"]>
+    composites: {}
+  }
+
+  type JournalAnalyticsGetPayload<S extends boolean | null | undefined | JournalAnalyticsDefaultArgs> = $Result.GetResult<Prisma.$JournalAnalyticsPayload, S>
+
+  type JournalAnalyticsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<JournalAnalyticsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: JournalAnalyticsCountAggregateInputType | true
+    }
+
+  export interface JournalAnalyticsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JournalAnalytics'], meta: { name: 'JournalAnalytics' } }
+    /**
+     * Find zero or one JournalAnalytics that matches the filter.
+     * @param {JournalAnalyticsFindUniqueArgs} args - Arguments to find a JournalAnalytics
+     * @example
+     * // Get one JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JournalAnalyticsFindUniqueArgs>(args: SelectSubset<T, JournalAnalyticsFindUniqueArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one JournalAnalytics that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {JournalAnalyticsFindUniqueOrThrowArgs} args - Arguments to find a JournalAnalytics
+     * @example
+     * // Get one JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JournalAnalyticsFindUniqueOrThrowArgs>(args: SelectSubset<T, JournalAnalyticsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first JournalAnalytics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalAnalyticsFindFirstArgs} args - Arguments to find a JournalAnalytics
+     * @example
+     * // Get one JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JournalAnalyticsFindFirstArgs>(args?: SelectSubset<T, JournalAnalyticsFindFirstArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first JournalAnalytics that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalAnalyticsFindFirstOrThrowArgs} args - Arguments to find a JournalAnalytics
+     * @example
+     * // Get one JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JournalAnalyticsFindFirstOrThrowArgs>(args?: SelectSubset<T, JournalAnalyticsFindFirstOrThrowArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more JournalAnalytics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalAnalyticsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.findMany()
+     * 
+     * // Get first 10 JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const journalAnalyticsWithIdOnly = await prisma.journalAnalytics.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JournalAnalyticsFindManyArgs>(args?: SelectSubset<T, JournalAnalyticsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a JournalAnalytics.
+     * @param {JournalAnalyticsCreateArgs} args - Arguments to create a JournalAnalytics.
+     * @example
+     * // Create one JournalAnalytics
+     * const JournalAnalytics = await prisma.journalAnalytics.create({
+     *   data: {
+     *     // ... data to create a JournalAnalytics
+     *   }
+     * })
+     * 
+     */
+    create<T extends JournalAnalyticsCreateArgs>(args: SelectSubset<T, JournalAnalyticsCreateArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many JournalAnalytics.
+     * @param {JournalAnalyticsCreateManyArgs} args - Arguments to create many JournalAnalytics.
+     * @example
+     * // Create many JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JournalAnalyticsCreateManyArgs>(args?: SelectSubset<T, JournalAnalyticsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JournalAnalytics and returns the data saved in the database.
+     * @param {JournalAnalyticsCreateManyAndReturnArgs} args - Arguments to create many JournalAnalytics.
+     * @example
+     * // Create many JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JournalAnalytics and only return the `id`
+     * const journalAnalyticsWithIdOnly = await prisma.journalAnalytics.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JournalAnalyticsCreateManyAndReturnArgs>(args?: SelectSubset<T, JournalAnalyticsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a JournalAnalytics.
+     * @param {JournalAnalyticsDeleteArgs} args - Arguments to delete one JournalAnalytics.
+     * @example
+     * // Delete one JournalAnalytics
+     * const JournalAnalytics = await prisma.journalAnalytics.delete({
+     *   where: {
+     *     // ... filter to delete one JournalAnalytics
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JournalAnalyticsDeleteArgs>(args: SelectSubset<T, JournalAnalyticsDeleteArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one JournalAnalytics.
+     * @param {JournalAnalyticsUpdateArgs} args - Arguments to update one JournalAnalytics.
+     * @example
+     * // Update one JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JournalAnalyticsUpdateArgs>(args: SelectSubset<T, JournalAnalyticsUpdateArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more JournalAnalytics.
+     * @param {JournalAnalyticsDeleteManyArgs} args - Arguments to filter JournalAnalytics to delete.
+     * @example
+     * // Delete a few JournalAnalytics
+     * const { count } = await prisma.journalAnalytics.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JournalAnalyticsDeleteManyArgs>(args?: SelectSubset<T, JournalAnalyticsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JournalAnalytics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalAnalyticsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JournalAnalyticsUpdateManyArgs>(args: SelectSubset<T, JournalAnalyticsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one JournalAnalytics.
+     * @param {JournalAnalyticsUpsertArgs} args - Arguments to update or create a JournalAnalytics.
+     * @example
+     * // Update or create a JournalAnalytics
+     * const journalAnalytics = await prisma.journalAnalytics.upsert({
+     *   create: {
+     *     // ... data to create a JournalAnalytics
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JournalAnalytics we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JournalAnalyticsUpsertArgs>(args: SelectSubset<T, JournalAnalyticsUpsertArgs<ExtArgs>>): Prisma__JournalAnalyticsClient<$Result.GetResult<Prisma.$JournalAnalyticsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of JournalAnalytics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalAnalyticsCountArgs} args - Arguments to filter JournalAnalytics to count.
+     * @example
+     * // Count the number of JournalAnalytics
+     * const count = await prisma.journalAnalytics.count({
+     *   where: {
+     *     // ... the filter for the JournalAnalytics we want to count
+     *   }
+     * })
+    **/
+    count<T extends JournalAnalyticsCountArgs>(
+      args?: Subset<T, JournalAnalyticsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JournalAnalyticsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JournalAnalytics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalAnalyticsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JournalAnalyticsAggregateArgs>(args: Subset<T, JournalAnalyticsAggregateArgs>): Prisma.PrismaPromise<GetJournalAnalyticsAggregateType<T>>
+
+    /**
+     * Group by JournalAnalytics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalAnalyticsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JournalAnalyticsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JournalAnalyticsGroupByArgs['orderBy'] }
+        : { orderBy?: JournalAnalyticsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JournalAnalyticsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJournalAnalyticsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JournalAnalytics model
+   */
+  readonly fields: JournalAnalyticsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JournalAnalytics.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JournalAnalyticsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    journal<T extends JournalEntryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntryDefaultArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JournalAnalytics model
+   */ 
+  interface JournalAnalyticsFieldRefs {
+    readonly id: FieldRef<"JournalAnalytics", 'String'>
+    readonly journalId: FieldRef<"JournalAnalytics", 'String'>
+    readonly viewCount: FieldRef<"JournalAnalytics", 'Int'>
+    readonly avgReadTime: FieldRef<"JournalAnalytics", 'Float'>
+    readonly lastViewedAt: FieldRef<"JournalAnalytics", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JournalAnalytics findUnique
+   */
+  export type JournalAnalyticsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalAnalytics to fetch.
+     */
+    where: JournalAnalyticsWhereUniqueInput
+  }
+
+  /**
+   * JournalAnalytics findUniqueOrThrow
+   */
+  export type JournalAnalyticsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalAnalytics to fetch.
+     */
+    where: JournalAnalyticsWhereUniqueInput
+  }
+
+  /**
+   * JournalAnalytics findFirst
+   */
+  export type JournalAnalyticsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalAnalytics to fetch.
+     */
+    where?: JournalAnalyticsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalAnalytics to fetch.
+     */
+    orderBy?: JournalAnalyticsOrderByWithRelationInput | JournalAnalyticsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JournalAnalytics.
+     */
+    cursor?: JournalAnalyticsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalAnalytics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalAnalytics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JournalAnalytics.
+     */
+    distinct?: JournalAnalyticsScalarFieldEnum | JournalAnalyticsScalarFieldEnum[]
+  }
+
+  /**
+   * JournalAnalytics findFirstOrThrow
+   */
+  export type JournalAnalyticsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalAnalytics to fetch.
+     */
+    where?: JournalAnalyticsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalAnalytics to fetch.
+     */
+    orderBy?: JournalAnalyticsOrderByWithRelationInput | JournalAnalyticsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JournalAnalytics.
+     */
+    cursor?: JournalAnalyticsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalAnalytics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalAnalytics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JournalAnalytics.
+     */
+    distinct?: JournalAnalyticsScalarFieldEnum | JournalAnalyticsScalarFieldEnum[]
+  }
+
+  /**
+   * JournalAnalytics findMany
+   */
+  export type JournalAnalyticsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalAnalytics to fetch.
+     */
+    where?: JournalAnalyticsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalAnalytics to fetch.
+     */
+    orderBy?: JournalAnalyticsOrderByWithRelationInput | JournalAnalyticsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JournalAnalytics.
+     */
+    cursor?: JournalAnalyticsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalAnalytics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalAnalytics.
+     */
+    skip?: number
+    distinct?: JournalAnalyticsScalarFieldEnum | JournalAnalyticsScalarFieldEnum[]
+  }
+
+  /**
+   * JournalAnalytics create
+   */
+  export type JournalAnalyticsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JournalAnalytics.
+     */
+    data: XOR<JournalAnalyticsCreateInput, JournalAnalyticsUncheckedCreateInput>
+  }
+
+  /**
+   * JournalAnalytics createMany
+   */
+  export type JournalAnalyticsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JournalAnalytics.
+     */
+    data: JournalAnalyticsCreateManyInput | JournalAnalyticsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JournalAnalytics createManyAndReturn
+   */
+  export type JournalAnalyticsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many JournalAnalytics.
+     */
+    data: JournalAnalyticsCreateManyInput | JournalAnalyticsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JournalAnalytics update
+   */
+  export type JournalAnalyticsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JournalAnalytics.
+     */
+    data: XOR<JournalAnalyticsUpdateInput, JournalAnalyticsUncheckedUpdateInput>
+    /**
+     * Choose, which JournalAnalytics to update.
+     */
+    where: JournalAnalyticsWhereUniqueInput
+  }
+
+  /**
+   * JournalAnalytics updateMany
+   */
+  export type JournalAnalyticsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JournalAnalytics.
+     */
+    data: XOR<JournalAnalyticsUpdateManyMutationInput, JournalAnalyticsUncheckedUpdateManyInput>
+    /**
+     * Filter which JournalAnalytics to update
+     */
+    where?: JournalAnalyticsWhereInput
+  }
+
+  /**
+   * JournalAnalytics upsert
+   */
+  export type JournalAnalyticsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JournalAnalytics to update in case it exists.
+     */
+    where: JournalAnalyticsWhereUniqueInput
+    /**
+     * In case the JournalAnalytics found by the `where` argument doesn't exist, create a new JournalAnalytics with this data.
+     */
+    create: XOR<JournalAnalyticsCreateInput, JournalAnalyticsUncheckedCreateInput>
+    /**
+     * In case the JournalAnalytics was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JournalAnalyticsUpdateInput, JournalAnalyticsUncheckedUpdateInput>
+  }
+
+  /**
+   * JournalAnalytics delete
+   */
+  export type JournalAnalyticsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
+    /**
+     * Filter which JournalAnalytics to delete.
+     */
+    where: JournalAnalyticsWhereUniqueInput
+  }
+
+  /**
+   * JournalAnalytics deleteMany
+   */
+  export type JournalAnalyticsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JournalAnalytics to delete
+     */
+    where?: JournalAnalyticsWhereInput
+  }
+
+  /**
+   * JournalAnalytics without action
+   */
+  export type JournalAnalyticsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalAnalytics
+     */
+    select?: JournalAnalyticsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalAnalyticsInclude<ExtArgs> | null
   }
 
 
@@ -22097,6 +23173,17 @@ export namespace Prisma {
   };
 
   export type JournalEntryScalarFieldEnum = (typeof JournalEntryScalarFieldEnum)[keyof typeof JournalEntryScalarFieldEnum]
+
+
+  export const JournalAnalyticsScalarFieldEnum: {
+    id: 'id',
+    journalId: 'journalId',
+    viewCount: 'viewCount',
+    avgReadTime: 'avgReadTime',
+    lastViewedAt: 'lastViewedAt'
+  };
+
+  export type JournalAnalyticsScalarFieldEnum = (typeof JournalAnalyticsScalarFieldEnum)[keyof typeof JournalAnalyticsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -23546,6 +24633,7 @@ export namespace Prisma {
     feedbackAt?: DateTimeNullableFilter<"JournalEntry"> | Date | string | null
     createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
     updatedAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    analytics?: XOR<JournalAnalyticsNullableRelationFilter, JournalAnalyticsWhereInput> | null
     user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
@@ -23562,6 +24650,7 @@ export namespace Prisma {
     feedbackAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    analytics?: JournalAnalyticsOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
 
@@ -23581,6 +24670,7 @@ export namespace Prisma {
     feedbackAt?: DateTimeNullableFilter<"JournalEntry"> | Date | string | null
     createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
     updatedAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    analytics?: XOR<JournalAnalyticsNullableRelationFilter, JournalAnalyticsWhereInput> | null
     user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
 
@@ -23618,6 +24708,63 @@ export namespace Prisma {
     feedbackAt?: DateTimeNullableWithAggregatesFilter<"JournalEntry"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"JournalEntry"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"JournalEntry"> | Date | string
+  }
+
+  export type JournalAnalyticsWhereInput = {
+    AND?: JournalAnalyticsWhereInput | JournalAnalyticsWhereInput[]
+    OR?: JournalAnalyticsWhereInput[]
+    NOT?: JournalAnalyticsWhereInput | JournalAnalyticsWhereInput[]
+    id?: StringFilter<"JournalAnalytics"> | string
+    journalId?: StringFilter<"JournalAnalytics"> | string
+    viewCount?: IntFilter<"JournalAnalytics"> | number
+    avgReadTime?: FloatFilter<"JournalAnalytics"> | number
+    lastViewedAt?: DateTimeNullableFilter<"JournalAnalytics"> | Date | string | null
+    journal?: XOR<JournalEntryRelationFilter, JournalEntryWhereInput>
+  }
+
+  export type JournalAnalyticsOrderByWithRelationInput = {
+    id?: SortOrder
+    journalId?: SortOrder
+    viewCount?: SortOrder
+    avgReadTime?: SortOrder
+    lastViewedAt?: SortOrderInput | SortOrder
+    journal?: JournalEntryOrderByWithRelationInput
+  }
+
+  export type JournalAnalyticsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    journalId?: string
+    AND?: JournalAnalyticsWhereInput | JournalAnalyticsWhereInput[]
+    OR?: JournalAnalyticsWhereInput[]
+    NOT?: JournalAnalyticsWhereInput | JournalAnalyticsWhereInput[]
+    viewCount?: IntFilter<"JournalAnalytics"> | number
+    avgReadTime?: FloatFilter<"JournalAnalytics"> | number
+    lastViewedAt?: DateTimeNullableFilter<"JournalAnalytics"> | Date | string | null
+    journal?: XOR<JournalEntryRelationFilter, JournalEntryWhereInput>
+  }, "id" | "journalId">
+
+  export type JournalAnalyticsOrderByWithAggregationInput = {
+    id?: SortOrder
+    journalId?: SortOrder
+    viewCount?: SortOrder
+    avgReadTime?: SortOrder
+    lastViewedAt?: SortOrderInput | SortOrder
+    _count?: JournalAnalyticsCountOrderByAggregateInput
+    _avg?: JournalAnalyticsAvgOrderByAggregateInput
+    _max?: JournalAnalyticsMaxOrderByAggregateInput
+    _min?: JournalAnalyticsMinOrderByAggregateInput
+    _sum?: JournalAnalyticsSumOrderByAggregateInput
+  }
+
+  export type JournalAnalyticsScalarWhereWithAggregatesInput = {
+    AND?: JournalAnalyticsScalarWhereWithAggregatesInput | JournalAnalyticsScalarWhereWithAggregatesInput[]
+    OR?: JournalAnalyticsScalarWhereWithAggregatesInput[]
+    NOT?: JournalAnalyticsScalarWhereWithAggregatesInput | JournalAnalyticsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JournalAnalytics"> | string
+    journalId?: StringWithAggregatesFilter<"JournalAnalytics"> | string
+    viewCount?: IntWithAggregatesFilter<"JournalAnalytics"> | number
+    avgReadTime?: FloatWithAggregatesFilter<"JournalAnalytics"> | number
+    lastViewedAt?: DateTimeNullableWithAggregatesFilter<"JournalAnalytics"> | Date | string | null
   }
 
   export type UserCreateInput = {
@@ -24980,6 +26127,7 @@ export namespace Prisma {
     feedbackAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    analytics?: JournalAnalyticsCreateNestedOneWithoutJournalInput
     user: UserCreateNestedOneWithoutJournalEntriesInput
   }
 
@@ -24996,6 +26144,7 @@ export namespace Prisma {
     feedbackAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    analytics?: JournalAnalyticsUncheckedCreateNestedOneWithoutJournalInput
   }
 
   export type JournalEntryUpdateInput = {
@@ -25010,6 +26159,7 @@ export namespace Prisma {
     feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    analytics?: JournalAnalyticsUpdateOneWithoutJournalNestedInput
     user?: UserUpdateOneRequiredWithoutJournalEntriesNestedInput
   }
 
@@ -25026,6 +26176,7 @@ export namespace Prisma {
     feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    analytics?: JournalAnalyticsUncheckedUpdateOneWithoutJournalNestedInput
   }
 
   export type JournalEntryCreateManyInput = {
@@ -25070,6 +26221,61 @@ export namespace Prisma {
     feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalAnalyticsCreateInput = {
+    id?: string
+    viewCount?: number
+    avgReadTime?: number
+    lastViewedAt?: Date | string | null
+    journal: JournalEntryCreateNestedOneWithoutAnalyticsInput
+  }
+
+  export type JournalAnalyticsUncheckedCreateInput = {
+    id?: string
+    journalId: string
+    viewCount?: number
+    avgReadTime?: number
+    lastViewedAt?: Date | string | null
+  }
+
+  export type JournalAnalyticsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    avgReadTime?: FloatFieldUpdateOperationsInput | number
+    lastViewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journal?: JournalEntryUpdateOneRequiredWithoutAnalyticsNestedInput
+  }
+
+  export type JournalAnalyticsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journalId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    avgReadTime?: FloatFieldUpdateOperationsInput | number
+    lastViewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type JournalAnalyticsCreateManyInput = {
+    id?: string
+    journalId: string
+    viewCount?: number
+    avgReadTime?: number
+    lastViewedAt?: Date | string | null
+  }
+
+  export type JournalAnalyticsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    avgReadTime?: FloatFieldUpdateOperationsInput | number
+    lastViewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type JournalAnalyticsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journalId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    avgReadTime?: FloatFieldUpdateOperationsInput | number
+    lastViewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -26213,6 +27419,11 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type JournalAnalyticsNullableRelationFilter = {
+    is?: JournalAnalyticsWhereInput | null
+    isNot?: JournalAnalyticsWhereInput | null
+  }
+
   export type JournalEntryCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -26279,6 +27490,45 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type JournalEntryRelationFilter = {
+    is?: JournalEntryWhereInput
+    isNot?: JournalEntryWhereInput
+  }
+
+  export type JournalAnalyticsCountOrderByAggregateInput = {
+    id?: SortOrder
+    journalId?: SortOrder
+    viewCount?: SortOrder
+    avgReadTime?: SortOrder
+    lastViewedAt?: SortOrder
+  }
+
+  export type JournalAnalyticsAvgOrderByAggregateInput = {
+    viewCount?: SortOrder
+    avgReadTime?: SortOrder
+  }
+
+  export type JournalAnalyticsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    journalId?: SortOrder
+    viewCount?: SortOrder
+    avgReadTime?: SortOrder
+    lastViewedAt?: SortOrder
+  }
+
+  export type JournalAnalyticsMinOrderByAggregateInput = {
+    id?: SortOrder
+    journalId?: SortOrder
+    viewCount?: SortOrder
+    avgReadTime?: SortOrder
+    lastViewedAt?: SortOrder
+  }
+
+  export type JournalAnalyticsSumOrderByAggregateInput = {
+    viewCount?: SortOrder
+    avgReadTime?: SortOrder
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -27541,10 +28791,32 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutIdentitySnapshotsInput, UserUpdateWithoutIdentitySnapshotsInput>, UserUncheckedUpdateWithoutIdentitySnapshotsInput>
   }
 
+  export type JournalAnalyticsCreateNestedOneWithoutJournalInput = {
+    create?: XOR<JournalAnalyticsCreateWithoutJournalInput, JournalAnalyticsUncheckedCreateWithoutJournalInput>
+    connectOrCreate?: JournalAnalyticsCreateOrConnectWithoutJournalInput
+    connect?: JournalAnalyticsWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutJournalEntriesInput = {
     create?: XOR<UserCreateWithoutJournalEntriesInput, UserUncheckedCreateWithoutJournalEntriesInput>
     connectOrCreate?: UserCreateOrConnectWithoutJournalEntriesInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type JournalAnalyticsUncheckedCreateNestedOneWithoutJournalInput = {
+    create?: XOR<JournalAnalyticsCreateWithoutJournalInput, JournalAnalyticsUncheckedCreateWithoutJournalInput>
+    connectOrCreate?: JournalAnalyticsCreateOrConnectWithoutJournalInput
+    connect?: JournalAnalyticsWhereUniqueInput
+  }
+
+  export type JournalAnalyticsUpdateOneWithoutJournalNestedInput = {
+    create?: XOR<JournalAnalyticsCreateWithoutJournalInput, JournalAnalyticsUncheckedCreateWithoutJournalInput>
+    connectOrCreate?: JournalAnalyticsCreateOrConnectWithoutJournalInput
+    upsert?: JournalAnalyticsUpsertWithoutJournalInput
+    disconnect?: JournalAnalyticsWhereInput | boolean
+    delete?: JournalAnalyticsWhereInput | boolean
+    connect?: JournalAnalyticsWhereUniqueInput
+    update?: XOR<XOR<JournalAnalyticsUpdateToOneWithWhereWithoutJournalInput, JournalAnalyticsUpdateWithoutJournalInput>, JournalAnalyticsUncheckedUpdateWithoutJournalInput>
   }
 
   export type UserUpdateOneRequiredWithoutJournalEntriesNestedInput = {
@@ -27553,6 +28825,30 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutJournalEntriesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJournalEntriesInput, UserUpdateWithoutJournalEntriesInput>, UserUncheckedUpdateWithoutJournalEntriesInput>
+  }
+
+  export type JournalAnalyticsUncheckedUpdateOneWithoutJournalNestedInput = {
+    create?: XOR<JournalAnalyticsCreateWithoutJournalInput, JournalAnalyticsUncheckedCreateWithoutJournalInput>
+    connectOrCreate?: JournalAnalyticsCreateOrConnectWithoutJournalInput
+    upsert?: JournalAnalyticsUpsertWithoutJournalInput
+    disconnect?: JournalAnalyticsWhereInput | boolean
+    delete?: JournalAnalyticsWhereInput | boolean
+    connect?: JournalAnalyticsWhereUniqueInput
+    update?: XOR<XOR<JournalAnalyticsUpdateToOneWithWhereWithoutJournalInput, JournalAnalyticsUpdateWithoutJournalInput>, JournalAnalyticsUncheckedUpdateWithoutJournalInput>
+  }
+
+  export type JournalEntryCreateNestedOneWithoutAnalyticsInput = {
+    create?: XOR<JournalEntryCreateWithoutAnalyticsInput, JournalEntryUncheckedCreateWithoutAnalyticsInput>
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAnalyticsInput
+    connect?: JournalEntryWhereUniqueInput
+  }
+
+  export type JournalEntryUpdateOneRequiredWithoutAnalyticsNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutAnalyticsInput, JournalEntryUncheckedCreateWithoutAnalyticsInput>
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAnalyticsInput
+    upsert?: JournalEntryUpsertWithoutAnalyticsInput
+    connect?: JournalEntryWhereUniqueInput
+    update?: XOR<XOR<JournalEntryUpdateToOneWithWhereWithoutAnalyticsInput, JournalEntryUpdateWithoutAnalyticsInput>, JournalEntryUncheckedUpdateWithoutAnalyticsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -28212,6 +29508,7 @@ export namespace Prisma {
     feedbackAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    analytics?: JournalAnalyticsCreateNestedOneWithoutJournalInput
   }
 
   export type JournalEntryUncheckedCreateWithoutUserInput = {
@@ -28226,6 +29523,7 @@ export namespace Prisma {
     feedbackAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    analytics?: JournalAnalyticsUncheckedCreateNestedOneWithoutJournalInput
   }
 
   export type JournalEntryCreateOrConnectWithoutUserInput = {
@@ -31220,6 +32518,25 @@ export namespace Prisma {
     journalEntries?: JournalEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type JournalAnalyticsCreateWithoutJournalInput = {
+    id?: string
+    viewCount?: number
+    avgReadTime?: number
+    lastViewedAt?: Date | string | null
+  }
+
+  export type JournalAnalyticsUncheckedCreateWithoutJournalInput = {
+    id?: string
+    viewCount?: number
+    avgReadTime?: number
+    lastViewedAt?: Date | string | null
+  }
+
+  export type JournalAnalyticsCreateOrConnectWithoutJournalInput = {
+    where: JournalAnalyticsWhereUniqueInput
+    create: XOR<JournalAnalyticsCreateWithoutJournalInput, JournalAnalyticsUncheckedCreateWithoutJournalInput>
+  }
+
   export type UserCreateWithoutJournalEntriesInput = {
     id?: string
     name?: string | null
@@ -31277,6 +32594,31 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutJournalEntriesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutJournalEntriesInput, UserUncheckedCreateWithoutJournalEntriesInput>
+  }
+
+  export type JournalAnalyticsUpsertWithoutJournalInput = {
+    update: XOR<JournalAnalyticsUpdateWithoutJournalInput, JournalAnalyticsUncheckedUpdateWithoutJournalInput>
+    create: XOR<JournalAnalyticsCreateWithoutJournalInput, JournalAnalyticsUncheckedCreateWithoutJournalInput>
+    where?: JournalAnalyticsWhereInput
+  }
+
+  export type JournalAnalyticsUpdateToOneWithWhereWithoutJournalInput = {
+    where?: JournalAnalyticsWhereInput
+    data: XOR<JournalAnalyticsUpdateWithoutJournalInput, JournalAnalyticsUncheckedUpdateWithoutJournalInput>
+  }
+
+  export type JournalAnalyticsUpdateWithoutJournalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    avgReadTime?: FloatFieldUpdateOperationsInput | number
+    lastViewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type JournalAnalyticsUncheckedUpdateWithoutJournalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    avgReadTime?: FloatFieldUpdateOperationsInput | number
+    lastViewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUpsertWithoutJournalEntriesInput = {
@@ -31342,6 +32684,82 @@ export namespace Prisma {
     monthlyStats?: UserMonthlyStatUncheckedUpdateManyWithoutUserNestedInput
     behaviorSnapshots?: BehaviorSnapshotUncheckedUpdateManyWithoutUserNestedInput
     identitySnapshots?: IdentitySnapshotUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type JournalEntryCreateWithoutAnalyticsInput = {
+    id?: string
+    date?: Date | string
+    observationId: string
+    title: string
+    body: string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection: string
+    feedback?: string | null
+    feedbackAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutJournalEntriesInput
+  }
+
+  export type JournalEntryUncheckedCreateWithoutAnalyticsInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    observationId: string
+    title: string
+    body: string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection: string
+    feedback?: string | null
+    feedbackAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JournalEntryCreateOrConnectWithoutAnalyticsInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutAnalyticsInput, JournalEntryUncheckedCreateWithoutAnalyticsInput>
+  }
+
+  export type JournalEntryUpsertWithoutAnalyticsInput = {
+    update: XOR<JournalEntryUpdateWithoutAnalyticsInput, JournalEntryUncheckedUpdateWithoutAnalyticsInput>
+    create: XOR<JournalEntryCreateWithoutAnalyticsInput, JournalEntryUncheckedCreateWithoutAnalyticsInput>
+    where?: JournalEntryWhereInput
+  }
+
+  export type JournalEntryUpdateToOneWithWhereWithoutAnalyticsInput = {
+    where?: JournalEntryWhereInput
+    data: XOR<JournalEntryUpdateWithoutAnalyticsInput, JournalEntryUncheckedUpdateWithoutAnalyticsInput>
+  }
+
+  export type JournalEntryUpdateWithoutAnalyticsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutJournalEntriesNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutAnalyticsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    observationId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    evidence?: NullableJsonNullValueInput | InputJsonValue
+    reflection?: StringFieldUpdateOperationsInput | string
+    feedback?: NullableStringFieldUpdateOperationsInput | string | null
+    feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountCreateManyUserInput = {
@@ -31844,6 +33262,7 @@ export namespace Prisma {
     feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    analytics?: JournalAnalyticsUpdateOneWithoutJournalNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutUserInput = {
@@ -31858,6 +33277,7 @@ export namespace Prisma {
     feedbackAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    analytics?: JournalAnalyticsUncheckedUpdateOneWithoutJournalNestedInput
   }
 
   export type JournalEntryUncheckedUpdateManyWithoutUserInput = {
@@ -32167,6 +33587,10 @@ export namespace Prisma {
      * @deprecated Use JournalEntryDefaultArgs instead
      */
     export type JournalEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JournalEntryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JournalAnalyticsDefaultArgs instead
+     */
+    export type JournalAnalyticsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JournalAnalyticsDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

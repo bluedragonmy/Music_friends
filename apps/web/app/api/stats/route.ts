@@ -6,7 +6,8 @@ import { getColor } from "colorthief";
 import { fetchFallbackPreviewUrl } from "@/lib/audio";
 import { composeBehaviorSnapshot } from "@/lib/behavioral-engine";
 import { composeIdentitySnapshots } from "@/lib/inference-engine";
-import { getOrCreateTodayJournal } from "@/lib/journey/narrative-engine";
+import { getOrCreateTodayJournal, getOrCreateRewindQueue } from "@/lib/journey/narrative-engine";
+
 
 // ── Image color extractor helper ──
 async function computeDominantHexColor(url: string | null): Promise<string | null> {
@@ -593,10 +594,19 @@ export async function GET(request: Request) {
       console.error("[Stats API] Failed to fetch or create today's journal:", journalErr);
     }
 
-    const journalTimeline = await prisma.journalEntry.findMany({
-      where: { userId: localUserRecord.id },
-      orderBy: { date: "desc" },
-    });
+    let journalTimeline: any[] = [];
+    try {
+      const queue = await getOrCreateRewindQueue(localUserRecord.id, referenceCalculationDate);
+      // Keep todayJournal as the highest narrative score candidate, but sort the timeline list chronologically (descending) to prevent out-of-order date bugs in the vertical UI.
+      journalTimeline = [...queue].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    } catch (timelineErr) {
+      console.error("[Stats API] Failed to fetch or generate rewind queue:", timelineErr);
+      journalTimeline = await prisma.journalEntry.findMany({
+        where: { userId: localUserRecord.id },
+        orderBy: { date: "desc" },
+      });
+    }
+
 
     return NextResponse.json({
       dimension: parsedDimension,

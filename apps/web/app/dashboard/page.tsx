@@ -3,6 +3,8 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { generateEraName } from "@/lib/journey/era-generator";
+
 
 interface JournalEntry {
   id: string;
@@ -27,6 +29,11 @@ export default function DashboardPage() {
   const [selectedFeedback, setSelectedFeedback] = useState<string | null>(null);
   const [feedbackStatusMsg, setFeedbackStatusMsg] = useState("");
 
+  const [feedbackComment, setFeedbackComment] = useState("");
+  const [userWrittenReflection, setUserWrittenReflection] = useState("");
+  const [isReflectionExpanded, setIsReflectionExpanded] = useState(false);
+  const [isPastReflectionOpened, setIsPastReflectionOpened] = useState(false);
+
   useEffect(() => {
     if (authStatus === "unauthenticated") {
       navigation.push("/");
@@ -41,20 +48,25 @@ export default function DashboardPage() {
           setStats(data);
           
           if (data.todayJournal) {
-            // 如果有今天的日誌
             setActiveJournal(data.todayJournal);
             setSelectedFeedback(data.todayJournal.feedback);
+            setFeedbackComment((data.todayJournal.evidence as any)?.userFeedbackReason || "");
+            setUserWrittenReflection((data.todayJournal.evidence as any)?.userWrittenReflection || "");
+            setIsReflectionExpanded(!!(data.todayJournal.evidence as any)?.userWrittenReflection);
+            setIsPastReflectionOpened(false);
             
-            // 檢查是否為首次產生的日誌 (例如 feedback 尚未設定，或是可以依據時間戳記判斷)
-            // 為了好的體驗，我們預設只要有今天日誌就啟動 Curiosity Loop 引導
             if (!data.todayJournal.feedback) {
               setIsCuriosityLoop(true);
               setCuriosityStep(1);
             }
           } else if (data.journalTimeline && data.journalTimeline.length > 0) {
-            // 如果今天還沒有日誌，但有歷史日誌，預設顯示最新的一筆
-            setActiveJournal(data.journalTimeline[0]);
-            setSelectedFeedback(data.journalTimeline[0].feedback);
+            const j = data.journalTimeline[0];
+            setActiveJournal(j);
+            setSelectedFeedback(j.feedback);
+            setFeedbackComment((j.evidence as any)?.userFeedbackReason || "");
+            setUserWrittenReflection((j.evidence as any)?.userWrittenReflection || "");
+            setIsReflectionExpanded(!!(j.evidence as any)?.userWrittenReflection);
+            setIsPastReflectionOpened(false);
           }
         })
         .catch((err) => console.error("Error fetching stats:", err));
@@ -66,10 +78,26 @@ export default function DashboardPage() {
     if (isCuriosityLoop && curiosityStep > 0 && curiosityStep < 3) {
       const timer = setTimeout(() => {
         setCuriosityStep((prev) => prev + 1);
-      }, 2500); // 每段間隔 2.5 秒
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, [isCuriosityLoop, curiosityStep]);
+
+  // Telemetry: 紀錄用戶閱讀日誌的停留時間 (Stay Time)
+  useEffect(() => {
+    if (!activeJournal) return;
+    const startTime = Date.now();
+    return () => {
+      const durationMs = Date.now() - startTime;
+      if (durationMs > 1000) {
+        fetch(`/api/journal/${activeJournal.id}/view`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ readTimeMs: durationMs })
+        }).catch(err => console.error("Telemetry report failed:", err));
+      }
+    };
+  }, [activeJournal?.id]);
 
   if (authStatus === "loading" || !stats) {
     return (
@@ -84,44 +112,46 @@ export default function DashboardPage() {
   const displayName = userSession?.user?.name || "Music Lover";
   const timeline: JournalEntry[] = stats.journalTimeline || [];
   
-  // 將日誌的 body 文字段落拆開，用於好奇心引導
   const bodyParagraphs = activeJournal ? activeJournal.body.split("\n\n").filter(Boolean) : [];
 
-  const handleFeedback = async (option: "LIKE" | "UNSURE" | "DISAGREE") => {
+  const submitFeedbackAndReflection = async (option: string | null, comment: string, reflection: string) => {
     if (!activeJournal) return;
     
-    setSelectedFeedback(option);
     setFeedbackStatusMsg("儲存中...");
     
     try {
       const response = await fetch(`/api/journal/${activeJournal.id}/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ feedback: option })
+        body: JSON.stringify({
+          feedback: option || "MAYBE",
+          comment,
+          userWrittenReflection: reflection
+        })
       });
       
-      const resData = await response.json();
       if (response.ok) {
-        // 更新本地 Timeline 狀態
+        // 更新本地 Timeline 狀態與 evidence
         if (stats.journalTimeline) {
           const updatedTimeline = stats.journalTimeline.map((item: JournalEntry) => {
             if (item.id === activeJournal.id) {
-              return { ...item, feedback: option };
+              return {
+                ...item,
+                feedback: option,
+                evidence: {
+                  ...item.evidence,
+                  userFeedbackReason: comment,
+                  userWrittenReflection: reflection
+                }
+              };
             }
             return item;
           });
           setStats({ ...stats, journalTimeline: updatedTimeline });
         }
-        
-        // 顯示感謝文案
-        const thankYouTexts = {
-          LIKE: "👍 很高興我們能捕捉到你的狀態。",
-          UNSURE: "🤔 沒關係，旋律的意義有時需要時間沉澱。",
-          DISAGREE: "❌ 謝謝你的直率，我們會調整觀察規則。"
-        };
-        setFeedbackStatusMsg(thankYouTexts[option]);
+        setFeedbackStatusMsg("✓ 感謝你的留言與回饋。");
       } else {
-        setFeedbackStatusMsg("反饋提交失敗，請稍後再試。");
+        setFeedbackStatusMsg("儲存失敗，請稍後再試。");
       }
     } catch (err) {
       console.error("Feedback submit error:", err);
@@ -133,7 +163,12 @@ export default function DashboardPage() {
     setActiveJournal(journal);
     setSelectedFeedback(journal.feedback);
     setFeedbackStatusMsg("");
-    setIsCuriosityLoop(false); // 點擊歷史紀錄直接跳過好奇心引導
+    setIsCuriosityLoop(false);
+    
+    setFeedbackComment((journal.evidence as any)?.userFeedbackReason || "");
+    setUserWrittenReflection((journal.evidence as any)?.userWrittenReflection || "");
+    setIsReflectionExpanded(!!(journal.evidence as any)?.userWrittenReflection);
+    setIsPastReflectionOpened(false);
   };
 
   const formatDate = (dateStr: string) => {
@@ -280,7 +315,7 @@ export default function DashboardPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.9")}
               >
-                開啟今日日誌
+                繼續
               </button>
             )}
           </section>
@@ -307,7 +342,32 @@ export default function DashboardPage() {
                   textTransform: "uppercase",
                 }}
               >
-                {formatDate(activeJournal.date)} 的觀察
+                {formatDate(activeJournal.date)}
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-outfit), sans-serif",
+                  fontSize: "0.85rem",
+                  color: "var(--text-secondary)",
+                  letterSpacing: "0.05em",
+                  marginTop: "0.2rem",
+                }}
+              >
+                ✦ {
+                  (() => {
+                    const d = new Date(activeJournal.date);
+                    const months = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+                    const stats = {
+                      noveltyPercent: activeJournal.evidence?.noveltyPercent,
+                      repeatPercent: activeJournal.evidence?.repeatPercent,
+                      genresCount: activeJournal.evidence?.genresCount,
+                      midnightPercent: activeJournal.evidence?.midnightPercent,
+                      peakHour: activeJournal.evidence?.hour
+                    };
+                    const era = generateEraName(stats, d.getFullYear(), months[d.getMonth()]);
+                    return `${era.title}`;
+                  })()
+                }
               </span>
               <h2
                 style={{
@@ -341,66 +401,119 @@ export default function DashboardPage() {
               ))}
             </div>
 
-            {/* 物理證據指標 (Evidence Section - Optional) */}
-            {activeJournal.evidence && Object.keys(activeJournal.evidence).length > 0 && (
-              <div
+            {/* 信心佐證顯示 (Confidence Display) */}
+            <div
+              style={{
+                borderTop: "1px solid rgba(234, 229, 224, 0.06)",
+                paddingTop: "1.5rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5rem"
+              }}
+            >
+              <span
                 style={{
-                  borderTop: "1px solid rgba(234, 229, 224, 0.06)",
-                  paddingTop: "1.5rem",
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "0.7rem",
+                  fontWeight: 500,
+                  color: "var(--text-secondary)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: "var(--font-inter), sans-serif",
-                    fontSize: "0.7rem",
-                    fontWeight: 500,
-                    color: "var(--text-secondary)",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  物理證據數據 {`{Evidence}`}
-                </span>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "1.5rem",
-                    marginTop: "0.75rem",
-                  }}
-                >
-                  {Object.entries(activeJournal.evidence).map(([key, val]) => (
-                    <div
-                      key={key}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.15rem",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: "var(--font-inter), sans-serif",
-                          fontSize: "0.75rem",
-                          color: "var(--text-secondary)",
-                        }}
-                      >
-                        {key === "noveltyPercent" ? "新歌比率" : key === "repeatPercent" ? "重複率" : key === "genresCount" ? "曲風數量" : key === "trackCount" ? "重複曲目數" : key === "hour" ? "聽歌時段" : key}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-outfit), sans-serif",
-                          fontSize: "1.1rem",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {key === "hour" ? `${val}:00` : typeof val === "number" && key.endsWith("Percent") ? `${val}%` : String(val)}
-                      </span>
+                佐證數據 {`{Evidence}`}
+              </span>
+              <p
+                style={{
+                  fontFamily: "var(--font-outfit), sans-serif",
+                  fontSize: "0.85rem",
+                  color: "var(--text-secondary)",
+                  lineHeight: "1.5",
+                  margin: 0,
+                  whiteSpace: "pre-line"
+                }}
+              >
+                {(() => {
+                  const ev = activeJournal.evidence?.evidence || activeJournal.evidence || {};
+                  
+                  const header = `今天會出現這段文字，因為：\n`;
+                  if (activeJournal.observationId === "obs_novelty_explorer") {
+                    return `${header}✓ 過去 30 天內探索新歌\n✓ 第一次播放歌曲比例達 ${ev.noveltyPercent || 0}%`;
+                  }
+                  if (activeJournal.observationId === "obs_genre_pioneer") {
+                    return `${header}✓ 探索多種不同的音樂風格\n✓ 跨足曲風流派達 ${ev.genresCount || 0} 種`;
+                  }
+                  if (activeJournal.observationId === "obs_repetition_collector") {
+                    return `${header}✓ 尋求熟悉旋律的安全感\n✓ 最近 7 天重複播放率達 ${ev.repeatPercent || 0}%`;
+                  }
+                  if (activeJournal.observationId === "obs_monotonous_comfort") {
+                    return `${header}✓ 重複聆聽特定的心靈慰藉\n✓ 重複播放比率達 ${ev.repeatPercent || 0}%\n✓ 單曲循環數達 ${ev.trackCount || 0} 首`;
+                  }
+                  if (activeJournal.observationId === "obs_temporal_night_owl") {
+                    return `${header}✓ 在深夜的萬籟俱寂中聆聽\n✓ 深夜播放比例達 ${ev.midnightPercent || 0}%`;
+                  }
+                  if (activeJournal.observationId === "obs_moment_early_bird") {
+                    return `${header}✓ 伴隨清晨的寧靜開始新的一天\n✓ 播放時間落在清晨 ${ev.hour || 0}:00`;
+                  }
+                  if (activeJournal.observationId === "obs_moment_first_album") {
+                    return `${header}✓ 完整聽完一張專輯\n✓ 沒有跳歌\n✓ 聆聽時長達 ${ev.duration || 0} 分鐘`;
+                  }
+                  if (activeJournal.observationId === "obs_change_tempo_slowdown") {
+                    return `${header}✓ 音樂的步伐顯著放慢\n✓ 音樂速度較上週下降 ${ev.decreasePercent || 0}%`;
+                  }
+                  if (activeJournal.observationId === "obs_remembering_forgotten") {
+                    return `${header}✓ 重新拾起塵封的旋律\n✓ 超過 ${ev.days || 0} 天未播放該曲目\n✓ 歷史播放次數達 ${ev.historyCount || 0} 次`;
+                  }
+                  if (activeJournal.observationId === "obs_remembering_no_skip_longest") {
+                    return `${header}✓ 完整專注地聽完單一歌曲\n✓ 聆聽時長達 ${ev.duration || 0} 分鐘\n✓ 播放過程中沒有跳過`;
+                  }
+                  if (activeJournal.observationId === "obs_remembering_midnight_isolation") {
+                    return `${header}✓ 在午夜時分隻身聆聽特定歌曲\n✓ 深夜播放時間為 ${ev.time || ""}\n✓ 隨後安靜直到天亮`;
+                  }
+                  if (activeJournal.observationId === "obs_echo_seasonal_return") {
+                    return `${header}✓ 在相同的季節重新遇見這首歌\n✓ 歷史播放次數達 ${ev.playCount || 0} 次`;
+                  }
+                  return `今天會出現這段文字，因為觸發了你最近的聆聽規律。`;
+                })()}
+              </p>
+
+              {/* 歷史對話 (Cross-Time Dialogue / Past Reflections) */}
+              {activeJournal.evidence?.pastReflection && (
+                <div style={{ marginTop: "0.5rem" }}>
+                  <button
+                    onClick={() => setIsPastReflectionOpened(!isPastReflectionOpened)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "rgba(234, 229, 224, 0.45)",
+                      fontFamily: "var(--font-inter), sans-serif",
+                      fontSize: "0.75rem",
+                      cursor: "pointer",
+                      padding: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.3rem"
+                    }}
+                  >
+                    <span>✦ {activeJournal.evidence.pastReflection.date} 你留過一句話。</span>
+                    <span style={{ textDecoration: "underline" }}>{isPastReflectionOpened ? "[收折]" : "[打開]"}</span>
+                  </button>
+                  {isPastReflectionOpened && (
+                    <div style={{
+                      marginTop: "0.5rem",
+                      padding: "0.75rem 1rem",
+                      backgroundColor: "rgba(234, 229, 224, 0.02)",
+                      borderLeft: "2px solid rgba(234, 229, 224, 0.15)",
+                      fontSize: "0.85rem",
+                      fontStyle: "italic",
+                      color: "var(--text-secondary)"
+                    }}>
+                      "{activeJournal.evidence.pastReflection.content}"
                     </div>
-                  ))}
+                  )}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* 深層反思 (Reflection Section) */}
             <div
@@ -442,6 +555,68 @@ export default function DashboardPage() {
               </p>
             </div>
 
+            {/* 寫一句話給未來的自己 (Optional Reflection Expandable Input) */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              {!isReflectionExpanded ? (
+                <button
+                  onClick={() => setIsReflectionExpanded(true)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "rgba(234, 229, 224, 0.4)",
+                    fontFamily: "var(--font-inter), sans-serif",
+                    fontSize: "0.8rem",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                    alignSelf: "center",
+                    padding: "0.25rem 0"
+                  }}
+                >
+                  寫一句話給未來的自己
+                </button>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontFamily: "var(--font-inter), sans-serif" }}>
+                    寫一句話給未來的自己
+                  </span>
+                  <textarea
+                    value={userWrittenReflection}
+                    onChange={(e) => setUserWrittenReflection(e.target.value)}
+                    placeholder="希望那時候的我..."
+                    rows={2}
+                    style={{
+                      width: "100%",
+                      backgroundColor: "var(--card-bg)",
+                      color: "var(--text-primary)",
+                      border: "1px solid var(--card-border)",
+                      borderRadius: "8px",
+                      padding: "0.75rem",
+                      fontSize: "0.9rem",
+                      fontFamily: "var(--font-outfit), sans-serif",
+                      resize: "none",
+                      outline: "none"
+                    }}
+                  />
+                  <button
+                    onClick={() => submitFeedbackAndReflection(selectedFeedback, feedbackComment, userWrittenReflection)}
+                    style={{
+                      alignSelf: "flex-end",
+                      backgroundColor: "var(--text-primary)",
+                      color: "var(--bg-color)",
+                      border: "none",
+                      borderRadius: "16px",
+                      padding: "0.4rem 1rem",
+                      fontSize: "0.75rem",
+                      fontWeight: 500,
+                      cursor: "pointer",
+                    }}
+                  >
+                    儲存留言
+                  </button>
+                </div>
+              )}
+            </div>
+
             {/* 反饋互動 (Feedback Loop) */}
             <div
               style={{
@@ -461,32 +636,85 @@ export default function DashboardPage() {
                   letterSpacing: "0.05em",
                 }}
               >
-                這篇日誌對你而言真實嗎？
+                這句說中了嗎？
               </span>
               <div style={{ display: "flex", gap: "0.75rem" }}>
                 {[
-                  { label: "👍 很像我", value: "LIKE" },
-                  { label: "🤔 不太確定", value: "UNSURE" },
-                  { label: "👎 我不同意", value: "DISAGREE" },
-                ].map((btn) => (
-                  <button
-                    key={btn.value}
-                    onClick={() => handleFeedback(btn.value as any)}
+                  { label: "✔ 很像", value: "YES" },
+                  { label: "○ 還好", value: "MAYBE" },
+                  { label: "✘ 不像", value: "NO" },
+                ].map((btn) => {
+                  const isSelected = selectedFeedback === btn.value ||
+                    (btn.value === "YES" && selectedFeedback === "LIKE") ||
+                    (btn.value === "MAYBE" && selectedFeedback === "UNSURE") ||
+                    (btn.value === "NO" && selectedFeedback === "DISAGREE");
+                  return (
+                    <button
+                      key={btn.value}
+                      onClick={() => {
+                        setSelectedFeedback(btn.value);
+                        submitFeedbackAndReflection(btn.value, feedbackComment, userWrittenReflection);
+                      }}
+                      style={{
+                        backgroundColor: isSelected ? "var(--text-primary)" : "var(--card-bg)",
+                        color: isSelected ? "var(--bg-color)" : "var(--text-primary)",
+                        border: "1px solid var(--card-border)",
+                        borderRadius: "20px",
+                        padding: "0.5rem 1rem",
+                        fontSize: "0.8rem",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      {btn.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* 如果選擇「✘ 不像」，顯示選填 textbox */}
+              {(selectedFeedback === "NO" || selectedFeedback === "DISAGREE") && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%", marginTop: "0.5rem" }}>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontFamily: "var(--font-inter), sans-serif" }}>
+                    （選填）你想說什麼？
+                  </span>
+                  <textarea
+                    value={feedbackComment}
+                    onChange={(e) => setFeedbackComment(e.target.value)}
+                    placeholder="今天只是例外 / 數據對但解讀不對..."
+                    rows={2}
                     style={{
-                      backgroundColor: selectedFeedback === btn.value ? "var(--text-primary)" : "var(--card-bg)",
-                      color: selectedFeedback === btn.value ? "var(--bg-color)" : "var(--text-primary)",
+                      width: "100%",
+                      backgroundColor: "var(--card-bg)",
+                      color: "var(--text-primary)",
                       border: "1px solid var(--card-border)",
-                      borderRadius: "20px",
-                      padding: "0.5rem 1rem",
-                      fontSize: "0.8rem",
+                      borderRadius: "8px",
+                      padding: "0.75rem",
+                      fontSize: "0.9rem",
+                      fontFamily: "var(--font-outfit), sans-serif",
+                      resize: "none",
+                      outline: "none"
+                    }}
+                  />
+                  <button
+                    onClick={() => submitFeedbackAndReflection(selectedFeedback, feedbackComment, userWrittenReflection)}
+                    style={{
+                      alignSelf: "flex-end",
+                      backgroundColor: "var(--text-primary)",
+                      color: "var(--bg-color)",
+                      border: "none",
+                      borderRadius: "16px",
+                      padding: "0.4rem 1rem",
+                      fontSize: "0.75rem",
+                      fontWeight: 500,
                       cursor: "pointer",
-                      transition: "all 0.2s ease",
                     }}
                   >
-                    {btn.label}
+                    儲存回饋
                   </button>
-                ))}
-              </div>
+                </div>
+              )}
+
               {feedbackStatusMsg && (
                 <span
                   style={{
@@ -552,6 +780,17 @@ export default function DashboardPage() {
 
               {timeline.map((item) => {
                 const isActive = activeJournal && activeJournal.id === item.id;
+                const d = new Date(item.date);
+                const months = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+                const stats = {
+                  noveltyPercent: item.evidence?.noveltyPercent,
+                  repeatPercent: item.evidence?.repeatPercent,
+                  genresCount: item.evidence?.genresCount,
+                  midnightPercent: item.evidence?.midnightPercent,
+                  peakHour: item.evidence?.hour
+                };
+                const era = generateEraName(stats, d.getFullYear(), months[d.getMonth()]);
+
                 return (
                   <button
                     key={item.id}

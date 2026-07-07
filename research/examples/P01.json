@@ -1,0 +1,12 @@
+[
+  {"time": "14:02", "action": "ENTER", "duration": 3, "details": "Entered Dashboard page"},
+  {"time": "14:05", "action": "SCROLL", "duration": 8, "details": "Scrolled down to active journal card"},
+  {"time": "14:13", "action": "PAUSE", "duration": 22, "details": "Paused and stared silently at the main card text"},
+  {"time": "14:35", "action": "REREAD", "duration": 12, "details": "Highlighted and reread the second paragraph"},
+  {"time": "14:47", "action": "CLICK", "duration": 4, "details": "Clicked the write reflection link"},
+  {"time": "14:51", "action": "PAUSE", "duration": 15, "details": "Stared at the input area without writing any characters"},
+  {"time": "15:06", "action": "CLICK", "duration": 2, "details": "Clicked the '✘ 不像' feedback button"},
+  {"time": "15:08", "action": "TYPE", "duration": 18, "details": "Typed comment explaining today was a random shuffle stream"},
+  {"time": "15:26", "action": "SPOTIFY", "duration": 5, "details": "Clicked Spotify logo to play the album"},
+  {"time": "15:31", "action": "LEAVE", "duration": 1, "details": "Closed the application tab"}
+]

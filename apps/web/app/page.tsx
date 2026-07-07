@@ -87,26 +87,23 @@ export default function HomePage() {
           style={{
             fontFamily: "var(--font-outfit), sans-serif",
             fontSize: "1.1rem",
-            lineHeight: "1.7",
+            lineHeight: "1.8",
             fontWeight: 300,
             color: "var(--text-primary)",
             margin: "0 0 3.5rem 0",
             display: "flex",
             flexDirection: "column",
-            gap: "1.2rem",
+            gap: "1.5rem",
           }}
         >
           <p style={{ margin: 0 }}>
-            Spotify records
-            <br />
-            <span style={{ color: "var(--text-secondary)" }}>what you listened to.</span>
+            有時候，我們不是重新播放一首歌。
           </p>
-          <p style={{ margin: 0 }}>
-            μ(sic) helps you understand
-            <br />
-            <span style={{ color: "var(--text-secondary)" }}>what it means.</span>
+          <p style={{ margin: 0, color: "var(--text-secondary)" }}>
+            我們只是想知道，那時候的自己，現在過得好不好。
           </p>
         </div>
+
 
         {/* Separator / Divider */}
         <div

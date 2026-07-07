@@ -331,10 +331,21 @@ model JournalEntry {
   feedback   String? // "LIKE" (很像我) | "UNSURE" (不太確定) | "DISAGREE" (不同意)
   feedbackAt DateTime?
 
+  analytics JournalAnalytics?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, date])
+}
+
+model JournalAnalytics {
+  id           String       @id @default(cuid())
+  journalId    String       @unique
+  viewCount    Int          @default(0)
+  avgReadTime  Float        @default(0.0) // 單位：秒
+  lastViewedAt DateTime?
+  journal      JournalEntry @relation(fields: [journalId], references: [id], onDelete: Cascade)
 }

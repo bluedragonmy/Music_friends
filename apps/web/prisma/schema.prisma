@@ -318,23 +318,35 @@ model IdentitySnapshot {
 }
 
 model JournalEntry {
-  id            String    @id @default(cuid())
+  id            String            @id @default(cuid())
   userId        String
-  date          DateTime  @default(now()) // 旅程時間軸排序日期
-  observationId String    // 對應 Observation Library 規則 ID (e.g., "obs_013")
-  title         String    // 經 Narrative Engine 渲染後的標題
-  body          String    // 經 Narrative Engine 渲染後的內文
-  evidence      Json?     // 物理數據變數 (e.g., { novelty: 0.82, genres: 31 })
-  reflection    String    // 經 Narrative Engine 渲染後的反思問題
+  date          DateTime          @default(now()) // 旅程時間軸排序日期
+  observationId String            // 對應 Observation Library 規則 ID (e.g., "obs_013")
+  title         String            // 經 Narrative Engine 渲染後的標題
+  body          String            // 經 Narrative Engine 渲染後的內文
+  evidence      Json?             // 物理數據變數 (e.g., { novelty: 0.82, genres: 31 })
+  reflection    String            // 經 Narrative Engine 渲染後的反思問題
   
   // 反饋系統 (Feedback Loop)
-  feedback      String?   // "LIKE" (很像我) | "UNSURE" (不太確定) | "DISAGREE" (不同意)
+  feedback      String?           // "LIKE" (很像我) | "UNSURE" (不太確定) | "DISAGREE" (不同意)
   feedbackAt    DateTime?
   
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  analytics     JournalAnalytics?
+  
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, date])
 }
+
+model JournalAnalytics {
+  id           String       @id @default(cuid())
+  journalId    String       @unique
+  viewCount    Int          @default(0)
+  avgReadTime  Float        @default(0.0) // 單位：秒
+  lastViewedAt DateTime?
+  journal      JournalEntry @relation(fields: [journalId], references: [id], onDelete: Cascade)
+}
+

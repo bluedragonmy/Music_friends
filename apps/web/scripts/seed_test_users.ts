@@ -4,7 +4,7 @@
  * 執行方式：npx tsx scripts/seed_test_users.ts
  */
 
-import { PrismaClient } from "../app/generated/prisma";
+import { PrismaClient } from "../app/generated/prisma-new";
 import dotenv from "dotenv";
 import path from "path";
 import { fetchFallbackPreviewUrl } from "../lib/audio";
@@ -77,7 +77,20 @@ const TEST_USERS = [
       { title: "我不願讓你一個人", artist: "五月天", album: "第二人生" },
     ],
   },
+  {
+    name: "測試用戶 F（Silent User）",
+    email: "test_silent@example.com",
+    bio: "安靜沉靜的聽歌者",
+    tracks: [
+      { title: "Daydreaming", artist: "Radiohead", album: "A Moon Shaped Pool" },
+      { title: "Gymnopédie No. 1", artist: "Erik Satie", album: "Gymnopédies" },
+      { title: "Space Song", artist: "Beach House", album: "Depression Cherry" },
+      { title: "Intro", artist: "The xx", album: "xx" },
+      { title: "Youth", artist: "Daughter", album: "If You Leave" },
+    ],
+  },
 ];
+
 
 // 1. 取得 Spotify Client Credentials Access Token
 async function getSpotifyAccessToken(): Promise<string | null> {
