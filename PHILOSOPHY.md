@@ -33,7 +33,7 @@ Raw Data (Spotify)
 Entity Resolution (Resolver)
    │
    ▼
-Knowledge Graph (Memory)
+Knowledge Graph (Knowledge Layer)
    │
    ▼
 Reasoning Engine (TRE)
@@ -46,4 +46,34 @@ Insight Narrative (LLM Narrator)
 ```
 
 **嚴格禁止以下旁路設計：**
-$$\text{Spotify API} \xrightarrow{\quad \text{bypass} \quad} \text{LLM} \xrightarrow{\quad \text{bypass} \quad} \text{Insight}$$
+
+```
+Spotify API ──bypass──▶ LLM ──bypass──▶ Insight     ← 禁止
+```
+
+---
+
+## 🏛️ TIM Five-Layer Conceptual Model {五層概念模型}
+
+此為對外介紹 TIM 核心理念的概念架構。工程實作細節請參考 `docs/02_ARCHITECTURE/` 中的八層工程架構。
+
+```
+Layer 0 — Sensors {感知層}
+    Spotify · MusicBrainz · Discogs
+         │
+         ▼
+Layer 1 — Knowledge {知識層}
+    Knowledge Graph · Ontology · Evidence Store
+         │
+         ▼
+Layer 2 — Reasoning {推理層}
+    Rule Engine · Hypothesis Generator
+         │
+         ▼
+Layer 3 — Decision {決策層}
+    Bayesian Ranking · Time Decay
+         │
+         ▼
+Layer 4 — Communication {交流層}
+    Narrator · Dashboard · Feedback Loop
+```
