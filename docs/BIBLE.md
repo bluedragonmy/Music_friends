@@ -9,6 +9,16 @@
 
 ---
 
+## Guiding Principles {最高哲學準則}
+
+> **"Every feature is guilty until proven valuable."**
+> *(每一個功能，在證明有價值之前，都應該被視為沒有價值。)*
+
+> **"Fall in love with the user's reaction, not with your own theory."**
+> *(愛上使用者的反應，而非你自己的理論。)*
+
+---
+
 ## 1. Vision & Mission {願景與使命}
 
 ### Mission
