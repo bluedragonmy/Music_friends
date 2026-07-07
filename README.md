@@ -1,9 +1,10 @@
 # μ(sic)
 
-> **Current Status: Waiting to be proven wrong.**
+> **We are no longer building software that remembers your music.**
 >
-> **Next milestone:**
-> **P01 Session.**
+> **We are building software that helps people discover the hidden connections behind the music they love.**
+>
+> *(我們不再打造一個記住你聽過什麼的軟體；我們要打造的是一個幫助人們發現他們所愛音樂背後隱藏連結的產品。)*
 
 ---
 

@@ -4,6 +4,8 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { generateEraName } from "@/lib/journey/era-generator";
+import { getTodaysDiscovery } from "@/lib/discovery/discovery";
+import { formatDiscoveryForUI } from "@/lib/discovery/presenter";
 
 
 interface JournalEntry {
@@ -21,6 +23,11 @@ export default function DashboardPage() {
   const { data: userSession, status: authStatus } = useSession();
   const navigation = useRouter();
   const [stats, setStats] = useState<any>(null);
+  
+  const todaysDiscoveryRaw = getTodaysDiscovery();
+  const todaysDiscovery = formatDiscoveryForUI(todaysDiscoveryRaw);
+  
+  const showLegacyJournal = false;
   
   // UX 狀態控制
   const [activeJournal, setActiveJournal] = useState<JournalEntry | null>(null);
@@ -229,8 +236,197 @@ export default function DashboardPage() {
           </span>
         </header>
 
+        {/* Today's Discovery Card */}
+        <section
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "2rem",
+            animation: "fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        >
+          {/* Card Container */}
+          <div
+            style={{
+              backgroundColor: "rgba(234, 229, 224, 0.02)",
+              border: "1px solid rgba(234, 229, 224, 0.08)",
+              borderRadius: "24px",
+              padding: "2.5rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "2rem",
+              boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.08)",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            {/* Card Title */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "0.8rem",
+                  color: "var(--text-secondary)",
+                  letterSpacing: "0.15em",
+                  fontWeight: 500,
+                  textTransform: "uppercase",
+                }}
+              >
+                🎧 Today's Discovery
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "0.7rem",
+                  color: "rgba(234, 229, 224, 0.3)",
+                  border: "1px solid rgba(234, 229, 224, 0.15)",
+                  borderRadius: "100px",
+                  padding: "0.2rem 0.6rem",
+                }}
+              >
+                Confidence: {todaysDiscovery.confidenceLevel}
+              </span>
+            </div>
+
+            {/* Connection Path Visualization */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "1.5rem 0",
+                backgroundColor: "rgba(234, 229, 224, 0.01)",
+                borderRadius: "16px",
+                border: "1px solid rgba(234, 229, 224, 0.03)",
+              }}
+            >
+              {todaysDiscovery.visualizationPath.map((node, index) => (
+                <div
+                  key={node}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "var(--font-outfit), sans-serif",
+                      fontSize: "1.15rem",
+                      fontWeight: 300,
+                      color: index === todaysDiscovery.visualizationPath.length - 1 ? "var(--text-primary)" : "var(--text-secondary)",
+                      letterSpacing: "0.02em",
+                    }}
+                  >
+                    {node}
+                  </span>
+                  {index < todaysDiscovery.visualizationPath.length - 1 && (
+                    <span
+                      style={{
+                        color: "rgba(234, 229, 224, 0.25)",
+                        fontSize: "0.8rem",
+                        fontFamily: "var(--font-inter), sans-serif",
+                      }}
+                    >
+                      ↓
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: "1px", backgroundColor: "rgba(234, 229, 224, 0.06)" }} />
+
+            {/* Story Summary */}
+            <p
+              style={{
+                fontFamily: "var(--font-outfit), sans-serif",
+                fontSize: "1.05rem",
+                fontWeight: 300,
+                lineHeight: "1.8",
+                color: "var(--text-primary)",
+                margin: 0,
+                letterSpacing: "0.01em",
+                whiteSpace: "pre-line",
+              }}
+            >
+              {todaysDiscovery.storySummary}
+            </p>
+
+            {/* Divider */}
+            <div style={{ height: "1px", backgroundColor: "rgba(234, 229, 224, 0.06)" }} />
+
+            {/* Sources */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "0.7rem",
+                  color: "var(--text-secondary)",
+                  letterSpacing: "0.1em",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                }}
+              >
+                Sources {`{圖譜信賴來源}`}
+              </span>
+              <ul
+                style={{
+                  margin: 0,
+                  paddingLeft: "1.1rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.4rem",
+                  color: "var(--text-secondary)",
+                  fontFamily: "var(--font-inter), sans-serif",
+                  fontSize: "0.8rem",
+                  lineHeight: "1.5",
+                }}
+              >
+                {todaysDiscovery.sourcesList.map((src) => (
+                  <li key={src} style={{ listStyleType: "circle" }}>
+                    {src}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Action Button */}
+            <button
+              style={{
+                alignSelf: "flex-end",
+                marginTop: "1rem",
+                padding: "0.75rem 2rem",
+                borderRadius: "100px",
+                border: "1px solid rgba(234, 229, 224, 0.15)",
+                backgroundColor: "transparent",
+                color: "var(--text-primary)",
+                fontFamily: "var(--font-inter), sans-serif",
+                fontSize: "0.85rem",
+                fontWeight: 400,
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                letterSpacing: "0.05em",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(234, 229, 224, 0.05)";
+                e.currentTarget.style.borderColor = "var(--text-primary)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.borderColor = "rgba(234, 229, 224, 0.15)";
+              }}
+              onClick={() => alert("發現圖譜擴展中...")}
+            >
+              Explore →
+            </button>
+          </div>
+        </section>
+
         {/* 1. Curiosity Loop (開場引導狀態) */}
-        {isCuriosityLoop && activeJournal && bodyParagraphs.length >= 3 && (
+        {showLegacyJournal && isCuriosityLoop && activeJournal && bodyParagraphs.length >= 3 && (
           <section
             style={{
               display: "flex",
@@ -322,7 +518,7 @@ export default function DashboardPage() {
         )}
 
         {/* 2. Journal Card (已解鎖呈現狀態) */}
-        {!isCuriosityLoop && activeJournal && (
+        {showLegacyJournal && !isCuriosityLoop && activeJournal && (
           <section
             style={{
               display: "flex",
@@ -733,7 +929,7 @@ export default function DashboardPage() {
         )}
 
         {/* 3. Listening Journey Timeline (旅程時間軸) */}
-        {timeline.length > 0 && (
+        {showLegacyJournal && timeline.length > 0 && (
           <section
             style={{
               display: "flex",
