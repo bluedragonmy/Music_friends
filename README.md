@@ -1,79 +1,57 @@
-# μ(sic)
+# Taste Intelligence Model (TIM)
 
-> **Most music apps remember what you listened to. Very few help you understand why it matters.**
+> **Taste is not a collection of preferences.**
 >
-> *(絕大多數音樂 App 僅僅記錄了你聽過什麼。極少數能協助你理解為什麼這對你重要。)*
+> It is a latent probabilistic structure emerging from the interaction between human experience, cultural context, production aesthetics, and observable behavior.
 >
-> **Reveal the hidden connections behind what people already love.**
+> *(品味不是偏好的簡單集合。它是從人類經驗、文化脈絡、製作美學與可觀察行為的互動中，所湧現的一種隱性機率結構。)*
 
-> **"Every commit should either improve a revelation or help validate one."**
-
-### ⚠️ Architecture Freeze
-Until Research Sprint 1 finishes, no architectural refactoring is allowed unless it directly enables user testing or fixes a blocking defect. Do not introduce new engines, layers, DTOs, or abstractions.
+TIM 是一個可解釋的隱性品味推理系統（Explainable Latent Taste Inference System），而不是推薦引擎。它的目標是回答：**「為什麼你會喜歡這些看似毫不相關的音樂？」**
 
 ---
 
-This repository contains the codebase for **μ(sic)**, a platform designed to reveal the hidden connections behind what people already love.
+## 🧭 TIM Design Principles {設計原則}
 
-## System Architecture of Revelation {揭露的系統層級架構}
+*   **Everything is Evidence.** (所有事物皆為證據)
+*   **Everything is Explainable.** (所有事物皆可解釋)
+*   **Everything is Versioned.** (所有事物皆有版本)
+*   **Everything is Reproducible.** (所有推論皆可重現)
+*   **Nothing is Hidden.** (絕無黑箱邏輯)
+*   **LLM Never Creates Facts.** (大型語言模型絕不捏造事實)
+*   **Reasoning Must Be Deterministic.** (推理引擎必須完全確定性)
+*   **Knowledge Is Immutable.** (知識圖譜為不可變狀態)
+*   **Feedback Improves Priors.** (用戶反饋用於修正貝氏先驗)
+*   **Taste Evolves Over Time.** (品味隨時間動態演化)
 
-目前系統架構主要拆分為以下層級：
+---
 
-```text
-Reality (真實世界的事實，如歌曲、專輯、製作人、事件)
-   │
-   ▼
-Music Knowledge Graph (音樂知識圖譜 — 忠於事實)
-   │
-   ▼
-Traversal Engine (圖遍歷引擎 — 以產品語言尋訪 discoverShortestPath, discoverBridge 等多階路徑)
-   │
-   ▼
-Curiosity Engine / Evaluator (好奇心評估器 — 衡量路徑的新穎度、稀有度與可信度)
-   │
-   ▼
-Memory (記憶 — 改變使用者的探索行為，擴張使用者的已知邊界)
-   │
-   ▼
-Presenter (呈現器 — 將冷冰冰的路徑轉化為能勾起求知慾的對話式揭露)
-   │
-   ▼
-Experience (使用者體驗)
+## 🏗️ TIM Core Abstractions {核心系統層次}
+
+```
+Taste Intelligence Model (TIM)
+│
+├── Music Knowledge Graph (Memory {記憶} — 忠於歷史事實)
+├── Personal Taste Graph (Personal Memory {個人記憶} — 使用者聆聽軌跡與指標)
+├── Taste Ontology (Semantic Layer {語義層} — 聽覺美學與分類本體論)
+├── Taste Reasoning Engine (Inference {推理/大腦} — 動態規則推理與假說生成)
+├── Bayesian Ranker (Decision {決策} — 基於驚奇度與資訊增益的效用排序)
+└── Narrator (Communication {交流/嘴巴} — LLM 結構化受限之溫情敘事)
 ```
 
 ---
 
-## The Rule of Commits {代碼提交準則}
+## 📂 專案工程文檔目錄 (TIM Specification Suite)
 
-從現在開始，每一個 Commit 與 Feature 開發，都必須先回答一個問題：
+專案的所有核心工程與理論規約，均依照以下結構化目錄存放於 [docs/](docs/) 中：
 
-> **「它有沒有讓使用者更容易發現一件原本不知道、但知道後會很想分享的音樂事實？」**
-> 
-> *If yes, build it. If no, step back.*
+*   **`docs/00_VISION/`**：TIM 系統願景與產品哲學
+*   **`docs/01_THEORY/`**：`Taste Intelligence Theory` 品味理論定義
+*   **`docs/02_ARCHITECTURE/`**：[TIE_SYSTEM_ARCHITECTURE.md](docs/02_ARCHITECTURE/TIE_SYSTEM_ARCHITECTURE.md) (系統分層與資料流)
+*   **`docs/03_ONTOLOGY/`**：[TASTE_ONTOLOGY_SPEC.md](docs/03_ONTOLOGY/TASTE_ONTOLOGY_SPEC.md) (樹狀美學概念與映射)
+*   **`docs/04_REASONING/`**：[TIE_CORE_REASONING_SPEC.md](docs/04_REASONING/TIE_CORE_REASONING_SPEC.md) (推理引擎與貝氏更新)
+*   **`docs/05_EVIDENCE/`**：[EVIDENCE_PROVENANCE_SPEC.md](docs/05_EVIDENCE/EVIDENCE_PROVENANCE_SPEC.md) (來源權重與證據強度)
+*   **`docs/06_ENGINEERING/`**：[TIE_ENGINEERING_GUIDELINES.md](docs/06_ENGINEERING/TIE_ENGINEERING_GUIDELINES.md) (AI 寫碼規則與快取規範)
+*   **`docs/07_IMPLEMENTATION/`**：[TIE_IMPLEMENTATION_ROADMAP.md](docs/07_IMPLEMENTATION/TIE_IMPLEMENTATION_ROADMAP.md) (Sprint 里程碑)
+*   **`docs/08_TASKS/`**：[TIE_AI_AGENT_TASKS.md](docs/08_TASKS/TIE_AI_AGENT_TASKS.md) (開發任務清單)
+*   **`docs/09_RESEARCH/`**：[RESEARCH.md](docs/RESEARCH.md) (封測與質性研究協定)
 
----
-
-## Product Hypotheses {產品假說}
-
-我們將目前所有的產品猜想與未體驗驗證的核心指標，以「可推翻」的方式記錄於：
-- [docs/PRODUCT_THEORY.md](docs/PRODUCT_THEORY.md) (Status: **Not yet validated**)
-
----
-
-## Current Sprint Goal {當前 Sprint 目標}
-
-### **Sprint: First Revelation**
-> **「讓第一位使用者，在 30 秒內，看到一件他原本不知道、知道之後會立刻分享給朋友的音樂事實。」**
-
----
-
-## Product Documents
-
-- **Product Bible**: 請參考 [docs/BIBLE.md](docs/BIBLE.md) 了解產品願景與工程規範。
-- **Archived V0.1**: 音樂日記（Music Journal）概念原型已正式歸檔。
-
----
-
-> **"People don't fall in love with graphs. They fall in love with revelations."**
->
-> *(人們不會愛上一張圖譜，他們會愛上那些讓他們發出「原來如此！」的揭露。)*
