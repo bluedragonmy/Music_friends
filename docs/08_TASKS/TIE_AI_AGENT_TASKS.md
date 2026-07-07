@@ -1,66 +1,78 @@
-# Taste Intelligence Engine (TIE) — AI Agent Task List v1.0
+# Taste Intelligence Model (TIM) — AI Agent Task List v1.2
 
-本文件將 TIE 的實作拆解為具體、獨立且具備明確輸入與輸出的開發任務（Tasks）。每個任務規模控制在 200–500 行程式碼，便於 AI Coding Agent 逐步且高品質地完成。
-
----
-
-## 📋 開發任務清單 (Task Checklist)
-
-### 1. Sprint 1: MVP Data & World Model (數據與世界模型)
-
-#### `[ ]` Task 1.1: 實作 Unified Song Entity 數據標準化與映射
-*   **目標**：建立 `apps/web/lib/graph/song.ts`，實作 `UnifiedSong` 的型別定義，並寫入從 Spotify JSON、MusicBrainz API JSON 與 Discogs Credit JSON 提取欄位並對齊的 Normalization 邏輯。
-*   **輸入**：原始多來源 JSON 數據。
-*   **輸出**：標準化的 `UnifiedSong` 物件。
-
-#### `[ ]` Task 1.2: 建立 Music World Model 的記憶體查詢 API
-*   **目標**：在 `apps/web/lib/graph/world-model.ts` 中建立 `MusicWorldModel` 類別，封裝圖譜節點與邊的查詢方法（例如：`findProducersBySong(songId)`、`findInfluencedArtists(artistId)`），並實作 Evidence 溯源物件的 Provenance 欄位讀取。
-*   **輸入**：`SEED_EDGES` 與 `SEED_ENTITIES` 資料庫。
-*   **輸出**：回傳具備 Provenance 的圖譜子結構。
+本文件將 TIM 的實作拆解為具體、獨立且具備明確輸入與輸出的開發任務（Tasks）。每個任務規模控制在 200–500 行程式碼，便於 AI Coding Agent 逐步且高品質地完成。
 
 ---
 
-### 2. Sprint 2: Inference & Ranking (推論與貝氏排序)
+## 📋 Sprint 1: Memory Layer (記憶地基模組)
 
-#### `[ ]` Task 2.1: 實作 Hypothesis Generator (品味假說生成器)
-*   **目標**：在 `apps/web/lib/graph/hypothesis-generator.ts` 中實作假說衍生邏輯。基於使用者的 Top Tracks 與聽歌習慣，掃描圖譜中潛在的 Observable、Structural、Stylistic 等五類品味關係，自動生成 50 個以上的假說候選。
-*   **輸入**：User Listening Profile。
-*   **輸出**：`CandidateHypothesis[]`。
+### 📌 Phase A: Project Skeleton
 
-#### `[ ]` Task 2.2: 實作 Evidence Verifier (證據驗證器)
-*   **目標**：在 `apps/web/lib/graph/evidence-verifier.ts` 中，對每一個候選假說進行圖譜驗證。透過尋找真實的 `Credits` 或 `Interview` 路徑來計算 `Evidence Strength`，剔除無法證實的假說，並為留存的假說建構完整的 `EvidenceChain`。
-*   **輸入**：`CandidateHypothesis[]`。
-*   **輸出**：`VerifiedHypothesis[]`。
-
-#### `[ ]` Task 2.3: 實作 taste_ranker 貝氏排序模組
-*   **目標**：在 `apps/web/lib/graph/taste_ranker.ts` 中實作貝氏更新與目標函數排序。根據使用者的聽歌機率更新假說的後驗機率 $P(H|D)$，計算 $KL$ 散度以量化 **Surprise Score {驚奇分數}**，並結合可解釋性與複雜度懲罰，輸出最終的 Insight 排序。
-*   **輸入**：`VerifiedHypothesis[]`。
-*   **輸出**：排名的 `TasteInsight[]`。
-
----
-
-### 3. Sprint 3: Narrative & Feedback (敘事與用戶反饋)
-
-#### `[ ]` Task 3.1: 實作以 Evidence Chain 為核心的 Narrator 敘事引擎
-*   **目標**：在 `apps/web/lib/presentation/narrator.ts` 中，整合 LLM 呼叫邏輯。將 `TasteInsight` 中的假說定義、證據鏈與置信度以嚴格的 System Prompt 輸入給 LLM，生成具有人文溫度但事實完全被 Evidence 限制的安全故事。
-*   **輸入**：Top-ranked `TasteInsight`。
-*   **輸出**：`Storytelling Output` 結構化字串。
-
-#### `[ ]` Task 3.2: 實作 Feedback Loop (反饋學習環)
-*   **目標**：實作前端 UI 反饋按鈕（如 "這個分析很準"、"我早就知道了"）的 API 端點，並在後端 `taste_ranker.ts` 中，根據反饋類別動態調整排序公式中的先驗機率與權重。
-*   **輸入**：User Feedback Action。
-*   **輸出**：更新後的 Bayesian Prior 狀態庫。
+#### `[ ]` Task 1.0: 建立 TIM 系統骨架目錄與模組邊界
+*   **目標**：於 `apps/web/lib/tim/` 下建立完整目錄結構，配置空 TypeScript 導出，為後續 Sprint 的檔案搬遷提供固定路徑：
+    ```text
+    apps/web/lib/tim/
+        ├── memory/ (記憶層 - 實體與圖譜建置)
+        ├── ontology/ (語義層 - 概念與分類學)
+        ├── reasoning/ (大腦層 - 推理引擎)
+        ├── evidence/ (證據層 - 來源與權重)
+        ├── ranking/ (決策層 - 貝氏排序)
+        ├── narrator/ (交流層 - 自然語言敘事)
+        └── cache/ (效能優化層 - 子圖快取)
+    ```
+*   **驗收標準**：目錄與 TypeScript 基本型別骨架建立完成，無編譯錯誤。
 
 ---
 
-### 4. Sprint 4: Trajectory & UI (品味軌跡與視覺化)
+### 📌 Phase B: Unified Entity & Resolver
 
-#### `[ ]` Task 4.1: 實作 Latent Taste Trajectory 計算
-*   **目標**：實作一個動態的時間滑動窗口分析。將使用者的播放歷史以 3 個月為單位切分 Era，計算每個 Era 中 Taste Ontology 概念特徵值的分布變動，輸出使用者品味隨時間演化的隱性軌跡向量。
-*   **輸入**：時序性的 Spotify Playback Logs。
-*   **輸出**：`TasteTrajectory` 數據陣列。
+#### `[ ]` Task 1.1: 實作 UnifiedEntity 與繼承實體
+*   **目標**：於 `apps/web/lib/tim/memory/entity.ts` 中，定義基礎 `UnifiedEntity` 介面，並衍生出 `Song`、`Artist`、`Album`、`Producer`、`Engineer`、`Studio`、`Genre`、`Label` 等繼承類別，統一描述穩定 ID、來源 Provenance 與 Identifier Mapping。
+*   **輸入**：各來源實體結構。
+*   **輸出**：`UnifiedEntity` 介面及其實作類別。
 
-#### `[ ]` Task 4.2: 渲染 Dashboard Timeline 與視覺化圖表
-*   **目標**：在 `apps/web/components/dashboard/` 下，使用 React & Chart.js/Recharts 渲染品味軌跡。繪製出使用者在不同品味維度（如 Minimalism、Analog Warmth）隨時間演化的折線圖，並可點擊特定時間節點展開當時的 Taste Insights 故事。
-*   **輸入**：`TasteTrajectory` 數據。
-*   **輸出**：互動式 Timeline React 元件。
+#### `[ ]` Task 1.2: 實作獨立的 Identifier Resolver (識別符解析器)
+*   **目標**：於 `apps/web/lib/tim/memory/resolver.ts` 中，將 Spotify ➡️ ISRC ➡️ MBID ➡️ Discogs 的對齊邏輯解耦，拆分為 `resolver/spotify.ts`、`resolver/musicbrainz.ts` 與 `resolver/discogs.ts` 等子模組，最後由 `resolver.resolve()` 返回標準的 `UnifiedEntity`。
+*   **輸入**：原始平台數據識別符。
+*   **輸出**：已解析對齊的 `UnifiedEntity`。
+
+#### `[ ]` Task 1.3: 實作 Music Knowledge Graph (MKG) Builder (不可變圖譜構建器)
+*   **目標**：於 `apps/web/lib/tim/memory/builder.ts` 中實作 `GraphBuilder`，負責在啟動時或靜態載入時一次性讀取 Seed Data 與 Resolver，構建出完全不可變的（Immutable）圖譜實例 `ImmutableGraph`，禁止後續動態篡改。
+*   **輸入**：種子實體與關聯數據。
+*   **輸出**：唯讀 `ImmutableGraph` 實例。
+
+---
+
+### 📌 Phase C: Query, Cache & Verification
+
+#### `[ ]` Task 1.4: 實作豐富的 Graph Query API (圖譜查詢介面)
+*   **目標**：於 `apps/web/lib/tim/memory/query.ts` 封裝查詢大腦所需的圖遍歷方法：
+    ```typescript
+    findNode(id: string): UnifiedEntity | undefined;
+    findNeighbors(id: string): readonly UnifiedEntity[];
+    findShortestPath(sourceId: string, targetId: string): readonly GraphEdge[];
+    findEdges(sourceId: string): readonly GraphEdge[];
+    findByType(type: string): readonly UnifiedEntity[];
+    findByIdentifier(platform: string, id: string): UnifiedEntity | undefined;
+    ```
+*   **輸入**：`ImmutableGraph` 實例。
+*   **輸出**：圖譜遍歷與查詢結果。
+
+#### `[ ]` Task 1.5: 實作獨立的 Evidence Repository (證據儲存庫)
+*   **目標**：於 `apps/web/lib/tim/evidence/store.ts` 建立獨立的證據倉庫。將多重來源證據從 Edge 結構中解耦，允許同一條關係邊對應多個來自 `EvidenceStore` 的 Facts 與 Reliability 權重。
+*   **輸入**：多重 Facts 來源。
+*   **輸出**：解耦後的 `EvidenceStore` 檢索介面。
+
+#### `[ ]` Task 1.6: 實作 Subgraph Cache (子圖快取)
+*   **目標**：於 `apps/web/lib/tim/cache/subgraph.ts` 中，針對高頻訪問的 `Producer`、`Studio`、`Artist` 等關係鏈，提供熱點快取與自動失效（TTL 24h）機制，降低 TRE 推理時對大圖的重複搜尋負擔。
+*   **輸入**：高頻查詢請求。
+*   **輸出**：快取命中或透傳查詢。
+
+#### `[ ]` Task 1.7: 實作 Memory Tests & Golden Dataset
+*   **目標**：於 `apps/web/lib/tim/memory/__tests__/` 下建立 Golden Dataset（如 Radiohead ➡️ Nigel Godrich ➡️ Producer ➡️ Studio 的真實關係鏈對齊預期值），在每次圖譜或資料庫升級時自動執行 Regression 測試。
+*   **輸入**：Golden Dataset 測試案例。
+*   **輸出**：Regression 測試報告。
+
+#### `[ ]` Task 1.8: 實作 Graph Health Check (tim doctor)
+*   **目標**：在 `apps/web/lib/tim/memory/doctor.ts` 實作圖譜健康度檢查器，能夠輸出實體數、邊數、孤立節點（Disconnected Nodes）、缺失 Provenance 警告與衝突邊，作為除錯與資料治理的利器。
+*   **輸出**：`GraphHealthReport`。
