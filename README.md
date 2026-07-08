@@ -1,12 +1,14 @@
 # Taste Intelligence Model (TIM)
 
-> **Taste is not a collection of preferences.**
+> **TIM is not a recommendation engine. It is a scientific reasoning framework that generates, tests, and revises hypotheses about latent human preferences using evidence.**
 >
-> It is a latent probabilistic structure emerging from the interaction between human experience, cultural context, production aesthetics, and observable behavior.
+> *(TIM 不是一個推薦引擎。它是一個科學推理框架，利用證據對人類的潛在偏好進行假說生成、實驗測試與信念修訂。)*
 >
-> *(品味不是偏好的簡單集合。它是從人類經驗、文化脈絡、製作美學與可觀察行為的互動中，所湧現的一種隱性機率結構。)*
+> **TIM is an evidence-driven scientific reasoning framework for discovering latent human preferences. Music is the first application domain, not the limitation of the system.**
+>
+> *(TIM 是一個證據驅動的科學推理框架，用於探索人類的潛在偏好。音樂是第一個應用領域，而非系統的限制。)*
 
-TIM 是一個可解釋的基於知識的推理框架（Explainable Knowledge-based Inference Framework），用於建立可驗證、可演化、可解釋的個人品味模型。它的核心哲學與原則定義於 [PHILOSOPHY.md](PHILOSOPHY.md)。
+TIM 是一個可解釋的科學推理框架，用於建立可驗證、可演化、可解釋的個人偏好模型。它的核心哲學與原則定義於 [PHILOSOPHY.md](PHILOSOPHY.md)。
 
 ---
 

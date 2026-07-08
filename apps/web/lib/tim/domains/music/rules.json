@@ -1,0 +1,50 @@
+[
+  {
+    "id": "shared_producer_workflow",
+    "hypothesisName": "Shared Producer: {name}",
+    "observe": "ListeningHistory",
+    "targetType": "PRODUCER",
+    "experiment": {
+      "requirements": [
+        {
+          "type": "ProducerCredit",
+          "key": "producer"
+        }
+      ],
+      "rejectIf": {
+        "minEvidenceCount": 1,
+        "maxContradictory": 1
+      },
+      "acceptIf": {
+        "minPosterior": 0.75
+      }
+    },
+    "templates": {
+      "narrative": "我們發現您的播放歷史具有顯著的幕後共同製作人軌跡：{name}。他主導了您喜愛的多首曲目之聲音設計與美學調校。"
+    }
+  },
+  {
+    "id": "influenced_by_workflow",
+    "hypothesisName": "Artistic Genealogy: {name}",
+    "observe": "ListeningHistory",
+    "targetType": "ARTIST",
+    "experiment": {
+      "requirements": [
+        {
+          "type": "InfluencedBy",
+          "key": "influencer"
+        }
+      ],
+      "rejectIf": {
+        "minEvidenceCount": 1,
+        "maxContradictory": 1
+      },
+      "acceptIf": {
+        "minPosterior": 0.70
+      }
+    },
+    "templates": {
+      "narrative": "您的音樂品味與 {name} 的藝術流派或美學傳承產生了強烈共鳴。您所聽的多位藝人都深受其音樂美學之啟蒙或影響。"
+    }
+  }
+]
